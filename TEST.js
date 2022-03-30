@@ -1,29 +1,26 @@
 var config = require('./config');
 const express = require('express');
+const app = express();
+const http = require('http');
 const cors = require('cors')
-const app = express(),
-    server = require('http').Server(app),
-    io = require('socket.io')(server, {
-        cors: {
-            // No CORS at all
-            origin: '*',
-        }
-    }),
-    rtsp = require('rtsp-ffmpeg');
 const bodyParser = require('body-parser')
-
-server.listen(config.server01_Port);
+const server = http.createServer(app);
+const {
+    Server
+} = require("socket.io");
+const io = new Server(server);
 app.use(bodyParser.text({
-        type: '*/*'
-    }), express.static(__dirname + '/'),
-    cors()
-);
-var uri =
-    config.server01_Url,
+    type: '*/*'
+}), express.static(__dirname + '/'), cors());
+
+rtsp = require('rtsp-ffmpeg');
+
+var uri = config.server01_Url,
     stream = new rtsp.FFMpeg({
         input: uri,
         rate: config.server01_VIDEO_FPS
     });
+stream.cmd = '.\\ffmpeg\\bin\\ffmpeg.exe';
 io.on('connection', function (socket) {
     var pipeStream = function (data) {
         socket.emit('data', data.toString('base64'));
@@ -32,10 +29,15 @@ io.on('connection', function (socket) {
     socket.on('disconnect', function () {
         stream.removeListener('data', pipeStream);
     });
-    console.log("server open")
+});
+server.listen(config.server01_Port, function () {
+    console.log("Server Open");
 });
 app.get('/', function (req, res) {
+    // res.sendFile(__dirname + '/index.html');
     res.sendFile(__dirname + '/index.html');
+    // var port = server.address().port;
+    console.log("rtps輸出");
 });
 
 // 以下可以刪除
