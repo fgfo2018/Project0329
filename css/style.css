@@ -29,5 +29,69 @@
   margin-left: auto;
   margin-right: auto;
   width: 97%;
+}
 
+.leftText {
+  text-align: left;
+}
+
+.box1 {
+  /* display: table-cell;
+  vertical-align: middle; */
+  /* border:1px solid #FF6699; */
+  width: 60px;
+  height: 45px;
+  float:left;
+  margin-left: 30px;
+}
+
+.rainbowBar {    
+  width: 380px;
+  height:8px;
+  margin-top: 20px;
+  background: black; 
+  background: linear-gradient(to left, rgb(123, 0, 0), red, orange, yellow, rgb(5, 252, 5), rgb(0, 208, 255), blue , rgb(0, 0, 87));
+  float: left;
+  margin-left: 10px;
+  
+}
+
+.box2 {
+  /* display: table-cell; */
+  /* vertical-align: middle; */
+  /* border:1px solid #FF6699; */
+  width: 60px;
+  height: 45px;
+  float:right;
+  margin-right: 30px;
+}
+
+.video {
+  position: absolute;
+  width: 953px;
+  /* height: 282px; */
+/* background: #000; */
+  margin-top: 0px;
+}
+
+.tri {
+  margin-top: 30px;
+}
+
+.gap {
+  width: 10px;
+  height: 230px;
+  background-color: rgb(255, 255, 255);
+  position: absolute;
+  left: 320px;
+  z-index: 99999;
+}
+
+.gap2 {
+  width: 10px;
+  height: 230px;
+  background-color: rgb(255, 255, 255);
+  position: absolute;
+  left: 640px;
+  z-index: 99999;
 }
