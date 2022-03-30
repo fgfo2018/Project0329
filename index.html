@@ -235,7 +235,7 @@
                       <label class="col-form-label subtitle py-0">Reflected Temperature (°C):</label>
                     </div>
                     <div class="col-auto">
-                      <input id="number" name="setting_reflected_temperature" type="number" value=""
+                      <input id="number" name="setting_reflected_temperature" type="number" value="" step="0.01"
                         class="subtitle setting_reflected_temperature"
                         style="width:46px;margin-left:30.5px;height:21px">
                     </div>
@@ -246,7 +246,7 @@
                       <label class="col-form-label subtitle p-0">Atmospheric Temperature (°C):</label>
                     </div>
                     <div class="col-auto">
-                      <input id="number" name="setting_atmospheric_temperature" type="number" value=""
+                      <input id="number" name="setting_atmospheric_temperature" type="number" value="" step="0.01"
                         class="subtitle setting_atmospheric_temperature"
                         style="width:46px;margin-left:11px;height:21px">
                     </div>
@@ -257,7 +257,7 @@
                       <label class="col-form-label subtitle p-0">Object Distance (m):</label>
                     </div>
                     <div class="col-auto">
-                      <input id="number" name="setting_object_distance" type="number" value=""
+                      <input id="number" name="setting_object_distance" type="number" value="" step="0.01"
                         class="subtitle setting_object_distance" style="width:46px;margin-left:70px;height:21px">
                     </div>
                   </div>
@@ -267,7 +267,7 @@
                       <label class="col-form-label subtitle p-0">Object Emissivity (%):</label>
                     </div>
                     <div class="col-auto">
-                      <input id="number" name="setting_object_emissivity" type="number" value=""
+                      <input id="number" name="setting_object_emissivity" type="number" value="" step="0.01"
                         class="subtitle setting_object_emissivity" style="width:46px;margin-left:64.5px;height:21px">
                     </div>
                   </div>
@@ -277,7 +277,7 @@
                       <label class="col-form-label subtitle p-0">Relative Humidity (%):</label>
                     </div>
                     <div class="col-auto">
-                      <input id="number" name="setting_relative_humidity" type="number" value=""
+                      <input id="number" name="setting_relative_humidity" type="number" value="" step="0.01"
                         class="subtitle setting_relative_humidity" style="width:46px;margin-left:60.5px;height:21px">
                     </div>
                   </div>
@@ -287,7 +287,7 @@
                       <label class="col-form-label subtitle p-0">Extenal Optics Temperature (°C):</label>
                     </div>
                     <div class="col-auto">
-                      <input id="number" name="setting_external_optics_temperature" type="number" value=""
+                      <input id="number" name="setting_external_optics_temperature" type="number" value="" step="0.01"
                         class="subtitle setting_external_optics_temperature"
                         style="width:46px;margin-left:3.5px;height:21px">
                     </div>
@@ -298,7 +298,7 @@
                       <label class="col-form-label subtitle p-0">External Optics Transmission (%):</label>
                     </div>
                     <div class="col-auto">
-                      <input id="number" name="setting_external_optics_transmission" type="number" value=""
+                      <input id="number" name="setting_external_optics_transmission" type="number" value="" step="0.01"
                         class="subtitle setting_external_optics_transmission" style="width:46px;">
                     </div>
                   </div>
@@ -491,10 +491,22 @@
 
       // 常態性刷新
       // ....
-      var run = setInterval(function () {
+      var run = null;
+      run = setInterval(function () {
         getInitial()
         console.log("ok")
-      },5000)
+      }, 1000)
+      $("input").focus(function () {
+        clearInterval(run);
+        console.log("focus")
+      });
+      $("input").focusout(function () {
+        run = setInterval(function () {
+          getInitial()
+          console.log("ok")
+        }, 1000)
+        console.log("no focus")
+      })
       // 前端數值設定
       // 定義要被偵測的form
       formName = [
