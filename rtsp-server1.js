@@ -1,6 +1,7 @@
 var config = require('./config');
 const express = require('express');
 const cors = require('cors')
+var fs = require("fs");
 const app = express(),
     server = require('http').Server(app),
     io = require('socket.io')(server, {
@@ -39,8 +40,8 @@ app.get('/', function (req, res) {
 });
 
 // 以下可以刪除
-app.get('/api/initial', function (req, res) {
-    const output = defaultArray()
+app.get('/api/data/initial', function (req, res) {
+    const output = getSpotsData();
     // console.log();
     res.send(output)
 });
@@ -51,42 +52,47 @@ app.post('/api/changed', function (req, res) {
     res.send(SpotData)
 });
 
+const getSpotsData = () => {
+    const jsonData = fs.readFileSync('./test.json')
+    // console.log(JSON.parse(jsonData))
+    return JSON.parse(jsonData)
+}
 function defaultArray() {
     output = {
-        "status_LF_colorbar_max": null,
-        "status_LF_colorbar_min": null,
-        "status_STAIR_colorbar_max": null,
-        "status_STAIR_colorbar_min": null,
-        "status_LD_colorbar_max": null,
-        "status_LD_colorbar_min": null,
-        "status_LF": null,
-        "status_STAIR": null,
-        "status_LD": null,
-        "status_recording": null,
-        "status_available_space": null,
-        "temperature_LF": null,
-        "temperature_STAIR": null,
-        "temperature_LD": null,
-        "setting_reflected_temperature": null,
-        "setting_atmospheric_temperature": null,
-        "setting_object_temperature": null,
-        "setting_object_emissivity": null,
-        "setting_relative_humidity": null,
-        "setting_external_optics_temperature": null,
-        "setting_external_optics_transmission": null,
-        "setting_pattern": null,
-        "setting_calibration": null,
-        "setting_once_calibration": null,
-        "setting_once_autofocus": null,
-        "setting_corlorbar_max": null,
-        "setting_corlorbar_min": null,
-        "setting_first_alarm_temperature": null,
-        "setting_second_alarm_temperature": null,
-        "setting_sampling_rate": null,
-        "setting_threshold_pixel": null,
-        "setting_export_maximum_data": null,
-        "setting_export_image_video": null,
-        "setting_export_camera_temperature": null,
+        "setting_atmospheric_temperature": 20.0,
+        "setting_calibration": 0,
+        "setting_colorbar_max": 500.0,
+        "setting_colorbar_min": 0.0,
+        "setting_export_camera_temperature": "C:\\THERMALDO\\export\\",
+        "setting_export_image_video": "C:\\\\THERMALDO\\export",
+        "setting_export_maximum_data": "C:\\TEST\\",
+        "setting_external_optics_temperature": 20.0,
+        "setting_external_optics_transmission": 0.95,
+        "setting_first_alarm_temperature": 123.4,
+        "setting_object_distance": 20.0,
+        "setting_object_emissivity": 0.95,
+        "setting_once_autofocus": 0,
+        "setting_once_calibration": 0,
+        "setting_pattern": 1,
+        "setting_reflected_temperature": 20.0,
+        "setting_relative_humidity": 0.9,
+        "setting_sampling_rate": 10,
+        "setting_second_alarm_temperature": 350.0,
+        "setting_threshold_pixel": 10,
+        "status_LD": 1,
+        "status_LD_colorbar_max": 43.67277528171411,
+        "status_LD_colorbar_min": 26.03879087057237,
+        "status_LF": 1,
+        "status_LF_colorbar_max": 43.63709112605318,
+        "status_LF_colorbar_min": 26.03879087057237,
+        "status_STAIR": 1,
+        "status_STAIR_colorbar_max": 43.67277528171411,
+        "status_STAIR_colorbar_min": 26.03879087057237,
+        "status_available_space": 207.0,
+        "status_recording": 0,
+        "temperature_LD": 19.999993896484398,
+        "temperature_LF": 19.999993896484398,
+        "temperature_STAIR": 19.999993896484398
     };
     return output;
 }

@@ -100,8 +100,6 @@
       </div>
     </div>
   </div>
-
-
   <!-- nested grid -->
   <div class="container-fluid mt-3">
     <div class="row ">
@@ -148,7 +146,6 @@
           </div>
         </div>
       </div>
-
       <div class="col-md-2 ">
         <!-- 下2---------------------------------------------------------------------------------------------- -->
         <div class="card" style="width:226px;left:12px">
@@ -172,8 +169,8 @@
                     <li><label class="col-form-label subtitle py-0">L/F副料區:</label></li>
                   </div>
                   <div class="col-auto">
-                    <input id="number" name="status_LF" type="" disabled value="連線正常"
-                      class="subtitle text-center judge status_LF" style="width:56px;margin-left:31px;height:21px;border: 1px solid gainsboro;">
+                    <input id="number" name="status_LF" type="" disabled value="" class="subtitle text-center status_LF"
+                    style="width:56px;margin-left:31px;height:21px;border: 1px solid gainsboro;">
                   </div>
                 </div>
 
@@ -182,8 +179,8 @@
                     <li><label class="col-form-label subtitle py-0">出鋼室下方樓梯:</label></li>
                   </div>
                   <div class="col-auto">
-                    <input id="number" name="status_STAIR" type="" disabled value="連線正常"
-                      class="subtitle text-center judge status_STAIR" style="width:56px;margin-left:px;height:21px;border: 1px solid gainsboro;">
+                    <input id="number" name="status_STAIR" type="" disabled value=""
+                      class="subtitle text-center status_STAIR" style="width:56px;margin-left:px;height:21px;border: 1px solid gainsboro;">
                   </div>
                 </div>
 
@@ -192,8 +189,8 @@
                     <li><label class="col-form-label subtitle py-0">L/D 2F平台:</label></li>
                   </div>
                   <div class="col-auto">
-                    <input id="number" name="status_LD" type="" disabled value="連線正常"
-                      class="subtitle text-center judge status_LD" style="width:56px;margin-left:24px;height:21px;border: 1px solid gainsboro;">
+                    <input id="number" name="status_LD" type="" disabled value="" class="subtitle text-center status_LD"
+                    style="width:56px;margin-left:24px;height:21px;border: 1px solid gainsboro;">
                   </div>
                 </div>
               </ul>
@@ -203,8 +200,8 @@
                   <label class="col-form-label subtitle py-0">錄影狀態:</label>
                 </div>
                 <div class="col-auto">
-                  <input id="number" name="status_recording" type="" disabled value="待命中"
-                    class="subtitle text-center judge status_recording" style="width:56px;margin-left:68px;height:21px;border: 1px solid gainsboro;">
+                  <input id="number" name="status_recording" type="" disabled value=""
+                    class="subtitle text-center status_recording" style="width:56px;margin-left:68px;height:21px;border: 1px solid gainsboro;">
                 </div>
               </div>
 
@@ -213,14 +210,14 @@
                   <label class="col-form-label subtitle py-0">硬碟剩餘容量 (%):</label>
                 </div>
                 <div class="col-auto">
-                  <input id="number" name="status_available_space" type="" disabled value="50"
-                    class="subtitle text-center judge" style="width:56px;margin-left:23px;height:21px;border: 1px solid gainsboro;">
+                  <input id="number" name="status_available_space" type="" disabled value=""
+                    class="subtitle text-center judge status_available_space"
+                    style="width:56px;margin-left:23px;height:21px;border: 1px solid gainsboro;">
                 </div>
               </div>
             </div>
             <button type="submit" hidden>get</button>
           </form>
-
         </div>
 
 
@@ -239,7 +236,7 @@
                       <label class="col-form-label subtitle py-0">L/F副料區:</label>
                     </div>
                     <div class="col-auto">
-                      <input id="number" name="temperature_LF" type="" disabled value="53.2"
+                      <input id="number" name="temperature_LF" type="" disabled value=""
                         class="subtitle text-center judge temperature_LF"
                         style="width:56px;margin-left:62px;height:21px;border: 1px solid gainsboro;">
                     </div>
@@ -259,7 +256,7 @@
                       <label class="col-form-label subtitle py-0">L/D 2F平台:</label>
                     </div>
                     <div class="col-auto">
-                      <input id="number" name="temperature_LD" type="" disabled value="52.7"
+                      <input id="number" name="temperature_LD" type="" disabled value=""
                         class="subtitle text-center judge temperature_LD"
                         style="width:56px;margin-left:55px;height:21px;border: 1px solid gainsboro;">
                     </div>
@@ -289,7 +286,7 @@
                       <label class="col-form-label subtitle py-0">Reflected Temperature (°C):</label>
                     </div>
                     <div class="col-auto">
-                      <input id="number" name="setting_reflected_temperature" type="number" value="30.0"
+                      <input id="number" name="setting_reflected_temperature" type="number" value="" step="0.01"
                         class="subtitle setting_reflected_temperature"
                         style="width:56px;margin-left:27.5px;height:21px;border: 1px solid gainsboro;">
                     </div>
@@ -300,7 +297,7 @@
                       <label class="col-form-label subtitle p-0">Atmospheric Temperature (°C):</label>
                     </div>
                     <div class="col-auto">
-                      <input id="number" name="setting_atmospheric_temperature" type="number" value="30.0"
+                      <input id="number" name="setting_atmospheric_temperature" type="number" value="" step="0.01"
                         class="subtitle setting_atmospheric_temperature"
                         style="width:56px;margin-left:8px;height:21px;border: 1px solid gainsboro;">
                     </div>
@@ -311,7 +308,7 @@
                       <label class="col-form-label subtitle p-0">Object Distance (m):</label>
                     </div>
                     <div class="col-auto">
-                      <input id="number" name="setting_object_distance" type="number" value="20.0"
+                      <input id="number" name="setting_object_distance" type="number" value="" step="0.01"
                         class="subtitle setting_object_distance" style="width:56px;margin-left:67px;height:21px;border: 1px solid gainsboro;">
                     </div>
                   </div>
@@ -321,7 +318,7 @@
                       <label class="col-form-label subtitle p-0">Object Emissivity (%):</label>
                     </div>
                     <div class="col-auto">
-                      <input id="number" name="setting_object_emissivity" type="number" value="30.0"
+                      <input id="number" name="setting_object_emissivity" type="number" value="" step="0.01"
                         class="subtitle setting_object_emissivity" style="width:56px;margin-left:61.5px;height:21px;border: 1px solid gainsboro;">
                     </div>
                   </div>
@@ -331,8 +328,8 @@
                       <label class="col-form-label subtitle p-0">Relative Humidity (%):</label>
                     </div>
                     <div class="col-auto">
-                      <input id="number" name="setting_relative_humidity" type="number" value="95.0"
-                        class="subtitle setting_relative_humidity" style="width:56px;margin-left:57.5px;height:21px;border: 1px solid gainsboro;">
+                      <input id="number" name="setting_relative_humidity" type="number" value="" step="0.01"
+                        class="subtitle setting_relative_humidity"  style="width:56px;margin-left:57.5px;height:21px;border: 1px solid gainsboro;">
                     </div>
                   </div>
 
@@ -341,7 +338,7 @@
                       <label class="col-form-label subtitle p-0">Extenal Optics Temperature (°C):</label>
                     </div>
                     <div class="col-auto">
-                      <input id="number" name="setting_external_optics_temperature" type="number" value="35.0"
+                      <input id="number" name="setting_external_optics_temperature" type="number" value="" step="0.01"
                         class="subtitle setting_external_optics_temperature"
                         style="width:56px;margin-left:0px;height:21px;border: 1px solid gainsboro;">
                     </div>
@@ -352,8 +349,8 @@
                       <label class="col-form-label subtitle p-0">External Optics Transmission (%):</label>
                     </div>
                     <div class="col-auto">
-                      <input id="number" name="setting_external_optics_transmission" type="number" value="0.95"
-                        class="subtitle setting_external_optics_transmission" style="width:56px;height:21px;margin-left:-4px;border: 1px solid gainsboro;">
+                      <input id="number" name="setting_external_optics_transmission" type="number" value="" step="0.01"
+                        class="subtitle setting_external_optics_transmission"  style="width:56px;height:21px;margin-left:-4px;border: 1px solid gainsboro;">
                     </div>
                   </div>
                 </div>
@@ -394,12 +391,12 @@
                       <label class="col-form-label subtitle py-0 px-1">校正設定:</label>
                     </div>
                     <div class="col-auto">
-                      <select class="form-select subtitle  py-0 setting_calibration" name="setting_calibration"
-                        aria-label="Default select example"  style="width:178px">
-                        <option selected value="1">自動校正</option>
-                        <option value="2">每10分鐘</option>
-                        <option value="3">每30分鐘</option>
-                        <option value="4">關閉校正</option>
+                      <select class="form-select subtitle py-0 setting_calibration" name="setting_calibration"
+                        aria-label="Default select example" style="width:178px">
+                        <option value="0">自動校正</option>
+                        <option value="1">每10分鐘</option>
+                        <option value="2">每30分鐘</option>
+                        <option value="3">關閉校正</option>
                       </select>
                     </div>
                     <div class="col-auto">
@@ -412,7 +409,7 @@
                       <label class="col-form-label subtitle py-0 px-1">量測溫度區間(°C):</label>
                     </div>
                     <div class="col-auto">
-                      <input id="number" type="number" value="100.0" class="subtitle setting_corlorbar_min"
+                      <input id="number" type="number" value="" class="subtitle setting_corlorbar_min"
                         name="setting_corlorbar_min" style="width:56px;height:21px;margin-left:7px;border: 1px solid gainsboro;">
                       -
                       <input id="number" name="setting_corlorbar_max" type="number" value="500.0"
@@ -465,13 +462,12 @@
                         </div>
                       </div>
                     </div>
+                    <button type="submit" hidden>get</button>
+                  </form>
                 </div>
-                <button type="submit" hidden>get</button>
-                </form>
               </div>
             </div>
           </div>
-
         </div>
         <div class=" col-md-12 demo-content text-black mt-3">
           <!-- 下7-------------------------------------------------------------------------------------------- -->
@@ -519,7 +515,6 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
   </div>
@@ -548,36 +543,77 @@
   </script>
   <script type="text/javascript">
     $(document).ready(function () {
+      // 初始化
+      getInitial()
+
+      // 常態性刷新
+      // ....
+      var run = null;
+      run = setInterval(function () {
+        getInitial()
+        console.log("ok")
+      }, 1000)
+      $("input").focus(function () {
+        clearInterval(run);
+        console.log("focus")
+      });
+      $("input").focusout(function () {
+        run = setInterval(function () {
+          getInitial()
+          console.log("ok")
+        }, 1000)
+        console.log("no focus")
+      })
+      // 前端數值設定
+      // 定義要被偵測的form
+      formName = [
+        'form.form-temperature_setting',
+        'form.form-display_status',
+        'form.form-alarm_temperature',
+        'form.form-export_temperature'
+      ]
+
+      var test = {}
+      for (var i = 0; i < formName.length; i++) {
+        var array = $(formName[i]).serializeArray();
+        array.forEach(function (index) {
+          test[index.name] = index.value
+        })
+      }
+      data = JSON.stringify(test)
+      // console.log(test);
       $.ajax({
-        type: "GET",
-        url: "http://localhost:6147/api/initial",
-        dataType: "json",
+        type: "POST",
+        url: "http://localhost:6147/api/changed",
+        data: data,
         success: function (response) {
-          console.log(response)
+          // console.log(response)
         },
         error: function (thrownError) {
-          console.log(thrownError);
+          // console.log(thrownError);
         }
       });
+      for (var i = 0; i < formName.length; i++) {
+        $(formName[i]).on('submit', function (e) {
+          e.preventDefault();
+          var formData = $(this).serializeObject()
+          data = JSON.stringify(formData)
+          $.ajax({
+            type: "POST",
+            url: "http://localhost:6147/api/changed",
+            data: data,
+            success: function (response) {
+              // console.log(response)
+            },
+            error: function (thrownError) {
+              // console.log(thrownError);
+            }
+          });
 
-      $('form.changed').on('submit', function (e) {
-        e.preventDefault();
-        var formData = $(this).serializeObject();
-        data = JSON.stringify(formData)
-        $.ajax({
-          type: "POST",
-          url: "http://localhost:6147/api/changed",
-          data: data,
-          success: function (response) {
-            console.log(response)
-          },
-          error: function (thrownError) {
-            console.log(thrownError);
-          }
+          // $('.datahere').html(JSON.stringify(formData));
         });
-        // console.log(formData);
-        // $('.datahere').html(JSON.stringify(formData));
-      });
+      }
+      // 以下方法為將form底下各input(需有name)的val解析，並且存入陣列中
       $.fn.serializeObject = function () {
         var o = {};
         var a = this.serializeArray();
@@ -593,6 +629,112 @@
         });
         return o;
       };
+      // 以下是GET 
+      function getInitial() {
+        $.ajax({
+          type: "GET",
+          url: "http://192.168.0.173:6147/api/data/initial",
+          dataType: "json",
+          success: function (response) {
+            // 系統狀態
+            // system_status以及system_status_this_div需要對應，用來判斷連線是否正常，並且正確放入值
+            var system_status = [
+              response.status_LF, response.status_STAIR, response.status_LD, response.status_recording
+            ]
+            var system_status_this_div = [
+              '.status_LF', '.status_STAIR', '.status_LD', '.status_recording'
+            ]
+            for (var i = 0; i < system_status.length; i++) {
+              if (system_status[i] === 1) {
+                $(system_status_this_div[i]).val('連線正常')
+                $(system_status_this_div[i]).addClass('judge')
+                $(system_status_this_div[i]).removeClass('judge2')
+              } else {
+                $(system_status_this_div[i]).val('連線異常')
+                $(system_status_this_div[i]).addClass('judge2')
+                $(system_status_this_div[i]).removeClass('judge')
+              }
+            }
+            $('.status_available_space').val(fix(response.status_available_space, 1))
+            // ~~~~ 系統狀態 end ~~~~
+
+            // 熱像儀主機回放
+            var
+              machine_temperature = [
+                response.temperature_LF,
+                response.temperature_STAIR,
+                response.temperature_LD
+              ]
+            var
+              machine_temperature_this_div = [
+                '.temperature_LF',
+                '.temperature_STAIR',
+                '.temperature_LD'
+              ]
+            for (var i = 0; i < machine_temperature.length; i++) {
+              if (machine_temperature[i] <= 55) {
+                $(machine_temperature_this_div[i]).val(fix(machine_temperature[i], 1))
+                $(machine_temperature_this_div[i]).addClass('judge')
+                $(machine_temperature_this_div[i]).removeClass('judge2')
+              } else {
+                $(machine_temperature_this_div[i]).val(fix(machine_temperature[i], 1))
+                $(machine_temperature_this_div[i]).addClass('judge2')
+                $(machine_temperature_this_div[i]).removeClass(
+                  'judge')
+              }
+            }
+            // ~~~~ 熱像儀主機回放 end ~~~~
+
+            // 量測參數設定
+            $(".setting_reflected_temperature").val(fix(response.setting_reflected_temperature, 1))
+            $(".setting_atmospheric_temperature").val(fix(response.setting_atmospheric_temperature, 1))
+            $(".setting_object_distance").val(fix(response.setting_object_distance, 1))
+            $(".setting_object_emissivity").val(fix(response.setting_object_emissivity, 2))
+            $(".setting_relative_humidity").val(fix(response.setting_relative_humidity, 2))
+            $(".setting_external_optics_temperature").val(fix(response.setting_external_optics_temperature,
+              1))
+            $(".setting_external_optics_transmission").val(fix(response.setting_external_optics_transmission,
+              1))
+            // ~~~~ 量測參數設定 end ~~~~
+
+            // 顯示狀態設定
+            $(".setting_pattern").val(response.setting_pattern).change();
+            $(".setting_calibration").val(response.setting_calibration).change();
+            $(".setting_corlorbar_min").val(fix(response.setting_colorbar_min, 1))
+            $(".setting_corlorbar_max").val(fix(response.setting_colorbar_max, 1))
+            // 執行校正
+            // ................
+
+            // 自動對焦
+            //  ....
+            // ~~~~ 顯示狀態設定 end ~~~~
+
+            // 監測設定
+            $(".setting_first_alarm_temperature").val(fix(response.setting_first_alarm_temperature, 1))
+            $(".setting_second_alarm_temperature").val(fix(response.setting_second_alarm_temperature, 1))
+            $(".setting_sampling_rate").val(response.setting_sampling_rate)
+            $(".setting_threshold_pixel").val(response.setting_threshold_pixel)
+            // ~~~~ 監測設定 end ~~~~
+
+            // 輸出設定
+            $(".setting_export_maximum_data").val(response.setting_export_maximum_data)
+            $(".setting_export_image_video").val(response.setting_export_image_video)
+            $(".setting_export_camera_temperature").val(response.setting_export_camera_temperature)
+            // ~~~~ 輸出設定 end ~~~~
+
+          },
+          error: function (thrownError) {
+            console.log(thrownError);
+          }
+        });
+
+      }
+      // 小數點轉換
+      function fix(num, N) {
+        var base = Math.pow(10, N);
+        // base = N * 10;
+        return Math.floor(num * base) / base
+      }
     })
   </script>
 </body>
