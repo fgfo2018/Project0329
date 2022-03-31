@@ -11,5 +11,4 @@ config.server02_VIDEO_FPS = 1
 config.server03_Url = "rtsp://192.168.0.176/avc"
 config.server03_Port = 6149 
 config.server03_VIDEO_FPS = 1
-
 module.exports = config;
