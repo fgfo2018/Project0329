@@ -690,9 +690,10 @@
           test['setting_once_autofocus'] = '0' // 自動對焦的預設值
         }
         data = JSON.stringify(test)
+        console.log(data)
         $.ajax({
           type: "POST",
-          url: "http://localhost:6147/api/changed",
+          url: "http://127.0.0.1:5000/api/data/changed",
           data: data,
           success: function (response) {
             setTimeout(function () {
@@ -743,11 +744,11 @@
       function getInitial() {
         $.ajax({
           type: "GET",
-          url: "http://192.168.0.173:6147/api/data/initial",
+          url: "http://127.0.0.1:5000/api/data/initial",
           dataType: "json",
           success: function (response) {
             // color bar溫度顯示
-            $(".status_LF_colorbar_max").val(fix(response.status_LF_colorbar_max, 1))
+            $(".status_LF_colorbar_max").val(response.status_LF_colorbar_max.toFixed(1))
             $(".status_LF_colorbar_min").val(fix(response.status_LF_colorbar_min, 1))
             $(".status_STAIR_colorbar_max").val(fix(response.status_STAIR_colorbar_max, 1))
             $(".status_STAIR_colorbar_min").val(fix(response.status_STAIR_colorbar_min, 1))
