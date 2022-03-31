@@ -4,10 +4,19 @@
 
 .title {
   font-size: 12px;
+  color:#6f6f6f;
+
 }
 
 .subtitle {
   font-size: 12px;
+  color:#6f6f6f;
+}
+
+.titleTop {
+  font-size: 18px;
+  color:#6f6f6f;
+  
 }
 
 .judge {
@@ -46,13 +55,13 @@
 }
 
 .rainbowBar {    
-  width: 380px;
+  width: 396px;
   height:8px;
   margin-top: 20px;
   background: black; 
   background: linear-gradient(to left, rgb(123, 0, 0), red, orange, yellow, rgb(5, 252, 5), rgb(0, 208, 255), blue , rgb(0, 0, 87));
   float: left;
-  margin-left: 10px;
+  margin-left: 5.5px;
   
 }
 
@@ -100,6 +109,9 @@
 }
 
 .navbar {
-  height: 25px;
+  height: 30px;
   
+}
+.circle {
+  width: 12px;
 }

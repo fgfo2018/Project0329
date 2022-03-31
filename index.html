@@ -26,7 +26,7 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <a class="nav-link active fw-bold title" aria-current="page" href="#"
-            style="color:rgb(133, 133, 133)">即時監控</a>
+            style="color:#6f6f6f;font-size:18px;margin-left: 40px;">即時監控</a>
         </div>
       </div>
     </div>
@@ -36,13 +36,13 @@
 
 
 
-  <div class="container-fluid" style="margin-top: 32px;">
+  <div class="container-fluid" style="margin-top: 19px;">
     <div class="row gx-3">
       <div class="col-6 col-md-4">
         <!-- 上方--------------------------------------------------------------------------------------------- -->
         <!-- 上1 -->
         <div class="card">
-          <div class="card-header title py-1">L/F 副料區</div>
+          <div class="card-header titleTop py-1 text-center">L/F 副料區</div>
           <div class="card-body pt-0">
             <div class="box1 text-center">
               <div class="text-center subtitle p-0">min</div>
@@ -62,7 +62,7 @@
       <div class="col-6 col-md-4 ">
         <!-- 上2 -->
         <div class="card">
-          <div class="card-header title py-1">出鋼室地下樓梯</div>
+          <div class="card-header titleTop py-1 text-center">出鋼室地下樓梯</div>
           <div class="card-body pt-0">
             <div class="box1 text-center">
               <div class="text-center subtitle p-0">min</div>
@@ -81,7 +81,7 @@
       <div class="col-6 col-md-4 ">
         <!-- 上3 -->
         <div class="card">
-          <div class="card-header title py-1">L/D 2F平台</div>
+          <div class="card-header titleTop py-1 text-center">L/D 2F平台</div>
           <div class="card-body pt-0">
             <div class="box1 text-center">
               <div class="text-center subtitle p-0">min</div>
@@ -112,7 +112,7 @@
               </div>
               <div class="col-auto">
 
-                <select id="videoSelect">
+                <select id="videoSelect" class="subtitle" style="border: 1px solid gainsboro;">
                   <option value="1">20220330_T111815</option>
                   <option value="2">20220330_T111829</option>
                   <option value="3">20220330_T111847</option>
@@ -376,7 +376,7 @@
                     </div>
                     <div class="col-auto">
                       <select class="subtitle  py-0 setting_pattern" aria-label="Default select example"
-                        name="setting_pattern" style="width:178px">
+                        name="setting_pattern" style="width:178px;border: 1px solid gainsboro;">
                         <option value="1" class="ml-0">彩虹</option>
                         <option value="2">鐵灰</option>
                         <option value="3">灰階</option>
@@ -396,7 +396,7 @@
                     </div>
                     <div class="col-auto">
                       <select class="subtitle py-0 setting_calibration" name="setting_calibration"
-                        aria-label="Default select example" style="font-size: 12px;width:178px">
+                        aria-label="Default select example" style="font-size: 12px;width:178px;border: 1px solid gainsboro;">
                         <option value="0">自動校正</option>
                         <option value="1">每10分鐘</option>
                         <option value="2">每30分鐘</option>
@@ -415,7 +415,7 @@
                     <div class="col-auto subtitle">
                       <input id="number" type="number" value="" class="subtitle setting_colorbar_min"
                         name="setting_colorbar_min"
-                        style="width:56px;height:21px;margin-left:7px;border: 1px solid gainsboro;">
+                        style="width:56px;height:21px;margin-left:11px;border: 1px solid gainsboro;">
                       -
                       <input id="number" name="setting_colorbar_max" type="number" value=""
                         class="subtitle setting_colorbar_max"
@@ -672,7 +672,7 @@
         $(this).prop("disabled", true);
         // add spinner to button
         $(this).html(
-          `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>校正中`
+          `<span class="spinner-border spinner-border-sm " role="status" aria-hidden="true"></span>校正中`
         );
         changeApi(formName, temp)
 
