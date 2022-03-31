@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+
+    <video id="" controls autoplay loop class="myvideo" >
+        <source id="" src="static/mock_videos/20220330_T1.mp4" type="video/mp4"  name="myImage">
+    </video>
+
+
+    <img src="http://www.flowsim.se/picts/selec01.jpg" width="70" height="70" name="myImage" />
+    <form method="" action="" name="myForm">
+        <select name="switch" onchange="switchImage();">
+            <option value="1">Image 1</option>
+            <option value="2">Image 2</option>
+            <option value="3">Image 3</option>
+            <option value="4">Image 4</option>
+            <option value="5">Image 5</option>
+        </select>
+    </form>
+
+    <script>
+        // This is the code to preload the images
+        var imageList = Array();
+        for (var i = 1; i <= 5; i++) {
+            imageList[i] = new Image(70, 70);
+            imageList[i].src = "static/mock_videos/20220330_T" + i + ".mp4";
+        }
+
+        function switchImage() {
+            var selectedImage = document.myForm.switch.options[document.myForm.switch.selectedIndex].value;
+            document.myImage.src = imageList[selectedImage].src;
+        }
+    </script>
+</body>
+
+</html>

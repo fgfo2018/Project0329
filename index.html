@@ -6,19 +6,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Document</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous" />
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-    </script>
+
   <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+
   <script src="/socket.io/socket.io.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
     crossorigin="anonymous"></script>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light darken py-0">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light darken py-0 shadow-sm">
     <div class="container-fluid">
       <!-- <a class="navbar-brand" href="#">Navbar</a> -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -27,7 +25,8 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-link active" aria-current="page" href="#">即時監控</a>
+          <a class="nav-link active fw-bold title" aria-current="page" href="#"
+            style="color:rgb(133, 133, 133)">即時監控</a>
         </div>
       </div>
     </div>
@@ -37,7 +36,7 @@
 
 
 
-  <div class="container-fluid mt-3">
+  <div class="container-fluid" style="margin-top: 32px;">
     <div class="row gx-3">
       <div class="col-6 col-md-4">
         <!-- 上方--------------------------------------------------------------------------------------------- -->
@@ -48,15 +47,13 @@
             <div class="box1 text-center">
               <div class="text-center subtitle p-0">min</div>
               <input id="" type="float" disabled value="100.0" class="subtitle text-center status_LF_colorbar_min"
-                name="status_LF_colorbar_min"
-                style="width:40px;height:21px">
+                name="status_LF_colorbar_min" style="width:40px;height:21px">
             </div>
             <div class="center rainbowBar"></div>
             <div class="box2 text-center">
               <div class="text-center subtitle p-0">max</div>
               <input id="" type="float" disabled value="500.0" class="subtitle text-center status_LF_colorbar_max"
-              name="status_LF_colorbar_max"
-                style="width:40px;height:21px">
+                name="status_LF_colorbar_max" style="width:40px;height:21px">
             </div>
             <img src="static/loading.png" id="rtsp_image01" class="imgCenter" alt="..." />
           </div>
@@ -70,15 +67,13 @@
             <div class="box1 text-center">
               <div class="text-center subtitle p-0">min</div>
               <input id="" type="float" disabled value="100.0" class="subtitle text-center status_STAIR_colorbar_min"
-                name="status_STAIR_colorbar_min"
-                style="width:40px;height:21px">
+                name="status_STAIR_colorbar_min" style="width:40px;height:21px">
             </div>
             <div class="center rainbowBar"></div>
             <div class="box2 text-center">
               <div class="text-center subtitle p-0">max</div>
               <input id="" type="float" disabled value="500.0" class="subtitle text-center status_STAIR_colorbar_max"
-                name="status_STAIR_colorbar_max"
-                style="width:40px;height:21px">
+                name="status_STAIR_colorbar_max" style="width:40px;height:21px">
             </div> <img src="static/loading.png" id="rtsp_image02" class="imgCenter" alt="..." />
           </div>
         </div>
@@ -90,15 +85,14 @@
           <div class="card-body pt-0">
             <div class="box1 text-center">
               <div class="text-center subtitle p-0">min</div>
-              <input id="" type="float" disabled value="100.0" class="subtitle text-center status_LD_colorbar_min" name="status_LD_colorbar_min"
-                style="width:40px;height:21px">
+              <input id="" type="float" disabled value="100.0" class="subtitle text-center status_LD_colorbar_min"
+                name="status_LD_colorbar_min" style="width:40px;height:21px">
             </div>
             <div class="center rainbowBar"></div>
             <div class="box2 text-center">
               <div class="text-center subtitle p-0">max</div>
               <input id="" type="float" disabled value="500.0" class="subtitle text-center status_LD_colorbar_max"
-                name="status_LD_colorbar_max"
-                style="width:40px;height:21px">
+                name="status_LD_colorbar_max" style="width:40px;height:21px">
             </div> <img src="static/loading.png" id="rtsp_image03" class="imgCenter" alt="..." />
           </div>
         </div>
@@ -110,50 +104,56 @@
     <div class="row ">
       <div class="col-md-6">
         <!-- 下1---------------------------------------------------------------------------------------------- -->
-        <div class="card" style="width:955px;height:335px;">
+        <div class="card" style="width:955px;height:316px;">
           <div class="card-header title py-1">
             <div class="row g-3 align-items-center">
               <div class="col-auto">
                 <div class="col-form-label subtitle p-0">錄影回放</div>
               </div>
               <div class="col-auto">
-                <!-- <input type="date" class="form-control" id="date" name="date"
-                  style="width:200px;height:17px;font-size: 12px;"> -->
-                    <select class="form-select subtitle py-0 setting_pattern" aria-label="Default select example"
-                      name="setting_pattern" style="width:178px">
-                      <option selected value="1" class="">20220330_T111815</option>
-                      <option value="2">20220330_T111829</option>
-                      <option value="3">20220330_T111847</option>
-                      <option value="4">20220330_T111904</option>
-                      <option value="5">20220330_T111926</option>
-                    </select>
+
+                <select id="videoSelect">
+                  <option value="1">20220330_T111815</option>
+                  <option value="2">20220330_T111829</option>
+                  <option value="3">20220330_T111847</option>
+                  <option value="4">20220330_T111904</option>
+                  <option value="5">20220330_T111926</option>
+                </select>
+
               </div>
             </div>
           </div>
-          <div class="card-body p-0">
-              <div class="row  align-items-center tri subtitle">
-                <div class="col-4">
-                  &nbsp;&nbsp;&nbsp;L/F 副料區
-                </div>
-                <div class="col-4">
-                  &nbsp;&nbsp;&nbsp;出鋼室地下樓梯
-                </div>
-                <div class="col-4">
-                  &nbsp;&nbsp;&nbsp;L/D 2F平台
-                </div>
+          <div class="card-body p-0 ">
+            <div class="row  align-items-center tri subtitle">
+              <div class="col-4">
+                &nbsp;&nbsp;&nbsp;L/F 副料區
+              </div>
+              <div class="col-4">
+                &nbsp;&nbsp;&nbsp;出鋼室地下樓梯
+              </div>
+              <div class="col-4">
+                &nbsp;&nbsp;&nbsp;L/D 2F平台
+              </div>
             </div>
-            <div class="gap"></div>
-            <div class="gap2"></div>
-            <video controls muted preload src="" class="video imgCenter">
+            <!-- <div class="gap"></div>
+            <div class="gap2"></div> -->
+            <!-- <video id="videoList" controls muted preload src="static/mock_vod/20220330_T111815.mp4" class="video imgCenter">
+            </video> -->
+
+            <video id="videoList" controls="">
+              <source src="static/mock_vod/20220330_T111815.mp4" type="video/mp4">
+              <object width="260" height="150" type="application/x-mplayer2">
+                <param name="fileName" value="video/movie.swf">
+                <param name="autostart" value="0">
+              </object>
             </video>
 
-            <div class="video imgCenter"></div>
           </div>
         </div>
       </div>
       <div class="col-md-2 ">
         <!-- 下2---------------------------------------------------------------------------------------------- -->
-        <div class="card" style="width:226px;left:12px">
+        <div class="card subtitle" style="width:226px;height:200px;left:12px">
           <div class="card-header title py-1">
             系統狀態
           </div>
@@ -175,7 +175,7 @@
                   </div>
                   <div class="col-auto">
                     <input id="number" name="status_LF" type="" disabled value="" class="subtitle text-center status_LF"
-                    style="width:56px;margin-left:31px;height:21px;border: 1px solid gainsboro;">
+                      style="width:56px;margin-left:31px;height:21px;border: 1px solid gainsboro;">
                   </div>
                 </div>
 
@@ -185,7 +185,8 @@
                   </div>
                   <div class="col-auto">
                     <input id="number" name="status_STAIR" type="" disabled value=""
-                      class="subtitle text-center status_STAIR" style="width:56px;margin-left:px;height:21px;border: 1px solid gainsboro;">
+                      class="subtitle text-center status_STAIR"
+                      style="width:56px;margin-left:px;height:21px;border: 1px solid gainsboro;">
                   </div>
                 </div>
 
@@ -195,7 +196,7 @@
                   </div>
                   <div class="col-auto">
                     <input id="number" name="status_LD" type="" disabled value="" class="subtitle text-center status_LD"
-                    style="width:56px;margin-left:24px;height:21px;border: 1px solid gainsboro;">
+                      style="width:56px;margin-left:24px;height:21px;border: 1px solid gainsboro;">
                   </div>
                 </div>
               </ul>
@@ -206,7 +207,8 @@
                 </div>
                 <div class="col-auto">
                   <input id="number" name="status_recording" type="" disabled value=""
-                    class="subtitle text-center status_recording" style="width:56px;margin-left:68px;height:21px;border: 1px solid gainsboro;">
+                    class="subtitle text-center status_recording"
+                    style="width:56px;margin-left:68px;height:21px;border: 1px solid gainsboro;">
                 </div>
               </div>
 
@@ -217,7 +219,7 @@
                 <div class="col-auto">
                   <input id="number" name="status_available_space" type="" disabled value=""
                     class="subtitle text-center judge status_available_space"
-                    style="width:56px;margin-left:23px;height:21px;border: 1px solid gainsboro;">
+                    style="width:56px;margin-left:23px;height:18px;border: 1px solid gainsboro;">
                 </div>
               </div>
             </div>
@@ -231,39 +233,39 @@
           <div class="col-md-12 mt-3">
             <form class="form-temperature_status">
               <!-- 下3---------------------------------------------------------------------------------------- -->
-              <div class="card" style="width:226px;height:138px;left:12px">
+              <div class="card subtitle" style="width:226px;left:12px">
                 <div class="card-header title py-1">
                   熱像儀主機回放
                 </div>
                 <div class="card-body py-1">
                   <div class="row g-3 align-items-center">
                     <div class="col-auto">
-                      <label class="col-form-label subtitle py-0">L/F副料區:</label>
+                      <label class="col-form-label subtitle py-0">L/F副料區</label>
                     </div>
                     <div class="col-auto">
                       <input id="number" name="temperature_LF" type="" disabled value=""
                         class="subtitle text-center judge temperature_LF"
-                        style="width:56px;margin-left:62px;height:21px;border: 1px solid gainsboro;">
+                        style="width:56px;margin-left:66px;height:21px;border: 1px solid gainsboro;">
                     </div>
                   </div>
                   <div class="row g-3 align-items-center">
                     <div class="col-auto">
-                      <label class="col-form-label subtitle py-0">出鋼室下方樓梯:</label>
+                      <label class="col-form-label subtitle py-0">出鋼室下方樓梯</label>
                     </div>
                     <div class="col-auto">
                       <input id="number" name="temperature_STAIR" type="" disabled value="55.1"
                         class="subtitle text-center judge temperature_STAIR"
-                        style="width:56px;margin-left:31px;height:21px;border: 1px solid gainsboro;">
+                        style="width:56px;margin-left:35px;height:21px;border: 1px solid gainsboro;">
                     </div>
                   </div>
                   <div class="row g-3 align-items-center">
                     <div class="col-auto">
-                      <label class="col-form-label subtitle py-0">L/D 2F平台:</label>
+                      <label class="col-form-label subtitle py-0">L/D 2F平台</label>
                     </div>
                     <div class="col-auto">
                       <input id="number" name="temperature_LD" type="" disabled value=""
                         class="subtitle text-center judge temperature_LD"
-                        style="width:56px;margin-left:55px;height:21px;border: 1px solid gainsboro;">
+                        style="width:56px;margin-left:59px;height:21px;border: 1px solid gainsboro;">
                     </div>
                   </div>
                 </div>
@@ -279,7 +281,7 @@
         <div class="row">
           <div class=" col-md-5">
             <!-- 下4------------------------------------------------------------------------------------------ -->
-            <div class="card" style="width:290px;right:64px;height:210px">
+            <div class="card subtitle" style="width:290px;right:64px;height:200px;">
               <div class="card-header title py-1">
                 量測參數設定
               </div>
@@ -288,7 +290,7 @@
 
                   <div class="row g-3 align-items-center">
                     <div class="col-auto">
-                      <label class="col-form-label subtitle py-0">Reflected Temperature (°C):</label>
+                      <label class="col-form-label subtitle py-0">Reflected Temperature (°C)</label>
                     </div>
                     <div class="col-auto">
                       <input id="number" name="setting_reflected_temperature" type="number" value="" step="0.01"
@@ -299,7 +301,7 @@
 
                   <div class="row g-3 align-items-center">
                     <div class="col-auto">
-                      <label class="col-form-label subtitle p-0">Atmospheric Temperature (°C):</label>
+                      <label class="col-form-label subtitle p-0">Atmospheric Temperature (°C)</label>
                     </div>
                     <div class="col-auto">
                       <input id="number" name="setting_atmospheric_temperature" type="number" value="" step="0.01"
@@ -310,37 +312,40 @@
 
                   <div class="row g-3 align-items-center">
                     <div class="col-auto">
-                      <label class="col-form-label subtitle p-0">Object Distance (m):</label>
+                      <label class="col-form-label subtitle p-0">Object Distance (m)</label>
                     </div>
                     <div class="col-auto">
                       <input id="number" name="setting_object_distance" type="number" value="" step="0.01"
-                        class="subtitle setting_object_distance" style="width:56px;margin-left:67px;height:21px;border: 1px solid gainsboro;">
+                        class="subtitle setting_object_distance"
+                        style="width:56px;margin-left:67px;height:21px;border: 1px solid gainsboro;">
                     </div>
                   </div>
 
                   <div class="row g-3 align-items-center">
                     <div class="col-auto">
-                      <label class="col-form-label subtitle p-0">Object Emissivity (%):</label>
+                      <label class="col-form-label subtitle p-0">Object Emissivity (%)</label>
                     </div>
                     <div class="col-auto">
                       <input id="number" name="setting_object_emissivity" type="number" value="" step="0.01"
-                        class="subtitle setting_object_emissivity" style="width:56px;margin-left:61.5px;height:21px;border: 1px solid gainsboro;">
+                        class="subtitle setting_object_emissivity"
+                        style="width:56px;margin-left:61.5px;height:21px;border: 1px solid gainsboro;">
                     </div>
                   </div>
 
                   <div class="row g-3 align-items-center">
                     <div class="col-auto">
-                      <label class="col-form-label subtitle p-0">Relative Humidity (%):</label>
+                      <label class="col-form-label subtitle p-0">Relative Humidity (%)</label>
                     </div>
                     <div class="col-auto">
                       <input id="number" name="setting_relative_humidity" type="number" value="" step="0.01"
-                        class="subtitle setting_relative_humidity"  style="width:56px;margin-left:57.5px;height:21px;border: 1px solid gainsboro;">
+                        class="subtitle setting_relative_humidity"
+                        style="width:56px;margin-left:57.5px;height:21px;border: 1px solid gainsboro;">
                     </div>
                   </div>
 
                   <div class="row g-3 align-items-center">
                     <div class="col-auto">
-                      <label class="col-form-label subtitle p-0">Extenal Optics Temperature (°C):</label>
+                      <label class="col-form-label subtitle p-0">Extenal Optics Temperature (°C)</label>
                     </div>
                     <div class="col-auto">
                       <input id="number" name="setting_external_optics_temperature" type="number" value="" step="0.01"
@@ -351,11 +356,12 @@
 
                   <div class="row g-3 align-items-center">
                     <div class="col-auto">
-                      <label class="col-form-label subtitle p-0">External Optics Transmission (%):</label>
+                      <label class="col-form-label subtitle p-0">External Optics Transmission (%)</label>
                     </div>
                     <div class="col-auto">
                       <input id="number" name="setting_external_optics_transmission" type="number" value="" step="0.01"
-                        class="subtitle setting_external_optics_transmission"  style="width:56px;height:21px;margin-left:-4px;border: 1px solid gainsboro;">
+                        class="subtitle setting_external_optics_transmission"
+                        style="width:56px;height:21px;margin-left:-3px;border: 1px solid gainsboro;">
                     </div>
                   </div>
                 </div>
@@ -365,39 +371,39 @@
           </div>
           <div class="col-md-7">
             <!-- 下5------------------------------------------------------------------------------------------ -->
-            <div class="card" style="width:373px;right:24px;">
+            <div class="card subtitle" style="width:373px;right:24px;">
               <div class="card-header title py-1">
                 顯示狀態設定
               </div>
               <form class="form-display_status">
                 <div class="card-body py-1">
                   <div class="row g-3 align-items-center">
-                    <div class="col-auto">
-                      <label class="col-form-label subtitle py-0 px-1">色譜設定:</label>
+                    <div class="col-auto subtitle">
+                      <label class="col-form-label  py-0 px-1">色譜設定</label>
                     </div>
                     <div class="col-auto">
-                      <select class="form-select subtitle  py-0 setting_pattern" aria-label="Default select example"
-                        name="setting_pattern" style="width:178px">
-                        <option selected value="1" class="ml-0">彩虹</option>
-                        <option value="2">鐵灰</option>
+                      <select class=" py-0 setting_pattern" aria-label="Default select example"
+                        name="setting_pattern" style="font-size: 12px;width:178px">
+                        <option selected value="1" class="ml-0 subtitle">彩虹</option>
+                        <option value="2" class="subtitle">鐵灰</option>
                         <option value="3">灰階</option>
                         <option value="4">影像強化</option>
                       </select>
                     </div>
                     <div class="col-auto">
-                      <button type="button"
-                        class="btn btn-secondary btn-sm subtitle py-0 setting_once_calibration">執行校正</button>
+                      <button type="button" class="btn btn-secondary btn-sm subtitle py-0 setting_once_calibration"
+                        style="font-size: 12px;">執行校正</button>
                     </div>
 
                   </div>
 
                   <div class="row g-3 align-items-center">
-                    <div class="col-auto">
-                      <label class="col-form-label subtitle py-0 px-1">校正設定:</label>
+                    <div class="col-auto subtitle">
+                      <label class="col-form-label  py-1 px-1">校正設定</label>
                     </div>
                     <div class="col-auto">
-                      <select class="form-select subtitle py-0 setting_calibration" name="setting_calibration"
-                        aria-label="Default select example" style="width:178px">
+                      <select class="subtitle py-0 setting_calibration" name="setting_calibration"
+                        aria-label="Default select example" style="font-size: 12px;width:178px">
                         <option value="0">自動校正</option>
                         <option value="1">每10分鐘</option>
                         <option value="2">每30分鐘</option>
@@ -405,20 +411,21 @@
                       </select>
                     </div>
                     <div class="col-auto">
-                      <button type="button"
-                        class="btn btn-secondary btn-sm subtitle py-0 setting_once_autofocus">自動對焦</button>
+                      <button type="button" class="btn btn-secondary btn-sm subtitle py-0 setting_once_autofocus"
+                        style="font-size: 12px;">自動對焦</button>
                     </div>
                   </div>
                   <div class="row g-3 align-items-center">
-                    <div class="col-auto">
-                      <label class="col-form-label subtitle py-0 px-1">量測溫度區間(°C):</label>
+                    <div class="col-auto subtitle">
+                      <label class="col-form-label  py-0 px-1">量測溫度區間(°C)</label>
                     </div>
-                    <div class="col-auto">
-                      <input id="number" type="number" value="" class="subtitle setting_corlorbar_min"
-                        name="setting_corlorbar_min" style="width:56px;height:21px;margin-left:7px;border: 1px solid gainsboro;">
+                    <div class="col-auto subtitle">
+                      <input id="number" type="number" value="" class=" setting_corlorbar_min"
+                        name="setting_corlorbar_min"
+                        style="width:56px;height:21px;margin-left:11px;border: 1px solid gainsboro;">
                       -
                       <input id="number" name="setting_corlorbar_max" type="number" value="500.0"
-                        class="subtitle setting_corlorbar_max" style="width:56px;height:21px;border: 1px solid gainsboro;">
+                        class=" setting_corlorbar_max" style="width:56px;height:21px;border: 1px solid gainsboro;">
                     </div>
                   </div>
                 </div>
@@ -430,37 +437,39 @@
             <div class="row">
               <div class="col-md-12 mt-3">
                 <!-- 下6-------------------------------------------------------------------------------------- -->
-                <div class="card" style="width:373px;right:24px;">
+                <div class="card subtitle" style="width:373px;right:24px;">
                   <div class="card-header title py-1">
                     監測設定
                   </div>
                   <form class="form-alarm_temperature">
                     <div class="card-body py-1" style="margin-left: 3px;">
                       <div class="row g-2">
-                        <div class="col-auto">
-                          <label class="col-form-label subtitle p-0">第一段警報溫度 (°C):</label>
-                          <input id="number" type="number" step="0.1" name="setting_first_alarm_temperature" value="250.0"
-                            class="subtitle setting_first_alarm_temperature" style="width:56px;height:21px;border: 1px solid gainsboro;">
+                        <div class="col-auto subtitle">
+                          <label class="col-form-label p-0">第一段警報溫度 (°C)</label>
+                          <input id="number" type="number" step="0.1" name="setting_first_alarm_temperature"
+                            value="250.0" class="subtitle setting_first_alarm_temperature"
+                            style="width:56px;height:21px;border: 1px solid gainsboro;">
                         </div>
 
-                        <div class="col-auto">
-                          <label class="col-form-label subtitle p-0">&nbsp&nbsp取樣率 (Hz):</label>
+                        <div class="col-auto subtitle">
+                          <label class="col-form-label p-0">&nbsp&nbsp取樣率 (Hz)</label>
                           <input id="number" type="number" step="0.1" name="setting_sampling_rate" value="10"
-                            class="subtitle setting_sampling_rate" style="margin-left:23px; width:56px;height:21px;border: 1px solid gainsboro;">
+                            class="subtitle setting_sampling_rate"
+                            style="margin-left:23px; width:56px;height:21px;border: 1px solid gainsboro;">
                         </div>
                       </div>
 
 
                       <div class="row g-2 align-items-center">
-                        <div class="col-auto">
-                          <label class="col-form-label subtitle p-0">第二段警報溫度 (°C):</label>
+                        <div class="col-auto subtitle">
+                          <label class="col-form-label p-0">第二段警報溫度 (°C)</label>
                           <input id="number" type="number" step="0.1" value="350.0"
                             class="subtitle setting_second_alarm_temperature" name="setting_second_alarm_temperature"
                             style="width:56px;height:21px;border: 1px solid gainsboro;">
 
                         </div>
-                        <div class="col-auto">
-                          <label class="col-form-label subtitle p-0">&nbsp&nbsp像素閥值 (pixel):</label>
+                        <div class="col-auto subtitle">
+                          <label class="col-form-label p-0">&nbsp&nbsp像素閥值 (pixel)</label>
                           <input id="number" type="number" step="0.1" value="10"
                             class="subtitle setting_threshold_pixel" name="setting_threshold_pixel"
                             style="width:56px;height:21px;border: 1px solid gainsboro;">
@@ -476,15 +485,15 @@
         </div>
         <div class=" col-md-12 demo-content text-black mt-3">
           <!-- 下7-------------------------------------------------------------------------------------------- -->
-          <div class="card" style="width:680px;right:64px">
+          <div class="card subtitle" style="width:680px;right:64px">
             <div class="card-header title py-1">
               輸出設定
             </div>
             <form class="form-export_temperature">
               <div class="card-body py-1">
                 <div class="row g-3 align-items-center">
-                  <div class="col-auto">
-                    <label class="col-form-label subtitle p-0">Export Maximum Data to:</label>
+                  <div class="col-auto subtitle">
+                    <label class="col-form-label title p-0">Export Maximum Data to</label>
                   </div>
                   <div class="col-auto">
                     <input id="" type="text" value="C:\Users\user\thermalmonitor\20220325_v1"
@@ -494,19 +503,19 @@
                 </div>
 
                 <div class="row g-3 align-items-center">
-                  <div class="col-auto">
-                    <label class="col-form-label subtitle p-0">Export Image and video to:</label>
+                  <div class="col-auto subtitle">
+                    <label class="col-form-label subtitle1 p-0">Export Image and video to</label>
                   </div>
                   <div class="col-auto">
                     <input id="" type="text" value="C:\Users\user\thermalmonitor\20220325_v1"
                       class="subtitle setting_export_image_video" name="setting_export_image_video"
-                      style="width:447px;margin-left:30px;height:21px;border: 1px solid gainsboro;">
+                      style="width:447px;margin-left:29px;height:21px;border: 1px solid gainsboro;">
                   </div>
                 </div>
 
                 <div class="row g-3 align-items-center">
-                  <div class="col-auto">
-                    <label class="col-form-label subtitle p-0">Export Cameras Temperature to:</label>
+                  <div class="col-auto subtitle">
+                    <label class="col-form-label subtitle1 p-0">Export Cameras Temperature to</label>
                   </div>
                   <div class="col-auto">
                     <input id="" type="text" value="C:\Users\user\thermalmonitor\20220325_v1"
@@ -525,6 +534,37 @@
   </div>
   </div>
   <script type="text/javascript">
+    //下1選擇影像
+    $(document).ready(function () {
+      $("#videoSelect").change(function () {
+        var videoValue = $(this).val();
+
+        if (videoValue == 1) {
+          console.log("Inside" + videoValue);
+          $("#videoList").attr('src', 'static/mock_vod/20220330_T111815.mp4');
+        }
+        else if (videoValue == 2) {
+          console.log("Inside" + videoValue);
+          $("#videoList").attr('src', 'static/mock_vod/20220330_T111829.mp4');
+        }
+        else if (videoValue == 3) {
+          console.log("Inside" + videoValue);
+          $("#videoList").attr('src', 'static/mock_vod/20220330_T111847.mp4');
+        }
+        else if (videoValue == 4) {
+          console.log("Inside" + videoValue);
+          $("#videoList").attr('src', 'static/mock_vod/20220330_T111904.mp4');
+        }
+        else {
+          console.log("Inside" + videoValue);
+          $("#videoList").attr('src', 'static/mock_vod/20220330_T111926.mp4');
+        }
+
+      });
+    });
+  </script>
+  <script type="text/javascript">
+
     var socket1 = io("http://localhost:6147/");
     var img1 = document.getElementById('rtsp_image01')
     socket1.on('data', (data1) => {
@@ -642,12 +682,12 @@
           dataType: "json",
           success: function (response) {
             // color bar溫度顯示
-            $(".status_LF_colorbar_max").val(fix(response.status_LF_colorbar_max,1))
-            $(".status_LF_colorbar_min").val(fix(response.status_LF_colorbar_min,1))
-            $(".status_STAIR_colorbar_max").val(fix(response.status_STAIR_colorbar_max,1))
-            $(".status_STAIR_colorbar_min").val(fix(response.status_STAIR_colorbar_min,1))
-            $(".status_LD_colorbar_max").val(fix(response.status_LD_colorbar_max,1))
-            $(".status_LD_colorbar_min").val(fix(response.status_LD_colorbar_min,1))
+            $(".status_LF_colorbar_max").val(fix(response.status_LF_colorbar_max, 1))
+            $(".status_LF_colorbar_min").val(fix(response.status_LF_colorbar_min, 1))
+            $(".status_STAIR_colorbar_max").val(fix(response.status_STAIR_colorbar_max, 1))
+            $(".status_STAIR_colorbar_min").val(fix(response.status_STAIR_colorbar_min, 1))
+            $(".status_LD_colorbar_max").val(fix(response.status_LD_colorbar_max, 1))
+            $(".status_LD_colorbar_min").val(fix(response.status_LD_colorbar_min, 1))
             // ~~~~ color bar溫度顯示 end ~~~~
             // 系統狀態
             // system_status以及system_status_this_div需要對應，用來判斷連線是否正常，並且正確放入值
