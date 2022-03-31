@@ -690,11 +690,13 @@
           test['setting_once_autofocus'] = '0' // 自動對焦的預設值
         }
         data = JSON.stringify(test)
-        console.log(data)
+        var PostUrl = "http://127.0.0.1:5000/api/data/changed"
         $.ajax({
           type: "POST",
-          url: "http://127.0.0.1:5000/api/data/changed",
+          url: PostUrl,
           data: data,
+          dataType: 'json',
+          contentType: 'application/json; charset=utf-8',
           success: function (response) {
             setTimeout(function () {
               $(".LockInput").removeAttr('disabled');
@@ -705,22 +707,46 @@
               toast.show()
             }, 3000)
             console.log(response.setting_once_calibration)
-            if (response.setting_once_calibration === '1') {
+            if (response.setting_once_calibration === 1) {
               setTimeout(function () {
                 $(".setting_once_calibration").prop("disabled", false);
                 $(".setting_once_calibration").html("執行校正")
+                var data = {
+                  "setting_once_calibration": 0
+                }
+                data = JSON.stringify(data)
+                $.ajax({
+                  type: "POST",
+                  url: PostUrl,
+                  data: data,
+                  dataType: 'json',
+                  contentType: 'application/json; charset=utf-8',
+                  success: function (response) {},
+                  error: function (thrownError) {}
+                })
               }, 3000)
             }
-            if (response.setting_once_autofocus === '1') {
+            if (response.setting_once_autofocus === 1) {
               setTimeout(function () {
                 $(".setting_once_autofocus").prop("disabled", false);
                 $(".setting_once_autofocus").html("自動對焦")
               }, 3000)
+              var data = {
+                "setting_once_autofocus": 0
+              }
+              data = JSON.stringify(data)
+              $.ajax({
+                type: "POST",
+                url: PostUrl,
+                data: data,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: function (response) {},
+                error: function (thrownError) {}
+              })
             }
           },
-          error: function (thrownError) {
-            // console.log(thrownError);
-          }
+          error: function (thrownError) {}
         });
       }
 
@@ -749,19 +775,19 @@
           success: function (response) {
             // color bar溫度顯示
             $(".status_LF_colorbar_max").val(response.status_LF_colorbar_max.toFixed(1))
-            $(".status_LF_colorbar_min").val(fix(response.status_LF_colorbar_min, 1))
-            $(".status_STAIR_colorbar_max").val(fix(response.status_STAIR_colorbar_max, 1))
-            $(".status_STAIR_colorbar_min").val(fix(response.status_STAIR_colorbar_min, 1))
-            $(".status_LD_colorbar_max").val(fix(response.status_LD_colorbar_max, 1))
-            $(".status_LD_colorbar_min").val(fix(response.status_LD_colorbar_min, 1))
+            $(".status_LF_colorbar_min").val(response.status_LF_colorbar_min.toFixed(1))
+            $(".status_STAIR_colorbar_max").val(response.status_STAIR_colorbar_max.toFixed(1))
+            $(".status_STAIR_colorbar_min").val(response.status_STAIR_colorbar_min.toFixed(1))
+            $(".status_LD_colorbar_max").val(response.status_LD_colorbar_max.toFixed(1))
+            $(".status_LD_colorbar_min").val(response.status_LD_colorbar_min.toFixed(1))
             // ~~~~ color bar溫度顯示 end ~~~~
             // 系統狀態
             // system_status以及system_status_this_div需要對應，用來判斷連線是否正常，並且正確放入值
             var system_status = [
-              response.status_LF, response.status_STAIR, response.status_LD, response.status_recording
+              response.status_LF, response.status_STAIR, response.status_LD
             ]
             var system_status_this_div = [
-              '.status_LF', '.status_STAIR', '.status_LD', '.status_recording'
+              '.status_LF', '.status_STAIR', '.status_LD'
             ]
             for (var i = 0; i < system_status.length; i++) {
               if (system_status[i] === 1) {
@@ -774,7 +800,24 @@
                 $(system_status_this_div[i]).removeClass('judge')
               }
             }
+            if (response.status_recording === 1) {
+              $('.status_recording').val("未啟動錄影")
+              $('.status_recording').addClass('judge')
+              $('.status_recording').removeClass('judge2')
+            } else if (response.status_recording === 0) {
+              $('.status_recording').val("錄影中")
+              $('.status_recording').addClass('judge2')
+              $('.status_recording').removeClass('judge')
+            }
             $('.status_available_space').val(fix(response.status_available_space, 1))
+            if (response.status_recording <= 85) {
+              $('.status_available_space').addClass('judge')
+              $('.status_available_space').removeClass('judge2')
+            } else {
+              $('.status_available_space').addClass('judge2')
+              $('.status_available_space').removeClass('judge')
+            }
+
             // ~~~~ 系統狀態 end ~~~~
 
             // 熱像儀主機回放
@@ -810,9 +853,11 @@
             $(".setting_object_distance").val(fix(response.setting_object_distance, 1))
             $(".setting_object_emissivity").val(fix(response.setting_object_emissivity, 2))
             $(".setting_relative_humidity").val(fix(response.setting_relative_humidity, 2))
-            $(".setting_external_optics_temperature").val(fix(response.setting_external_optics_temperature,
+            $(".setting_external_optics_temperature").val(fix(response
+              .setting_external_optics_temperature,
               1))
-            $(".setting_external_optics_transmission").val(fix(response.setting_external_optics_transmission,
+            $(".setting_external_optics_transmission").val(fix(response
+              .setting_external_optics_transmission,
               1))
             // ~~~~ 量測參數設定 end ~~~~
 
@@ -825,7 +870,8 @@
 
             // 監測設定
             $(".setting_first_alarm_temperature").val(fix(response.setting_first_alarm_temperature, 1))
-            $(".setting_second_alarm_temperature").val(fix(response.setting_second_alarm_temperature, 1))
+            $(".setting_second_alarm_temperature").val(fix(response.setting_second_alarm_temperature,
+              1))
             $(".setting_sampling_rate").val(response.setting_sampling_rate)
             $(".setting_threshold_pixel").val(response.setting_threshold_pixel)
             // ~~~~ 監測設定 end ~~~~
