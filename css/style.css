@@ -69,9 +69,11 @@
 .video {
   position: absolute;
   width: 953px;
+  height: 230px;
   /* height: 282px; */
 /* background: #000; */
   margin-top: 0px;
+  /* background-color: rgb(177, 177, 177); */
 }
 
 .tri {
