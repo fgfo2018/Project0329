@@ -8,10 +8,11 @@
   <title>Document</title>
   <link rel="stylesheet" type="text/css" href="css/style.css" />
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-
   <script src="/socket.io/socket.io.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
     crossorigin="anonymous"></script>
+  <script src="./js/bootstrap.js"></script>
+
 </head>
 
 <body>
@@ -136,7 +137,8 @@
             </div>
             <!-- <div class="gap"></div>
             <div class="gap2"></div> -->
-            <video id="videoList" controls muted preload src="static/mock_vod/20220330_T111815.mp4" class="video imgCenter">
+            <video id="videoList" controls muted preload src="static/mock_vod/20220330_T111815.mp4"
+              class="video imgCenter">
             </video>
 
           </div>
@@ -569,20 +571,16 @@
         if (videoValue == 1) {
           console.log("Inside" + videoValue);
           $("#videoList").attr('src', 'static/mock_vod/20220330_T111815.mp4');
-        }
-        else if (videoValue == 2) {
+        } else if (videoValue == 2) {
           console.log("Inside" + videoValue);
           $("#videoList").attr('src', 'static/mock_vod/20220330_T111829.mp4');
-        }
-        else if (videoValue == 3) {
+        } else if (videoValue == 3) {
           console.log("Inside" + videoValue);
           $("#videoList").attr('src', 'static/mock_vod/20220330_T111847.mp4');
-        }
-        else if (videoValue == 4) {
+        } else if (videoValue == 4) {
           console.log("Inside" + videoValue);
           $("#videoList").attr('src', 'static/mock_vod/20220330_T111904.mp4');
-        }
-        else {
+        } else {
           console.log("Inside" + videoValue);
           $("#videoList").attr('src', 'static/mock_vod/20220330_T111926.mp4');
         }
@@ -591,7 +589,6 @@
     });
   </script>
   <script type="text/javascript">
-
     var socket1 = io("http://localhost:6147/");
     var img1 = document.getElementById('rtsp_image01')
     socket1.on('data', (data1) => {
