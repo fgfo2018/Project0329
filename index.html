@@ -6,7 +6,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Document</title>
-
   <link rel="stylesheet" type="text/css" href="css/style.css" />
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 
@@ -46,13 +45,13 @@
           <div class="card-body pt-0">
             <div class="box1 text-center">
               <div class="text-center subtitle p-0">min</div>
-              <input id="" type="float" disabled value="100.0" class="subtitle text-center status_LF_colorbar_min"
+              <input id="" type="float" disabled value="" class="subtitle text-center status_LF_colorbar_min"
                 name="status_LF_colorbar_min" style="width:40px;height:21px">
             </div>
             <div class="center rainbowBar"></div>
             <div class="box2 text-center">
               <div class="text-center subtitle p-0">max</div>
-              <input id="" type="float" disabled value="500.0" class="subtitle text-center status_LF_colorbar_max"
+              <input id="" type="float" disabled value="" class="subtitle text-center status_LF_colorbar_max"
                 name="status_LF_colorbar_max" style="width:40px;height:21px">
             </div>
             <img src="static/loading.png" id="rtsp_image01" class="imgCenter" alt="..." />
@@ -66,13 +65,13 @@
           <div class="card-body pt-0">
             <div class="box1 text-center">
               <div class="text-center subtitle p-0">min</div>
-              <input id="" type="float" disabled value="100.0" class="subtitle text-center status_STAIR_colorbar_min"
+              <input id="" type="float" disabled value="" class="subtitle text-center status_STAIR_colorbar_min"
                 name="status_STAIR_colorbar_min" style="width:40px;height:21px">
             </div>
             <div class="center rainbowBar"></div>
             <div class="box2 text-center">
               <div class="text-center subtitle p-0">max</div>
-              <input id="" type="float" disabled value="500.0" class="subtitle text-center status_STAIR_colorbar_max"
+              <input id="" type="float" disabled value="" class="subtitle text-center status_STAIR_colorbar_max"
                 name="status_STAIR_colorbar_max" style="width:40px;height:21px">
             </div> <img src="static/loading.png" id="rtsp_image02" class="imgCenter" alt="..." />
           </div>
@@ -85,13 +84,13 @@
           <div class="card-body pt-0">
             <div class="box1 text-center">
               <div class="text-center subtitle p-0">min</div>
-              <input id="" type="float" disabled value="100.0" class="subtitle text-center status_LD_colorbar_min"
+              <input id="" type="float" disabled value="" class="subtitle text-center status_LD_colorbar_min"
                 name="status_LD_colorbar_min" style="width:40px;height:21px">
             </div>
             <div class="center rainbowBar"></div>
             <div class="box2 text-center">
               <div class="text-center subtitle p-0">max</div>
-              <input id="" type="float" disabled value="500.0" class="subtitle text-center status_LD_colorbar_max"
+              <input id="" type="float" disabled value="" class="subtitle text-center status_LD_colorbar_max"
                 name="status_LD_colorbar_max" style="width:40px;height:21px">
             </div> <img src="static/loading.png" id="rtsp_image03" class="imgCenter" alt="..." />
           </div>
@@ -137,15 +136,7 @@
             </div>
             <!-- <div class="gap"></div>
             <div class="gap2"></div> -->
-            <!-- <video id="videoList" controls muted preload src="static/mock_vod/20220330_T111815.mp4" class="video imgCenter">
-            </video> -->
-
-            <video id="videoList" controls="">
-              <source src="static/mock_vod/20220330_T111815.mp4" type="video/mp4">
-              <object width="260" height="150" type="application/x-mplayer2">
-                <param name="fileName" value="video/movie.swf">
-                <param name="autostart" value="0">
-              </object>
+            <video id="videoList" controls muted preload src="static/mock_vod/20220330_T111815.mp4" class="video imgCenter">
             </video>
 
           </div>
@@ -219,7 +210,7 @@
                 <div class="col-auto">
                   <input id="number" name="status_available_space" type="" disabled value=""
                     class="subtitle text-center judge status_available_space"
-                    style="width:56px;margin-left:23px;height:18px;border: 1px solid gainsboro;">
+                    style="width:56px;margin-left:23px;height:21px;border: 1px solid gainsboro;">
                 </div>
               </div>
             </div>
@@ -253,7 +244,7 @@
                       <label class="col-form-label subtitle py-0">出鋼室下方樓梯</label>
                     </div>
                     <div class="col-auto">
-                      <input id="number" name="temperature_STAIR" type="" disabled value="55.1"
+                      <input id="number" name="temperature_STAIR" type="" disabled value=""
                         class="subtitle text-center judge temperature_STAIR"
                         style="width:56px;margin-left:35px;height:21px;border: 1px solid gainsboro;">
                     </div>
@@ -382,10 +373,10 @@
                       <label class="col-form-label  py-0 px-1">色譜設定</label>
                     </div>
                     <div class="col-auto">
-                      <select class=" py-0 setting_pattern" aria-label="Default select example"
-                        name="setting_pattern" style="font-size: 12px;width:178px">
-                        <option selected value="1" class="ml-0 subtitle">彩虹</option>
-                        <option value="2" class="subtitle">鐵灰</option>
+                      <select class="subtitle  py-0 setting_pattern" aria-label="Default select example"
+                        name="setting_pattern" style="width:178px">
+                        <option value="1" class="ml-0">彩虹</option>
+                        <option value="2">鐵灰</option>
                         <option value="3">灰階</option>
                         <option value="4">影像強化</option>
                       </select>
@@ -420,12 +411,13 @@
                       <label class="col-form-label  py-0 px-1">量測溫度區間(°C)</label>
                     </div>
                     <div class="col-auto subtitle">
-                      <input id="number" type="number" value="" class=" setting_corlorbar_min"
-                        name="setting_corlorbar_min"
-                        style="width:56px;height:21px;margin-left:11px;border: 1px solid gainsboro;">
+                      <input id="number" type="number" value="" class="subtitle setting_colorbar_min"
+                        name="setting_colorbar_min"
+                        style="width:56px;height:21px;margin-left:7px;border: 1px solid gainsboro;">
                       -
-                      <input id="number" name="setting_corlorbar_max" type="number" value="500.0"
-                        class=" setting_corlorbar_max" style="width:56px;height:21px;border: 1px solid gainsboro;">
+                      <input id="number" name="setting_colorbar_max" type="number" value=""
+                        class="subtitle setting_colorbar_max"
+                        style="width:56px;height:21px;border: 1px solid gainsboro;">
                     </div>
                   </div>
                 </div>
@@ -444,16 +436,16 @@
                   <form class="form-alarm_temperature">
                     <div class="card-body py-1" style="margin-left: 3px;">
                       <div class="row g-2">
-                        <div class="col-auto subtitle">
-                          <label class="col-form-label p-0">第一段警報溫度 (°C)</label>
-                          <input id="number" type="number" step="0.1" name="setting_first_alarm_temperature"
-                            value="250.0" class="subtitle setting_first_alarm_temperature"
+                        <div class="col-auto">
+                          <label class="col-form-label subtitle p-0">第一段警報溫度 (°C):</label>
+                          <input id="number" type="number" step="0.1" name="setting_first_alarm_temperature" value=""
+                            class="subtitle setting_first_alarm_temperature"
                             style="width:56px;height:21px;border: 1px solid gainsboro;">
                         </div>
 
-                        <div class="col-auto subtitle">
-                          <label class="col-form-label p-0">&nbsp&nbsp取樣率 (Hz)</label>
-                          <input id="number" type="number" step="0.1" name="setting_sampling_rate" value="10"
+                        <div class="col-auto">
+                          <label class="col-form-label subtitle p-0">&nbsp&nbsp取樣率 (Hz):</label>
+                          <input id="number" type="number" step="0.1" name="setting_sampling_rate" value=""
                             class="subtitle setting_sampling_rate"
                             style="margin-left:23px; width:56px;height:21px;border: 1px solid gainsboro;">
                         </div>
@@ -461,18 +453,17 @@
 
 
                       <div class="row g-2 align-items-center">
-                        <div class="col-auto subtitle">
-                          <label class="col-form-label p-0">第二段警報溫度 (°C)</label>
-                          <input id="number" type="number" step="0.1" value="350.0"
+                        <div class="col-auto">
+                          <label class="col-form-label subtitle p-0">第二段警報溫度 (°C):</label>
+                          <input id="number" type="number" step="0.1" value=""
                             class="subtitle setting_second_alarm_temperature" name="setting_second_alarm_temperature"
                             style="width:56px;height:21px;border: 1px solid gainsboro;">
 
                         </div>
-                        <div class="col-auto subtitle">
-                          <label class="col-form-label p-0">&nbsp&nbsp像素閥值 (pixel)</label>
-                          <input id="number" type="number" step="0.1" value="10"
-                            class="subtitle setting_threshold_pixel" name="setting_threshold_pixel"
-                            style="width:56px;height:21px;border: 1px solid gainsboro;">
+                        <div class="col-auto">
+                          <label class="col-form-label subtitle p-0">&nbsp&nbsp像素閥值 (pixel):</label>
+                          <input id="number" type="number" step="0.1" value="" class="subtitle setting_threshold_pixel"
+                            name="setting_threshold_pixel" style="width:56px;height:21px;border: 1px solid gainsboro;">
                         </div>
                       </div>
                     </div>
@@ -496,9 +487,9 @@
                     <label class="col-form-label title p-0">Export Maximum Data to</label>
                   </div>
                   <div class="col-auto">
-                    <input id="" type="text" value="C:\Users\user\thermalmonitor\20220325_v1"
-                      class="subtitle setting_export_maximum_data" name="setting_export_maximum_data"
-                      style="width:447px;margin-left:37px;height:21px;border: 1px solid gainsboro;">
+                    <input id="" type="text" value="" class="subtitle setting_export_maximum_data"
+                      name="setting_export_maximum_data"
+                      style="width:447px;margin-left:38px;height:21px;border: 1px solid gainsboro;">
                   </div>
                 </div>
 
@@ -507,9 +498,9 @@
                     <label class="col-form-label subtitle1 p-0">Export Image and video to</label>
                   </div>
                   <div class="col-auto">
-                    <input id="" type="text" value="C:\Users\user\thermalmonitor\20220325_v1"
-                      class="subtitle setting_export_image_video" name="setting_export_image_video"
-                      style="width:447px;margin-left:29px;height:21px;border: 1px solid gainsboro;">
+                    <input id="" type="text" value="" class="subtitle setting_export_image_video"
+                      name="setting_export_image_video"
+                      style="width:447px;margin-left:30px;height:21px;border: 1px solid gainsboro;">
                   </div>
                 </div>
 
@@ -518,9 +509,9 @@
                     <label class="col-form-label subtitle1 p-0">Export Cameras Temperature to</label>
                   </div>
                   <div class="col-auto">
-                    <input id="" type="text" value="C:\Users\user\thermalmonitor\20220325_v1"
-                      class="subtitle setting_export_camera_temperature" name="setting_export_camera_temperature"
-                      style="width:447px;height:21px;border: 1px solid gainsboro;">
+                    <input id="" type="text" value="" class="subtitle setting_export_camera_temperature"
+                      name="setting_export_camera_temperature"
+                      style="width:447px;margin-left:1px;height:21px;border: 1px solid gainsboro;">
                   </div>
                 </div>
               </div>
@@ -533,6 +524,42 @@
   </div>
   </div>
   </div>
+  <!-- 訊息 -->
+  <div class="toast-container">
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+      <div id="liveToast" class="toast align-items-center text-white bg-primary border-0 mt-2" role="alert"
+        aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+          <div class="toast-body" id="thisMessage">
+            message.
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+            aria-label="Close"></button>
+        </div>
+      </div>
+      <div id="liveToast2" class="toast align-items-center text-white bg-primary border-0 mt-2" role="alert"
+        aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+          <div class="toast-body" id="thisMessage2">
+            message.
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+            aria-label="Close"></button>
+        </div>
+      </div>
+      <div id="liveToast3" class="toast align-items-center text-white bg-primary border-0 mt-2" role="alert"
+        aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+          <div class="toast-body" id="thisMessage3">
+            message.
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+            aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  -->
   <script type="text/javascript">
     //下1選擇影像
     $(document).ready(function () {
@@ -592,7 +619,6 @@
       getInitial()
 
       // 常態性刷新
-      // ....
       var run = null;
       run = setInterval(function () {
         getInitial()
@@ -609,6 +635,7 @@
         }, 1000)
         console.log("no focus")
       })
+
       // 前端數值設定
       // 定義要被偵測的form
       formName = [
@@ -617,47 +644,113 @@
         'form.form-alarm_temperature',
         'form.form-export_temperature'
       ]
-
-      var test = {}
-      for (var i = 0; i < formName.length; i++) {
-        var array = $(formName[i]).serializeArray();
-        array.forEach(function (index) {
-          test[index.name] = index.value
-        })
-      }
-      data = JSON.stringify(test)
-      // console.log(test);
-      $.ajax({
-        type: "POST",
-        url: "http://localhost:6147/api/changed",
-        data: data,
-        success: function (response) {
-          // console.log(response)
-        },
-        error: function (thrownError) {
-          // console.log(thrownError);
-        }
-      });
+      var temp = 0; // 判斷執行校正或是自動對焦用
       for (var i = 0; i < formName.length; i++) {
         $(formName[i]).on('submit', function (e) {
           e.preventDefault();
-          var formData = $(this).serializeObject()
-          data = JSON.stringify(formData)
-          $.ajax({
-            type: "POST",
-            url: "http://localhost:6147/api/changed",
-            data: data,
-            success: function (response) {
-              // console.log(response)
-            },
-            error: function (thrownError) {
-              // console.log(thrownError);
-            }
-          });
-
-          // $('.datahere').html(JSON.stringify(formData));
+          changeApi(formName, temp)
         });
       }
+      // 偵測select
+      $("select").focus(function () {
+        clearInterval(run);
+        $(this).addClass('focusSelect')
+      });
+      $("select").focusout(function () {
+        changeApi(formName, temp)
+        run = setInterval(function () {
+          getInitial()
+          console.log("ok")
+        }, 1000)
+      });
+      $(".focusSelect").on('change', function () {
+        changeApi(formName, temp)
+        $(this).removeClass('focusSelect')
+      })
+      // 執行校正
+      $(".setting_once_calibration").click(function () {
+        temp = 1;
+        // disable button
+        $(this).prop("disabled", true);
+        // add spinner to button
+        $(this).html(
+          `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>校正中`
+        );
+        changeApi(formName, temp)
+
+      });
+
+      // 自動對焦
+      $(".setting_once_autofocus").click(function () {
+        temp = 2;
+        // disable button
+        $(this).prop("disabled", true);
+        // add spinner to button
+        $(this).html(
+          `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>設定中`
+        );
+        changeApi(formName, temp)
+
+      });
+
+
+      function changeApi(formName, temp) {
+        var test = {}
+        for (var i = 0; i < formName.length; i++) {
+          var array = $(formName[i]).serializeArray();
+          array.forEach(function (index) {
+            // 鎖住input
+            $("." + index.name).attr('disabled', 'disabled');
+            $("." + index.name).addClass('LockInput');
+            // 鎖住input end
+            test[index.name] = index.value
+          })
+        }
+        if (temp === 1) {
+          test['setting_once_calibration'] = '1' // 執行校正的預設值
+        } else {
+          test['setting_once_calibration'] = '0' // 執行校正的預設值
+        }
+        if (temp === 2) {
+          test['setting_once_autofocus'] = '1' // 自動對焦的預設值
+        } else {
+          test['setting_once_autofocus'] = '0' // 自動對焦的預設值
+        }
+        data = JSON.stringify(test)
+        console.log(data)
+        $.ajax({
+          type: "POST",
+          url: "http://127.0.0.1:5000/api/data/changed",
+          data: data,
+          success: function (response) {
+            setTimeout(function () {
+              $(".LockInput").removeAttr('disabled');
+              $(".LockInput").removeClass("LockInput")
+              var toastLiveExample = document.getElementById('liveToast3')
+              var toast = new bootstrap.Toast(toastLiveExample)
+              document.getElementById('thisMessage3').innerHTML = "已更新數據"
+              toast.show()
+            }, 3000)
+            console.log(response.setting_once_calibration)
+            if (response.setting_once_calibration === '1') {
+              setTimeout(function () {
+                $(".setting_once_calibration").prop("disabled", false);
+                $(".setting_once_calibration").html("執行校正")
+              }, 3000)
+            }
+            if (response.setting_once_autofocus === '1') {
+              setTimeout(function () {
+                $(".setting_once_autofocus").prop("disabled", false);
+                $(".setting_once_autofocus").html("自動對焦")
+              }, 3000)
+            }
+          },
+          error: function (thrownError) {
+            // console.log(thrownError);
+          }
+        });
+      }
+
       // 以下方法為將form底下各input(需有name)的val解析，並且存入陣列中
       $.fn.serializeObject = function () {
         var o = {};
@@ -678,11 +771,11 @@
       function getInitial() {
         $.ajax({
           type: "GET",
-          url: "http://192.168.0.173:6147/api/data/initial",
+          url: "http://127.0.0.1:5000/api/data/initial",
           dataType: "json",
           success: function (response) {
             // color bar溫度顯示
-            $(".status_LF_colorbar_max").val(fix(response.status_LF_colorbar_max, 1))
+            $(".status_LF_colorbar_max").val(response.status_LF_colorbar_max.toFixed(1))
             $(".status_LF_colorbar_min").val(fix(response.status_LF_colorbar_min, 1))
             $(".status_STAIR_colorbar_max").val(fix(response.status_STAIR_colorbar_max, 1))
             $(".status_STAIR_colorbar_min").val(fix(response.status_STAIR_colorbar_min, 1))
@@ -753,13 +846,8 @@
             // 顯示狀態設定
             $(".setting_pattern").val(response.setting_pattern).change();
             $(".setting_calibration").val(response.setting_calibration).change();
-            $(".setting_corlorbar_min").val(fix(response.setting_colorbar_min, 1))
-            $(".setting_corlorbar_max").val(fix(response.setting_colorbar_max, 1))
-            // 執行校正
-            // ................
-
-            // 自動對焦
-            //  ....
+            $(".setting_colorbar_min").val(fix(response.setting_colorbar_min, 1))
+            $(".setting_colorbar_max").val(fix(response.setting_colorbar_max, 1))
             // ~~~~ 顯示狀態設定 end ~~~~
 
             // 監測設定
