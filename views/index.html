@@ -652,9 +652,13 @@
       $("select").focus(function () {
         clearInterval(run);
         $(this).addClass('focusSelect')
+
       });
-      $("select").focusout(function () {
+      $(".form-display_status").on("change", '.focusSelect', function () {
         changeApi(formName, temp)
+      })
+      $("select").focusout(function () {
+        $(this).removeClass('focusSelect')
         run = setInterval(function () {
           getInitial()
           console.log("ok")
@@ -825,7 +829,7 @@
               }
             }
             if (response.status_recording === 1) {
-              $('.status_recording').val("未啟動錄影")
+              $('.status_recording').val("待命中")
               $('.status_recording').addClass('judge')
               $('.status_recording').removeClass('judge2')
             } else if (response.status_recording === 0) {

@@ -16,7 +16,7 @@ const bodyParser = require('body-parser')
 server.listen(config.server01_Port);
 app.use(bodyParser.text({
         type: '*/*'
-    }), express.static(__dirname + '/'),
+    }), express.static(__dirname + '/views'),
     cors()
 );
 var uri =
@@ -36,7 +36,7 @@ io.on('connection', function (socket) {
     console.log("server open")
 });
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/views/index.html');
 });
 
 // 以下可以刪除

@@ -8,5 +8,16 @@
     "nodejs": "^0.0.0",
     "rtsp-ffmpeg": "^0.0.16",
     "socket.io": "^4.4.1"
+  },
+  "name": "express-example",
+  "license": "ISC",
+  "bin": "start_server.js",
+  "pkg": {
+    "assets": [
+      "views/**/*"
+    ],
+    "targets": [
+      "node8"
+    ]
   }
 }
