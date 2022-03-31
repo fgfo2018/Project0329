@@ -137,7 +137,7 @@
             </div>
             <!-- <div class="gap"></div>
             <div class="gap2"></div> -->
-            <video id="videoList" controls muted preload src="static/mock_vod/20220330_T111815.mp4"
+            <video id="videoList" controls muted preload src="static/mock_vod/.mp4"
               class="video imgCenter">
             </video>
 
@@ -384,7 +384,7 @@
                       </select>
                     </div>
                     <div class="col-auto">
-                      <button type="button" class="btn btn-secondary btn-sm subtitle py-0 setting_once_calibration"
+                      <button type="button" class="btn btn-light btn-sm subtitle py-0 border setting_once_calibration"
                         style="font-size: 12px;">執行校正</button>
                     </div>
 
@@ -404,7 +404,7 @@
                       </select>
                     </div>
                     <div class="col-auto">
-                      <button type="button" class="btn btn-secondary btn-sm subtitle py-0 setting_once_autofocus"
+                      <button type="button" class="btn btn-light btn-sm  border subtitle py-0 setting_once_autofocus"
                         style="font-size: 12px;">自動對焦</button>
                     </div>
                   </div>
@@ -564,29 +564,29 @@
   <!--  -->
   <script type="text/javascript">
     //下1選擇影像
-    $(document).ready(function () {
-      $("#videoSelect").change(function () {
-        var videoValue = $(this).val();
+    // $(document).ready(function () {
+    //   $("#videoSelect").change(function () {
+    //     var videoValue = $(this).val();
 
-        if (videoValue == 1) {
-          console.log("Inside" + videoValue);
-          $("#videoList").attr('src', 'static/mock_vod/20220330_T111815.mp4');
-        } else if (videoValue == 2) {
-          console.log("Inside" + videoValue);
-          $("#videoList").attr('src', 'static/mock_vod/20220330_T111829.mp4');
-        } else if (videoValue == 3) {
-          console.log("Inside" + videoValue);
-          $("#videoList").attr('src', 'static/mock_vod/20220330_T111847.mp4');
-        } else if (videoValue == 4) {
-          console.log("Inside" + videoValue);
-          $("#videoList").attr('src', 'static/mock_vod/20220330_T111904.mp4');
-        } else {
-          console.log("Inside" + videoValue);
-          $("#videoList").attr('src', 'static/mock_vod/20220330_T111926.mp4');
-        }
+    //     if (videoValue == 1) {
+    //       console.log("Inside" + videoValue);
+    //       $("#videoList").attr('src', 'static/mock_vod/20220330_T111815.mp4');
+    //     } else if (videoValue == 2) {
+    //       console.log("Inside" + videoValue);
+    //       $("#videoList").attr('src', 'static/mock_vod/20220330_T111829.mp4');
+    //     } else if (videoValue == 3) {
+    //       console.log("Inside" + videoValue);
+    //       $("#videoList").attr('src', 'static/mock_vod/20220330_T111847.mp4');
+    //     } else if (videoValue == 4) {
+    //       console.log("Inside" + videoValue);
+    //       $("#videoList").attr('src', 'static/mock_vod/20220330_T111904.mp4');
+    //     } else {
+    //       console.log("Inside" + videoValue);
+    //       $("#videoList").attr('src', 'static/mock_vod/20220330_T111926.mp4');
+    //     }
 
-      });
-    });
+    //   });
+    // });
   </script>
   
   <script type="text/javascript">
