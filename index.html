@@ -47,13 +47,15 @@
           <div class="card-body pt-0">
             <div class="box1 text-center">
               <div class="text-center subtitle p-0">min</div>
-              <input id="" type="float" disabled value="100.0" class="subtitle text-center"
+              <input id="" type="float" disabled value="100.0" class="subtitle text-center status_LF_colorbar_min"
+                name="status_LF_colorbar_min"
                 style="width:40px;height:21px">
             </div>
             <div class="center rainbowBar"></div>
             <div class="box2 text-center">
               <div class="text-center subtitle p-0">max</div>
-              <input id="" type="float" disabled value="500.0" class="subtitle text-center "
+              <input id="" type="float" disabled value="500.0" class="subtitle text-center status_LF_colorbar_max"
+              name="status_LF_colorbar_max"
                 style="width:40px;height:21px">
             </div>
             <img src="static/loading.png" id="rtsp_image01" class="imgCenter" alt="..." />
@@ -67,13 +69,15 @@
           <div class="card-body pt-0">
             <div class="box1 text-center">
               <div class="text-center subtitle p-0">min</div>
-              <input id="" type="float" disabled value="100.0" class="subtitle text-center"
+              <input id="" type="float" disabled value="100.0" class="subtitle text-center status_STAIR_colorbar_min"
+                name="status_STAIR_colorbar_min"
                 style="width:40px;height:21px">
             </div>
             <div class="center rainbowBar"></div>
             <div class="box2 text-center">
               <div class="text-center subtitle p-0">max</div>
-              <input id="" type="float" disabled value="500.0" class="subtitle text-center "
+              <input id="" type="float" disabled value="500.0" class="subtitle text-center status_STAIR_colorbar_max"
+                name="status_STAIR_colorbar_max"
                 style="width:40px;height:21px">
             </div> <img src="static/loading.png" id="rtsp_image02" class="imgCenter" alt="..." />
           </div>
@@ -86,13 +90,14 @@
           <div class="card-body pt-0">
             <div class="box1 text-center">
               <div class="text-center subtitle p-0">min</div>
-              <input id="" type="float" disabled value="100.0" class="subtitle text-center"
+              <input id="" type="float" disabled value="100.0" class="subtitle text-center status_LD_colorbar_min" name="status_LD_colorbar_min"
                 style="width:40px;height:21px">
             </div>
             <div class="center rainbowBar"></div>
             <div class="box2 text-center">
               <div class="text-center subtitle p-0">max</div>
-              <input id="" type="float" disabled value="500.0" class="subtitle text-center "
+              <input id="" type="float" disabled value="500.0" class="subtitle text-center status_LD_colorbar_max"
+                name="status_LD_colorbar_max"
                 style="width:40px;height:21px">
             </div> <img src="static/loading.png" id="rtsp_image03" class="imgCenter" alt="..." />
           </div>
@@ -636,6 +641,14 @@
           url: "http://192.168.0.173:6147/api/data/initial",
           dataType: "json",
           success: function (response) {
+            // color bar溫度顯示
+            $(".status_LF_colorbar_max").val(fix(response.status_LF_colorbar_max,1))
+            $(".status_LF_colorbar_min").val(fix(response.status_LF_colorbar_min,1))
+            $(".status_STAIR_colorbar_max").val(fix(response.status_STAIR_colorbar_max,1))
+            $(".status_STAIR_colorbar_min").val(fix(response.status_STAIR_colorbar_min,1))
+            $(".status_LD_colorbar_max").val(fix(response.status_LD_colorbar_max,1))
+            $(".status_LD_colorbar_min").val(fix(response.status_LD_colorbar_min,1))
+            // ~~~~ color bar溫度顯示 end ~~~~
             // 系統狀態
             // system_status以及system_status_this_div需要對應，用來判斷連線是否正常，並且正確放入值
             var system_status = [
