@@ -17,6 +17,7 @@
 </head>
 
 <body>
+  <div class="loading_bar"></div>
   <nav class="navbar navbar-expand-lg navbar-light bg-light darken py-0 shadow-sm">
     <div class="container-fluid">
       <!-- <a class="navbar-brand" href="#">Navbar</a> -->
@@ -549,16 +550,26 @@
             aria-label="Close"></button>
         </div>
       </div>
-      <div id="liveToast2" class="toast align-items-center text-white bg-primary border-0 mt-2" role="alert"
-        aria-live="assertive" aria-atomic="true" data-bs-delay="1500">
+      <!-- 表單有誤顯示 -->
+      <div id="liveToast1" class="toast align-items-center text-white bg-danger border-0 mt-2" role="alert"
+        aria-live="assertive" aria-atomic="true" data-bs-delay="20000">
         <div class="d-flex">
-          <div class="toast-body" id="thisMessage2">
+          <div class="toast-body" id="thisMessage1">
             message.
           </div>
           <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
             aria-label="Close"></button>
         </div>
       </div>
+      <div id="liveToast2" class="toast align-items-center text-white bg-danger border-0 mt-2" role="alert"
+        aria-live="assertive" aria-atomic="true" data-bs-autohide="false" data-bs-animation="false">
+        <div class="d-flex">
+          <div class="toast-body" id="thisMessage2">
+            message.
+          </div>
+        </div>
+      </div>
+      <!-- 以更新數據用 -->
       <div id="liveToast3" class="toast align-items-center text-white bg-primary border-0 mt-2" role="alert"
         aria-live="assertive" aria-atomic="true" data-bs-delay="1500">
         <div class="d-flex">
@@ -656,6 +667,8 @@
       for (var i = 0; i < formName.length; i++) {
         $(formName[i]).on('submit', function (e) {
           e.preventDefault();
+          $(".loading_bar").css('opacity', "1");
+          $(".loading_bar").css('width', getRandom(50, 70) + "%");
           changeApi(formName, temp)
         });
       }
@@ -666,6 +679,8 @@
 
       });
       $(".form-display_status").on("change", '.focusSelect', function () {
+        $(".loading_bar").css('opacity', "1");
+        $(".loading_bar").css('width', getRandom(50, 70) + "%");
         changeApi(formName, temp)
       })
       $("select").focusout(function () {
@@ -676,6 +691,8 @@
         }, 1000)
       });
       $(".focusSelect").on('change', function () {
+        $(".loading_bar").css('opacity', "1");
+        $(".loading_bar").css('width', getRandom(50, 70) + "%");
         changeApi(formName, temp)
         $(this).removeClass('focusSelect')
       })
@@ -688,8 +705,9 @@
         $(this).html(
           `<span class="spinner-border spinner-border-sm " role="status" aria-hidden="true"></span>校正中`
         );
+        $(".loading_bar").css('opacity', "1");
+        $(".loading_bar").css('width', getRandom(50, 70) + "%");
         changeApi(formName, temp)
-
       });
 
       // 自動對焦
@@ -701,13 +719,16 @@
         $(this).html(
           `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>設定中`
         );
+        $(".loading_bar").css('opacity', "1");
+        $(".loading_bar").css('width', getRandom(50, 70) + "%");
         changeApi(formName, temp)
-
       });
 
 
+
       function changeApi(formName, temp) {
-        var test = {}
+
+        var changeData = {}
         for (var i = 0; i < formName.length; i++) {
           var array = $(formName[i]).serializeArray();
           array.forEach(function (index) {
@@ -715,81 +736,118 @@
             $("." + index.name).attr('disabled', 'disabled');
             $("." + index.name).addClass('LockInput');
             // 鎖住input end
-            test[index.name] = index.value
+            changeData[index.name] = index.value
           })
         }
         if (temp === 1) {
-          test['setting_once_calibration'] = '1' // 執行校正的預設值
+          changeData['setting_once_calibration'] = '1' // 執行校正的預設值
         } else {
-          test['setting_once_calibration'] = '0' // 執行校正的預設值
+          changeData['setting_once_calibration'] = '0' // 執行校正的預設值
         }
         if (temp === 2) {
-          test['setting_once_autofocus'] = '1' // 自動對焦的預設值
+          changeData['setting_once_autofocus'] = '1' // 自動對焦的預設值
         } else {
-          test['setting_once_autofocus'] = '0' // 自動對焦的預設值
+          changeData['setting_once_autofocus'] = '0' // 自動對焦的預設值
         }
-        data = JSON.stringify(test)
-        var PostUrl = "http://127.0.0.1:5000/api/data/changed"
-        $.ajax({
-          type: "POST",
-          url: PostUrl,
-          data: data,
-          dataType: 'json',
-          contentType: 'application/json; charset=utf-8',
-          success: function (response) {
-            setTimeout(function () {
-              $(".LockInput").removeAttr('disabled');
-              $(".LockInput").removeClass("LockInput")
-              var toastLiveExample = document.getElementById('liveToast3')
-              var toast = new bootstrap.Toast(toastLiveExample)
-              document.getElementById('thisMessage3').innerHTML = "已更新數據"
-              toast.show()
-            }, 3000)
-            console.log(response.setting_once_calibration)
-            if (response.setting_once_calibration === 1) {
-              setTimeout(function () {
-                $(".setting_once_calibration").prop("disabled", false);
-                $(".setting_once_calibration").html("執行校正")
-                var data = {
-                  "setting_once_calibration": 0
-                }
-                data = JSON.stringify(data)
-                $.ajax({
-                  type: "POST",
-                  url: PostUrl,
-                  data: data,
-                  dataType: 'json',
-                  contentType: 'application/json; charset=utf-8',
-                  success: function (response) {},
-                  error: function (thrownError) {}
-                })
-              }, 5000)
-            }
-            if (response.setting_once_autofocus === 1) {
-              setTimeout(function () {
-                $(".setting_once_autofocus").prop("disabled", false);
-                $(".setting_once_autofocus").html("自動對焦")
+        data = JSON.stringify(changeData)
+        param = 15; // 嘗試重新連線紀錄
+        maxretry = 10 // 最大嘗試次數
+        timeout = 1000 // 嘗試連線紀錄
+        func(data, param)
 
-                var data = {
-                  "setting_once_autofocus": 0
+        function func(data, param) {
+          var toastLiveExample = document.getElementById('liveToast2')
+          var toast2 = new bootstrap.Toast(toastLiveExample)
+          var PostUrl = "http://127.0.0.1:5000/api/data/changed"
+          $.ajax({
+            type: "POST",
+            url: PostUrl,
+            data: data,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+              if (response.setting_atmospheric_temperature) {
+                toast2.hide()
+                setTimeout(function () {
+                  $(".LockInput").removeAttr('disabled');
+                  $(".LockInput").removeClass("LockInput")
+                  var toastLiveExample = document.getElementById('liveToast3')
+                  var toast = new bootstrap.Toast(toastLiveExample)
+                  document.getElementById('thisMessage3').innerHTML = "已更新數據"
+                  toast.show()
+                  $(".loading_bar").css('opacity', "0");
+                  $(".loading_bar").css('width', 100 + "%");
+                }, 3000)
+                console.log(response.setting_once_calibration)
+                if (response.setting_once_calibration === 1) {
+                  setTimeout(function () {
+                    $(".setting_once_calibration").prop("disabled", false);
+                    $(".setting_once_calibration").html("執行校正")
+                    var data = {
+                      "setting_once_calibration": 0
+                    }
+                    data = JSON.stringify(data)
+                    $.ajax({
+                      type: "POST",
+                      url: PostUrl,
+                      data: data,
+                      dataType: 'json',
+                      contentType: 'application/json; charset=utf-8',
+                      success: function (response) {},
+                      error: function (thrownError) {}
+                    })
+                  }, 5000)
                 }
-                data = JSON.stringify(data)
-                $.ajax({
-                  type: "POST",
-                  url: PostUrl,
-                  data: data,
-                  dataType: 'json',
-                  contentType: 'application/json; charset=utf-8',
-                  success: function (response) {},
-                  error: function (thrownError) {}
-                })
-              }, 5000)
+                if (response.setting_once_autofocus === 1) {
+                  setTimeout(function () {
+                    $(".setting_once_autofocus").prop("disabled", false);
+                    $(".setting_once_autofocus").html("自動對焦")
+                    var data = {
+                      "setting_once_autofocus": 0
+                    }
+                    data = JSON.stringify(data)
+                    $.ajax({
+                      type: "POST",
+                      url: PostUrl,
+                      data: data,
+                      dataType: 'json',
+                      contentType: 'application/json; charset=utf-8',
+                      success: function (response) {},
+                      error: function (thrownError) {}
+                    })
+                  }, 5000)
+                }
+              } else {
+                var toastLiveExample = document.getElementById('liveToast1')
+                var toast3 = new bootstrap.Toast(toastLiveExample)
+                document.getElementById('thisMessage1').innerHTML =
+                  "表單有非法字元，請重新刷新填入數據，如果還是無法傳送，請聯絡相關人員進行協助。"
+                toast3.show()
+              }
+            },
+            error: function (thrownError) {
+              console.log(thrownError)
+              console.log("POSTERROR")
+              console.log(data)
+              if (param > 0) {
+                setTimeout(function () {
+                  param = param - 1
+                  document.getElementById('thisMessage2').innerHTML =
+                  "傳送資料/設定失敗，正在重新傳送中...<br />請勿刷新頁面，以免資料遺失。<br />系統正在自動嘗試次數#" + param
+                  toast2.show()
+                  func(data, param)
+                }, 1000)
+              } else {
+                toast2.hide()
+                var toastLiveExample = document.getElementById('liveToast1')
+                var toast3 = new bootstrap.Toast(toastLiveExample)
+                document.getElementById('thisMessage1').innerHTML =
+                  "無法與伺服器連線，請重新刷新，或是請聯繫相關人員協助。"
+                toast3.show()
+              }
             }
-          },
-          error: function (thrownError) {
-            console.log("POST_404")
-          }
-        });
+          });
+        }
       }
 
       // 以下方法為將form底下各input(需有name)的val解析，並且存入陣列中
@@ -956,6 +1014,10 @@
         }
         return s;
       }
+      // 亂數產生器
+      function getRandom(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      };
     })
   </script>
 </body>

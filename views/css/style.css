@@ -1,3 +1,15 @@
+.loading_bar{
+  height:1.5px;
+  width:0%;
+  opacity:0;
+  /* background-color:rgb(145, 145, 145); */
+  background-color:rgb(255, 0, 0);
+  position:fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999999;
+  transition: 0.3s;
+}
 .fakeimg {
   width: "50%"
 }
