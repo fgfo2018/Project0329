@@ -12,6 +12,7 @@
   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
     crossorigin="anonymous"></script>
   <script src="./js/bootstrap.js"></script>
+  <script src="./js/jqurey.number.js"></script>
 
 </head>
 
@@ -37,6 +38,15 @@
 
 
   <div class="container-fluid" style="margin-top: 19px;">
+    <div id="liveAlertPlaceholder" class="d-none">
+      <div class="alert alert-danger d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+          <use xlink:href="#exclamation-triangle-fill" /></svg>
+        <div>
+          警告：你與影像伺服器失去連線，請嘗試重開瀏覽器在開啟本頁面，如此通知並未消失，請再聯絡相關技術人員。
+        </div>
+      </div>
+    </div>
     <div class="row gx-3">
       <div class="col-6 col-md-4">
         <!-- 上方--------------------------------------------------------------------------------------------- -->
@@ -137,8 +147,7 @@
             </div>
             <!-- <div class="gap"></div>
             <div class="gap2"></div> -->
-            <video id="videoList" controls muted preload src="static/mock_vod/.mp4"
-              class="video imgCenter">
+            <video id="videoList" controls muted preload src="static/mock_vod/.mp4" class="video imgCenter">
             </video>
 
           </div>
@@ -286,7 +295,7 @@
                       <label class="col-form-label subtitle py-0">Reflected Temperature (°C)</label>
                     </div>
                     <div class="col-auto">
-                      <input id="number" name="setting_reflected_temperature" type="number" value="" step="0.01"
+                      <input id="number" name="setting_reflected_temperature" type="number" value="" step="0.1"
                         class="subtitle setting_reflected_temperature"
                         style="width:56px;margin-left:27.5px;height:21px;border: 1px solid gainsboro;">
                     </div>
@@ -297,7 +306,7 @@
                       <label class="col-form-label subtitle p-0">Atmospheric Temperature (°C)</label>
                     </div>
                     <div class="col-auto">
-                      <input id="number" name="setting_atmospheric_temperature" type="number" value="" step="0.01"
+                      <input id="number" name="setting_atmospheric_temperature" type="number" value="" step="0.1"
                         class="subtitle setting_atmospheric_temperature"
                         style="width:56px;margin-left:8px;height:21px;border: 1px solid gainsboro;">
                     </div>
@@ -308,7 +317,7 @@
                       <label class="col-form-label subtitle p-0">Object Distance (m)</label>
                     </div>
                     <div class="col-auto">
-                      <input id="number" name="setting_object_distance" type="number" value="" step="0.01"
+                      <input id="number" name="setting_object_distance" type="number" value="" step="0.1"
                         class="subtitle setting_object_distance"
                         style="width:56px;margin-left:67px;height:21px;border: 1px solid gainsboro;">
                     </div>
@@ -341,7 +350,7 @@
                       <label class="col-form-label subtitle p-0">Extenal Optics Temperature (°C)</label>
                     </div>
                     <div class="col-auto">
-                      <input id="number" name="setting_external_optics_temperature" type="number" value="" step="0.01"
+                      <input id="number" name="setting_external_optics_temperature" type="number" value="" step="0.1"
                         class="subtitle setting_external_optics_temperature"
                         style="width:56px;margin-left:0px;height:21px;border: 1px solid gainsboro;">
                     </div>
@@ -377,9 +386,9 @@
                     <div class="col-auto">
                       <select class="subtitle  py-0 setting_pattern" aria-label="Default select example"
                         name="setting_pattern" style="width:178px;border: 1px solid gainsboro;">
-                        <option value="1" class="ml-0">彩虹</option>
-                        <option value="2">鐵灰</option>
-                        <option value="3">灰階</option>
+                        <option value="1" class="ml-0">彩虹模式</option>
+                        <option value="2">熔岩模式</option>
+                        <option value="3">灰階模式</option>
                         <option value="4">影像強化</option>
                       </select>
                     </div>
@@ -396,7 +405,8 @@
                     </div>
                     <div class="col-auto">
                       <select class="subtitle py-0 setting_calibration" name="setting_calibration"
-                        aria-label="Default select example" style="font-size: 12px;width:178px;border: 1px solid gainsboro;">
+                        aria-label="Default select example"
+                        style="font-size: 12px;width:178px;border: 1px solid gainsboro;">
                         <option value="0">自動校正</option>
                         <option value="1">每10分鐘</option>
                         <option value="2">每30分鐘</option>
@@ -530,7 +540,7 @@
   <div class="toast-container">
     <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
       <div id="liveToast" class="toast align-items-center text-white bg-primary border-0 mt-2" role="alert"
-        aria-live="assertive" aria-atomic="true">
+        aria-live="assertive" aria-atomic="true" data-bs-delay="1500">
         <div class="d-flex">
           <div class="toast-body" id="thisMessage">
             message.
@@ -540,7 +550,7 @@
         </div>
       </div>
       <div id="liveToast2" class="toast align-items-center text-white bg-primary border-0 mt-2" role="alert"
-        aria-live="assertive" aria-atomic="true">
+        aria-live="assertive" aria-atomic="true" data-bs-delay="1500">
         <div class="d-flex">
           <div class="toast-body" id="thisMessage2">
             message.
@@ -550,7 +560,7 @@
         </div>
       </div>
       <div id="liveToast3" class="toast align-items-center text-white bg-primary border-0 mt-2" role="alert"
-        aria-live="assertive" aria-atomic="true">
+        aria-live="assertive" aria-atomic="true" data-bs-delay="1500">
         <div class="d-flex">
           <div class="toast-body" id="thisMessage3">
             message.
@@ -588,7 +598,7 @@
     //   });
     // });
   </script>
-  
+
   <script type="text/javascript">
     var socket1 = io("http://localhost:6147/");
     var img1 = document.getElementById('rtsp_image01')
@@ -753,29 +763,32 @@
                   success: function (response) {},
                   error: function (thrownError) {}
                 })
-              }, 3000)
+              }, 5000)
             }
             if (response.setting_once_autofocus === 1) {
               setTimeout(function () {
                 $(".setting_once_autofocus").prop("disabled", false);
                 $(".setting_once_autofocus").html("自動對焦")
-              }, 3000)
-              var data = {
-                "setting_once_autofocus": 0
-              }
-              data = JSON.stringify(data)
-              $.ajax({
-                type: "POST",
-                url: PostUrl,
-                data: data,
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                success: function (response) {},
-                error: function (thrownError) {}
-              })
+
+                var data = {
+                  "setting_once_autofocus": 0
+                }
+                data = JSON.stringify(data)
+                $.ajax({
+                  type: "POST",
+                  url: PostUrl,
+                  data: data,
+                  dataType: 'json',
+                  contentType: 'application/json; charset=utf-8',
+                  success: function (response) {},
+                  error: function (thrownError) {}
+                })
+              }, 5000)
             }
           },
-          error: function (thrownError) {}
+          error: function (thrownError) {
+            console.log("POST_404")
+          }
         });
       }
 
@@ -802,13 +815,14 @@
           url: "http://127.0.0.1:5000/api/data/initial",
           dataType: "json",
           success: function (response) {
+            $('#liveAlertPlaceholder').addClass('d-none');
             // color bar溫度顯示
-            $(".status_LF_colorbar_max").val(response.status_LF_colorbar_max.toFixed(1))
-            $(".status_LF_colorbar_min").val(response.status_LF_colorbar_min.toFixed(1))
-            $(".status_STAIR_colorbar_max").val(response.status_STAIR_colorbar_max.toFixed(1))
-            $(".status_STAIR_colorbar_min").val(response.status_STAIR_colorbar_min.toFixed(1))
-            $(".status_LD_colorbar_max").val(response.status_LD_colorbar_max.toFixed(1))
-            $(".status_LD_colorbar_min").val(response.status_LD_colorbar_min.toFixed(1))
+            $(".status_LF_colorbar_max").val(response.status_LF_colorbar_max.toFixed(0))
+            $(".status_LF_colorbar_min").val(response.status_LF_colorbar_min.toFixed(0))
+            $(".status_STAIR_colorbar_max").val(response.status_STAIR_colorbar_max.toFixed(0))
+            $(".status_STAIR_colorbar_min").val(response.status_STAIR_colorbar_min.toFixed(0))
+            $(".status_LD_colorbar_max").val(response.status_LD_colorbar_max.toFixed(0))
+            $(".status_LD_colorbar_min").val(response.status_LD_colorbar_min.toFixed(0))
             // ~~~~ color bar溫度顯示 end ~~~~
             // 系統狀態
             // system_status以及system_status_this_div需要對應，用來判斷連線是否正常，並且正確放入值
@@ -838,7 +852,7 @@
               $('.status_recording').addClass('judge2')
               $('.status_recording').removeClass('judge')
             }
-            $('.status_available_space').val(fix(response.status_available_space, 1))
+            $('.status_available_space').val($.number(response.status_available_space, 1))
             if (response.status_recording <= 85) {
               $('.status_available_space').addClass('judge')
               $('.status_available_space').removeClass('judge2')
@@ -864,11 +878,11 @@
               ]
             for (var i = 0; i < machine_temperature.length; i++) {
               if (machine_temperature[i] <= 55) {
-                $(machine_temperature_this_div[i]).val(fix(machine_temperature[i], 1))
+                $(machine_temperature_this_div[i]).val($.number(machine_temperature[i], 1))
                 $(machine_temperature_this_div[i]).addClass('judge')
                 $(machine_temperature_this_div[i]).removeClass('judge2')
               } else {
-                $(machine_temperature_this_div[i]).val(fix(machine_temperature[i], 1))
+                $(machine_temperature_this_div[i]).val($.number(machine_temperature[i], 1))
                 $(machine_temperature_this_div[i]).addClass('judge2')
                 $(machine_temperature_this_div[i]).removeClass(
                   'judge')
@@ -877,29 +891,29 @@
             // ~~~~ 熱像儀主機回放 end ~~~~
 
             // 量測參數設定
-            $(".setting_reflected_temperature").val(fix(response.setting_reflected_temperature, 1))
-            $(".setting_atmospheric_temperature").val(fix(response.setting_atmospheric_temperature, 1))
-            $(".setting_object_distance").val(fix(response.setting_object_distance, 1))
-            $(".setting_object_emissivity").val(fix(response.setting_object_emissivity, 2))
-            $(".setting_relative_humidity").val(fix(response.setting_relative_humidity, 2))
-            $(".setting_external_optics_temperature").val(fix(response
+            $(".setting_reflected_temperature").val($.number(response.setting_reflected_temperature, 1))
+            $(".setting_atmospheric_temperature").val($.number(response.setting_atmospheric_temperature, 1))
+            $(".setting_object_distance").val($.number(response.setting_object_distance, 1))
+            $(".setting_object_emissivity").val($.number(response.setting_object_emissivity, 2))
+            $(".setting_relative_humidity").val($.number(response.setting_relative_humidity, 2))
+            $(".setting_external_optics_temperature").val($.number(response
               .setting_external_optics_temperature,
               1))
-            $(".setting_external_optics_transmission").val(fix(response
+            $(".setting_external_optics_transmission").val($.number(response
               .setting_external_optics_transmission,
-              1))
+              2))
             // ~~~~ 量測參數設定 end ~~~~
 
             // 顯示狀態設定
             $(".setting_pattern").val(response.setting_pattern).change();
             $(".setting_calibration").val(response.setting_calibration).change();
-            $(".setting_colorbar_min").val(fix(response.setting_colorbar_min, 1))
-            $(".setting_colorbar_max").val(fix(response.setting_colorbar_max, 1))
+            $(".setting_colorbar_min").val($.number(response.setting_colorbar_min, 1))
+            $(".setting_colorbar_max").val($.number(response.setting_colorbar_max, 1))
             // ~~~~ 顯示狀態設定 end ~~~~
 
             // 監測設定
-            $(".setting_first_alarm_temperature").val(fix(response.setting_first_alarm_temperature, 1))
-            $(".setting_second_alarm_temperature").val(fix(response.setting_second_alarm_temperature,
+            $(".setting_first_alarm_temperature").val($.number(response.setting_first_alarm_temperature, 1))
+            $(".setting_second_alarm_temperature").val($.number(response.setting_second_alarm_temperature,
               1))
             $(".setting_sampling_rate").val(response.setting_sampling_rate)
             $(".setting_threshold_pixel").val(response.setting_threshold_pixel)
@@ -913,7 +927,7 @@
 
           },
           error: function (thrownError) {
-            console.log(thrownError);
+            $('#liveAlertPlaceholder').removeClass('d-none');
           }
         });
 
@@ -923,6 +937,24 @@
         var base = Math.pow(10, N);
         // base = N * 10;
         return Math.floor(num * base) / base
+      }
+      // 小數點轉換(強制顯示小數點，需搭配jqurey.number.js)
+      function toDecimal2(x) {
+        var f = parseFloat(x);
+        if (isNaN(f)) {
+          return false;
+        }
+        var f = Math.round(x * 100) / 100;
+        var s = f.toString();
+        var rs = s.indexOf('.');
+        if (rs < 0) {
+          rs = s.length;
+          s = '.';
+        }
+        while (s.length <= rs) {
+          s = '0';
+        }
+        return s;
       }
     })
   </script>
