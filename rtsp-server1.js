@@ -1,7 +1,9 @@
-var config = require('./config');
 const express = require('express');
 const cors = require('cors')
 var fs = require("fs");
+filename = "./config.json";
+let rawdata = fs.readFileSync(filename);
+let config = JSON.parse(rawdata);
 const app = express(),
     server = require('http').Server(app),
     io = require('socket.io')(server, {

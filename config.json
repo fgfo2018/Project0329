@@ -1,0 +1,11 @@
+{
+    "server01_Url": "rtsp://192.168.0.176/avc",
+    "server01_Port": 6147,
+    "server01_VIDEO_FPS": 1,
+    "server02_Url": "rtsp://192.168.0.181/avc",
+    "server02_Port": 6148,
+    "server02_VIDEO_FPS": 1,
+    "server03_Url": "rtsp://192.168.0.159/avc",
+    "server03_Port": 6149,
+    "server03_VIDEO_FPS": 1
+}

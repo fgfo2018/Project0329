@@ -121,14 +121,9 @@
               <div class="col-auto">
                 <div class="col-form-label subtitle p-0">錄影回放</div>
               </div>
-              <div class="col-auto">
+              <div class="col-auto" id="videosList">
 
                 <select id="videoSelect" class="subtitle" style="border: 1px solid gainsboro;">
-                  <option value="1">20220330_T111815</option>
-                  <option value="2">20220330_T111829</option>
-                  <option value="3">20220330_T111847</option>
-                  <option value="4">20220330_T111904</option>
-                  <option value="5">20220330_T111926</option>
                 </select>
 
               </div>
@@ -148,7 +143,7 @@
             </div>
             <!-- <div class="gap"></div>
             <div class="gap2"></div> -->
-            <video id="videoList" controls muted preload src="static/mock_vod/.mp4" class="video imgCenter">
+            <video id="videoList" loop controls muted preload src="static/mock_vod/.mp4" class="video imgCenter">
             </video>
 
           </div>
@@ -242,33 +237,33 @@
                 </div>
                 <div class="card-body py-1">
                   <div class="row g-3 align-items-center">
-                    <div class="col-auto">
-                      <label class="col-form-label subtitle py-0">L/F副料區</label>
+                    <div class="col-8">
+                      <label class="col-form-label subtitle py-0">L/F副料區 (°C)</label>
                     </div>
-                    <div class="col-auto">
+                    <div class="col-4">
                       <input id="number" name="temperature_LF" type="" disabled value=""
                         class="subtitle text-center judge temperature_LF"
-                        style="width:56px;margin-left:66px;height:21px;border: 1px solid gainsboro;">
+                        style="width:56px;height:21px;border: 1px solid gainsboro;">
                     </div>
                   </div>
                   <div class="row g-3 align-items-center">
-                    <div class="col-auto">
-                      <label class="col-form-label subtitle py-0">出鋼室下方樓梯</label>
+                    <div class="col-8">
+                      <label class="col-form-label subtitle py-0">出鋼室下方樓梯 (°C)</label>
                     </div>
-                    <div class="col-auto">
+                    <div class="col-4">
                       <input id="number" name="temperature_STAIR" type="" disabled value=""
                         class="subtitle text-center judge temperature_STAIR"
-                        style="width:56px;margin-left:35px;height:21px;border: 1px solid gainsboro;">
+                        style="width:56px;height:21px;border: 1px solid gainsboro;">
                     </div>
                   </div>
                   <div class="row g-3 align-items-center">
-                    <div class="col-auto">
-                      <label class="col-form-label subtitle py-0">L/D 2F平台</label>
+                    <div class="col-8">
+                      <label class="col-form-label subtitle py-0">L/D 2F平台 (°C)</label>
                     </div>
-                    <div class="col-auto">
+                    <div class="col-4">
                       <input id="number" name="temperature_LD" type="" disabled value=""
                         class="subtitle text-center judge temperature_LD"
-                        style="width:56px;margin-left:59px;height:21px;border: 1px solid gainsboro;">
+                        style="width:56px;height:21px;border: 1px solid gainsboro;">
                     </div>
                   </div>
                 </div>
@@ -329,8 +324,8 @@
                       <label class="col-form-label subtitle p-0">Object Emissivity (%)</label>
                     </div>
                     <div class="col-auto">
-                      <input id="number" name="setting_object_emissivity" type="number" value="" step="0.01"
-                        class="subtitle setting_object_emissivity"
+                      <input id="number" name="setting_object_emissivity" type="number" value="" step="0.01" min="0"
+                        max="1" class="subtitle setting_object_emissivity"
                         style="width:56px;margin-left:61.5px;height:21px;border: 1px solid gainsboro;">
                     </div>
                   </div>
@@ -340,8 +335,8 @@
                       <label class="col-form-label subtitle p-0">Relative Humidity (%)</label>
                     </div>
                     <div class="col-auto">
-                      <input id="number" name="setting_relative_humidity" type="number" value="" step="0.01"
-                        class="subtitle setting_relative_humidity"
+                      <input id="number" name="setting_relative_humidity" type="number" value="" step="0.01" min="0"
+                        max="1" class="subtitle setting_relative_humidity"
                         style="width:56px;margin-left:57.5px;height:21px;border: 1px solid gainsboro;">
                     </div>
                   </div>
@@ -363,7 +358,7 @@
                     </div>
                     <div class="col-auto">
                       <input id="number" name="setting_external_optics_transmission" type="number" value="" step="0.01"
-                        class="subtitle setting_external_optics_transmission"
+                        min="0" max="1" class="subtitle setting_external_optics_transmission"
                         style="width:56px;height:21px;margin-left:-3px;border: 1px solid gainsboro;">
                     </div>
                   </div>
@@ -432,6 +427,7 @@
                         class="subtitle setting_colorbar_max"
                         style="width:56px;height:21px;border: 1px solid gainsboro;">
                     </div>
+                    <div class="col-12 mt-0"></div>
                   </div>
                 </div>
                 <button type="submit" hidden>get</button>
@@ -585,29 +581,81 @@
   <!--  -->
   <script type="text/javascript">
     //下1選擇影像
-    // $(document).ready(function () {
-    //   $("#videoSelect").change(function () {
-    //     var videoValue = $(this).val();
+    $(document).ready(function () {
+      var VideoTemp = null;
+      url = "http://127.0.0.1:5000/api/vdo/initial";
+      getVideosList(url, initial = true, VideoTemp)
+      $("#videosList").on("change", '#videoSelect', function () {
+        var videoValue = $(this).val();
+        VideoTemp = videoValue
+        $("#videoList").attr("src", videoValue)
+      })
+      var run = null;
+      run = setInterval(function () {
+        none = "http://127.0.0.1:5000/api/vdo/normal"
+        getVideosList(none, initial = false, VideoTemp)
+        console.log("ok")
+      }, 1000)
 
-    //     if (videoValue == 1) {
-    //       console.log("Inside" + videoValue);
-    //       $("#videoList").attr('src', 'static/mock_vod/20220330_T111815.mp4');
-    //     } else if (videoValue == 2) {
-    //       console.log("Inside" + videoValue);
-    //       $("#videoList").attr('src', 'static/mock_vod/20220330_T111829.mp4');
-    //     } else if (videoValue == 3) {
-    //       console.log("Inside" + videoValue);
-    //       $("#videoList").attr('src', 'static/mock_vod/20220330_T111847.mp4');
-    //     } else if (videoValue == 4) {
-    //       console.log("Inside" + videoValue);
-    //       $("#videoList").attr('src', 'static/mock_vod/20220330_T111904.mp4');
-    //     } else {
-    //       console.log("Inside" + videoValue);
-    //       $("#videoList").attr('src', 'static/mock_vod/20220330_T111926.mp4');
-    //     }
+      function getVideosList(url, initial, VideoTemp) {
+        var initial = initial;
+        $.ajax({
+          type: "GET",
+          url: url,
+          dataType: "json",
+          success: function (response) {
+            var videos = response
+            var name = [];
+            // 初始化選單
+            $('#videoSelect').html('')
+            for (var i = 1; i <= Object.keys(videos).length; i++) {
+              arr = response[i].split("\\")
+              arr = arr[Object.keys(arr)[Object.keys(arr).length - 1]]
+              name.push(arr)
+              // 過濾輸入值
+              if (VideoTemp != null) {
+                VideoTemp = VideoTemp.split("/")
+                VideoTemp = VideoTemp[Object.keys(VideoTemp)[Object.keys(VideoTemp).length - 1]]
+              }
+              // $('#videoSelect').append('<option value="' + response[i] + '">' + arr + '</option>')
+              console.log(VideoTemp)
+              if (arr === VideoTemp) {
+                $('#videoSelect').append('<option value="/static/mock_vod/' + arr + '" selected>' + arr +
+                  '</option>')
+              } else {
+                $('#videoSelect').append('<option value="/static/mock_vod/' + arr + '">' + arr + '</option>')
+              }
 
-    //   });
-    // });
+              if (i === 1 && initial === true) {
+                $('#videoList').attr("src", "/static/mock_vod/" + arr)
+              }
+            }
+          },
+          error: function (thrownError) {}
+        })
+      }
+      //   $("#videoSelect").change(function () {
+      //     var videoValue = $(this).val();
+
+      //     if (videoValue == 1) {
+      //       console.log("Inside" + videoValue);
+      //       $("#videoList").attr('src', 'static/mock_vod/20220330_T111815.mp4');
+      //     } else if (videoValue == 2) {
+      //       console.log("Inside" + videoValue);
+      //       $("#videoList").attr('src', 'static/mock_vod/20220330_T111829.mp4');
+      //     } else if (videoValue == 3) {
+      //       console.log("Inside" + videoValue);
+      //       $("#videoList").attr('src', 'static/mock_vod/20220330_T111847.mp4');
+      //     } else if (videoValue == 4) {
+      //       console.log("Inside" + videoValue);
+      //       $("#videoList").attr('src', 'static/mock_vod/20220330_T111904.mp4');
+      //     } else {
+      //       console.log("Inside" + videoValue);
+      //       $("#videoList").attr('src', 'static/mock_vod/20220330_T111926.mp4');
+      //     }
+
+      //   });
+    });
   </script>
 
   <script type="text/javascript">
@@ -634,6 +682,17 @@
   </script>
   <script type="text/javascript">
     $(document).ready(function () {
+      // 區間偵測
+      $(".form-display_status").on("change", ".setting_colorbar_min,.setting_colorbar_max", function () {
+        var setting_colorbar_min = $(".setting_colorbar_min").val();
+        $('.setting_colorbar_max').attr("min", setting_colorbar_min)
+      })
+      $(".form-alarm_temperature").on("change",
+        ".setting_first_alarm_temperature,.setting_second_alarm_temperature",
+        function () {
+          var setting_first_alarm_temperature = $(".setting_first_alarm_temperature").val();
+          $('.setting_second_alarm_temperature').attr("min", setting_first_alarm_temperature)
+        })
       // 初始化
       getInitial()
 
@@ -641,18 +700,14 @@
       var run = null;
       run = setInterval(function () {
         getInitial()
-        console.log("ok")
       }, 1000)
       $("input").focus(function () {
         clearInterval(run);
-        console.log("focus")
       });
       $("input").focusout(function () {
         run = setInterval(function () {
           getInitial()
-          console.log("ok")
         }, 1000)
-        console.log("no focus")
       })
 
       // 前端數值設定
@@ -672,22 +727,23 @@
           changeApi(formName, temp)
         });
       }
-      // 偵測select
+      // 偵測select被選為焦點時，暫停initial動作
       $("select").focus(function () {
         clearInterval(run);
         $(this).addClass('focusSelect')
 
       });
+      // 動態方式判斷select是否有被更動
       $(".form-display_status").on("change", '.focusSelect', function () {
         $(".loading_bar").css('opacity', "1");
         $(".loading_bar").css('width', getRandom(50, 70) + "%");
         changeApi(formName, temp)
       })
+      // select被移除焦點將恢復執行initial
       $("select").focusout(function () {
         $(this).removeClass('focusSelect')
         run = setInterval(function () {
           getInitial()
-          console.log("ok")
         }, 1000)
       });
       $(".focusSelect").on('change', function () {
@@ -833,7 +889,7 @@
                 setTimeout(function () {
                   param = param - 1
                   document.getElementById('thisMessage2').innerHTML =
-                  "傳送資料/設定失敗，正在重新傳送中...<br />請勿刷新頁面，以免資料遺失。<br />系統正在自動嘗試次數#" + param
+                    "傳送資料/設定失敗，正在重新傳送中...<br />請勿刷新頁面，以免資料遺失。<br />系統正在自動嘗試次數#" + param
                   toast2.show()
                   func(data, param)
                 }, 1000)
@@ -868,6 +924,12 @@
       };
       // 以下是GET 
       function getInitial() {
+        var formName = [
+          'form.form-temperature_setting',
+          'form.form-display_status',
+          'form.form-alarm_temperature',
+          'form.form-export_temperature'
+        ]
         $.ajax({
           type: "GET",
           url: "http://127.0.0.1:5000/api/data/initial",
@@ -982,10 +1044,27 @@
             $(".setting_export_image_video").val(response.setting_export_image_video)
             $(".setting_export_camera_temperature").val(response.setting_export_camera_temperature)
             // ~~~~ 輸出設定 end ~~~~
-
+            for (var i = 0; i < formName.length; i++) {
+              var array = $(formName[i]).serializeArray();
+              array.forEach(function (index) {
+                // 鎖住input
+                $("." + index.name).removeAttr('disabled');
+                $("." + index.name).removeClass('LockInput');
+                // 鎖住input end
+              })
+            }
           },
           error: function (thrownError) {
             $('#liveAlertPlaceholder').removeClass('d-none');
+            for (var i = 0; i < formName.length; i++) {
+              var array = $(formName[i]).serializeArray();
+              array.forEach(function (index) {
+                // 鎖住input
+                $("." + index.name).attr('disabled', 'disabled');
+                $("." + index.name).addClass('LockInput');
+                // 鎖住input end
+              })
+            }
           }
         });
 

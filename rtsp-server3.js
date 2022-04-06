@@ -1,4 +1,8 @@
-var config = require('../config');
+// var config = require('../config');
+var fs = require("fs");
+filename = "./config.json";
+let rawdata = fs.readFileSync(filename);
+let config = JSON.parse(rawdata);
 const app = require('express')(),
     server = require('http').Server(app),
     io = require('socket.io')(config.server03_Port, {
