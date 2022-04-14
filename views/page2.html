@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.js"
+		integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+	<script src="./js/bootstrap.js"></script>
+	<script src="./js/echarts.min.js"></script>
+
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light darken py-0 shadow-sm">
+		<div class="container-fluid">
+			<!-- <a class="navbar-brand" href="#">Navbar</a> -->
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+				aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav">
+					<a class="nav-link active fw-bold title" aria-current="page" href="index.html"
+						style="color:#6f6f6f;font-size:18px;margin-left: 40px;">即時監控</a>
+					<a class="nav-link active fw-bold title" aria-current="page" href="page2.html"
+						style="color:#6f6f6f;font-size:18px;margin-left: 40px;">即時監控</a>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+
+
+
+
+	<!-- nested grid -->
+	<div class="container-fluid mt-3">
+		<div class="row ">
+			<div class="col-md-6">
+				<!-- 下1---------------------------------------------------------------------------------------------- -->
+				<div class="card" style="height:316px;">
+					<div class="card-header title py-1">
+						<div class="row g-3 align-items-center">
+							<div class="col-auto">
+								<div class="col-form-label subtitle p-0">錄影回放</div>
+							</div>
+							<div class="col-auto">
+
+								<select id="videoSelect" class="subtitle" style="border: 1px solid gainsboro;">
+									<option value="1">20220330_T111815</option>
+									<option value="2">20220330_T111829</option>
+									<option value="3">20220330_T111847</option>
+									<option value="4">20220330_T111904</option>
+									<option value="5">20220330_T111926</option>
+								</select>
+
+							</div>
+						</div>
+					</div>
+					<div class="card-body p-0 ">
+						<div class="row  align-items-center tri subtitle">
+							<div class="col-4">
+								&nbsp;&nbsp;&nbsp;L/F 副料區
+							</div>
+							<div class="col-4">
+								&nbsp;&nbsp;&nbsp;出鋼室地下樓梯
+							</div>
+							<div class="col-4">
+								&nbsp;&nbsp;&nbsp;L/D 2F平台
+							</div>
+						</div>
+						<div class="gap"></div>
+						<div class="gap2"></div>
+						<video id="videoList" loop controls muted preload src="static/mock_vod/20220330_T111815.mp4"
+							class="video imgCenter">
+						</video>
+						<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+						<!-- <div ref="main" style="width: 600px;height:400px;"></div> -->
+
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<!-- 下1---------------------------------------------------------------------------------------------- -->
+				<div class="card" style="height:316px;">
+					<div class="card-header title py-1">
+						<div class="row g-3 align-items-center">
+							<div class="col-auto">
+								<div class="col-form-label subtitle p-0">錄影回放</div>
+							</div>
+							<div class="col-auto">
+
+								<select id="videoSelect" class="subtitle" style="border: 1px solid gainsboro;">
+									<option value="1">20220330_T111815</option>
+									<option value="2">20220330_T111829</option>
+									<option value="3">20220330_T111847</option>
+									<option value="4">20220330_T111904</option>
+									<option value="5">20220330_T111926</option>
+								</select>
+
+							</div>
+						</div>
+					</div>
+					<div class="card-body p-0 ">
+
+						<!-- <div class="gap"></div>
+			  <div class="gap2"></div> -->
+						<!-- <video id="videoList" loop controls muted preload src="static/mock_vod/20220330_T111815.mp4"
+				class="video imgCenter">
+			  </video> -->
+						<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+						<div id="main" style="width: 900px;height:300px;"></div>
+
+					</div>
+				</div>
+			</div>
+
+
+			<div class="col-md-12 mt-3">
+				<!-- 下1---------------------------------------------------------------------------------------------- -->
+				<div class="card" style="height:316px;">
+					<div class="card-header title py-1">
+						<div class="row g-3 align-items-center">
+							<div class="col-auto">
+								<div class="col-form-label subtitle p-0">錄影回放</div>
+							</div>
+
+						</div>
+					</div>
+					<div class="card-body p-0 ">
+
+
+
+
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th scope="col"></th>
+									<th scope="col">錄影開始時間</th>
+									<th scope="col">錄影開始時間</th>
+									<th scope="col">總秒數</th>
+									<th scope="col">熱像中文名-1</th>
+									<th scope="col">熱像中文名-2</th>
+									<th scope="col">熱像中文名-3</th>
+									<th scope="col">最高溫度-1</th>
+									<th scope="col">最高溫度-2</th>
+									<th scope="col">最高溫度-3</th>
+									<th scope="col">拍照時間</th>
+									<th scope="col">警示大於像素-1</th>
+									<th scope="col">警示大於像素-2</th>
+									<th scope="col">警示大於像素-3</th>
+
+
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row">1</th>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<th scope="row">2</th>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<th scope="row">3</th>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<th scope="row">4</th>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<th scope="row">5</th>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<script type="text/javascript">
+		// 基于准备好的dom，初始化echarts实例
+		var myChart = echarts.init(document.getElementById('main'));
+
+
+
+		// 指定图表的配置项和数据
+		var option = {
+			title: {
+				// text: ''
+			},
+			tooltip: {
+				trigger: 'axis'
+			},
+			legend: {
+				data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
+			},
+			grid: {
+				left: '3%',
+				right: '4%',
+				bottom: '3%',
+				containLabel: true
+			},
+			toolbox: {
+				feature: {
+					saveAsImage: {}
+				}
+			},
+			xAxis: {
+				type: 'category',
+				boundaryGap: false,
+				data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+			},
+			yAxis: {
+				type: 'value'
+			},
+			series: [
+				{
+					name: 'Email',
+					type: 'line',
+					stack: 'Total',
+					data: [120, 132, 101, 134, 90, 230, 210],
+					smooth: true
+
+				},
+				{
+					name: 'Union Ads',
+					type: 'line',
+					stack: 'Total',
+					data: [220, 182, 191, 234, 290, 330, 310],
+					smooth: true
+				},
+				{
+					name: 'Video Ads',
+					type: 'line',
+					stack: 'Total',
+					data: [150, 232, 201, 154, 190, 330, 410],
+					smooth: true
+				},
+
+			]
+		};
+
+		// 使用刚指定的配置项和数据显示图表。
+		myChart.setOption(option);
+	</script>
+
+</body>
+
+</html>
