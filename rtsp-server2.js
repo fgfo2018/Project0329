@@ -26,7 +26,15 @@ io.on('connection', function (socket) {
     socket.on('disconnect', function () {
         stream.removeListener('data', pipeStream);
     });
+    console.log("[" + mToday() + "] NO.2 Connection succeeded")
 });
+
+function mToday() {
+    var m = new Date().toLocaleString('zh-TW', {
+        timeZone: 'Asia/Taipei'
+    });
+    return m;
+}
 // server.listen(3000, function () {
 // console.log('listening on *:3000');
 // });
