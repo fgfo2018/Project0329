@@ -734,6 +734,21 @@
         } else if (stay01 >= 21) {
           stay01 = 0
           socket1.disconnect()
+          var logname = {
+            name: i
+          }
+          logname = JSON.stringify(logname)
+          jQuery.ajax({
+            type: "POST",
+            url: '/log',
+            data: logname,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+              console.log('save log')
+            },
+            error: function (thrownError) {}
+          })
         }
         stay01++
         // console.log(stay01)
@@ -1138,18 +1153,18 @@
             for (var i = 0; i < machine_temperature.length; i++) {
               if (machine_temperature[i] < 55) {
                 $(machine_temperature_this_div[i]).val($.number(machine_temperature[i], 1))
-                $(machine_temperature_this_div[i]).css("background-color","#7fffd4")
+                $(machine_temperature_this_div[i]).css("background-color", "#7fffd4")
                 // $(machine_temperature_this_div[i]).addClass('judge')
                 // $(machine_temperature_this_div[i]).removeClass('judge2')
-              } else if(machine_temperature[i] >=55 && machine_temperature[i] <= 60){
+              } else if (machine_temperature[i] >= 55 && machine_temperature[i] <= 60) {
                 $(machine_temperature_this_div[i]).val($.number(machine_temperature[i], 1))
-                $(machine_temperature_this_div[i]).css("background-color","#ffc87f")
+                $(machine_temperature_this_div[i]).css("background-color", "#ffc87f")
                 // $(machine_temperature_this_div[i]).addClass('judge2')
                 // $(machine_temperature_this_div[i]).removeClass(
-                  // 'judge')
-              }else{
+                // 'judge')
+              } else {
                 $(machine_temperature_this_div[i]).val($.number(machine_temperature[i], 1))
-                $(machine_temperature_this_div[i]).css("background-color","#ff5452")
+                $(machine_temperature_this_div[i]).css("background-color", "#ff5452")
               }
             }
             // ~~~~ 熱像儀主機回放 end ~~~~
