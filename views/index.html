@@ -73,7 +73,6 @@
             <div class="position-relative">
               <img src="static/loading.png" id="rtsp_image01" class="imgCenter" alt="..." />
               <div id="rtsp-error01">
-                Loading...
               </div>
             </div>
             <div class="w-100">
@@ -102,7 +101,6 @@
             <div class="position-relative">
               <img src="static/loading.png" id="rtsp_image02" class="imgCenter" alt="..." />
               <div id="rtsp-error02">
-                Loading...
               </div>
             </div>
             <div class="d-none" id="rtsp-status02"></div>
@@ -129,7 +127,6 @@
             <div class="position-relative"> <img src="static/loading.png" id="rtsp_image03" class="imgCenter"
                 alt="..." />
               <div id="rtsp-error03">
-                Loading...
               </div>
             </div>
             <div class="d-none" id="rtsp-status03"></div>
@@ -745,6 +742,21 @@
         } else if (stay01 >= 21) {
           stay01 = 0
           socket1.disconnect()
+          var logname = {
+            name: i
+          }
+          logname = JSON.stringify(logname)
+          jQuery.ajax({
+            type: "POST",
+            url: '/log',
+            data: logname,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (response) {
+              console.log('save log')
+            },
+            error: function (thrownError) {}
+          })
         }
         stay01++
         // console.log(stay01)
@@ -1147,15 +1159,20 @@
                 '.temperature_LD'
               ]
             for (var i = 0; i < machine_temperature.length; i++) {
-              if (machine_temperature[i] <= 55) {
+              if (machine_temperature[i] < 55) {
                 $(machine_temperature_this_div[i]).val($.number(machine_temperature[i], 1))
-                $(machine_temperature_this_div[i]).addClass('judge')
-                $(machine_temperature_this_div[i]).removeClass('judge2')
+                $(machine_temperature_this_div[i]).css("background-color", "#7fffd4")
+                // $(machine_temperature_this_div[i]).addClass('judge')
+                // $(machine_temperature_this_div[i]).removeClass('judge2')
+              } else if (machine_temperature[i] >= 55 && machine_temperature[i] <= 60) {
+                $(machine_temperature_this_div[i]).val($.number(machine_temperature[i], 1))
+                $(machine_temperature_this_div[i]).css("background-color", "#ffc87f")
+                // $(machine_temperature_this_div[i]).addClass('judge2')
+                // $(machine_temperature_this_div[i]).removeClass(
+                // 'judge')
               } else {
                 $(machine_temperature_this_div[i]).val($.number(machine_temperature[i], 1))
-                $(machine_temperature_this_div[i]).addClass('judge2')
-                $(machine_temperature_this_div[i]).removeClass(
-                  'judge')
+                $(machine_temperature_this_div[i]).css("background-color", "#ff5452")
               }
             }
             // ~~~~ 熱像儀主機回放 end ~~~~

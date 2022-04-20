@@ -165,7 +165,7 @@
   }
 }
 
-#rtsp-error01,
+/* #rtsp-error01,
 #rtsp-error02,
 #rtsp-error03 {
   position: absolute;
@@ -175,12 +175,25 @@
   color: #fff;
   right: 0;
   z-index: 9999;
-  /* background-color: #00000098; */
   background-image: linear-gradient(180deg, #ffffff00 0%, #0000002d 24%, #000000 100%);
   display: flex;
   align-items: flex-end;
   justify-content: flex-end;
   font-family: initial;
-  opacity:1;
+  opacity:0;
   transition:.3s;
+} */
+#rtsp-error01,
+#rtsp-error02,
+#rtsp-error03 {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  bottom: 0;
+  margin: 5px;
+  background-color: rgb(255, 0, 0);
+  right: 0;
+  border-radius: 10px;
+  opacity: 0;
+  transition: 1s;
 }
