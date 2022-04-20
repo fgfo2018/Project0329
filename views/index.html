@@ -13,7 +13,7 @@
     crossorigin="anonymous"></script>
   <script src="./js/bootstrap.js"></script>
   <script src="./js/jqurey.number.js"></script>
-
+  
 </head>
 
 <body>
@@ -29,8 +29,9 @@
         <div class="navbar-nav">
           <a class="nav-link active fw-bold title" aria-current="page" href="index.html"
             style="color:#6f6f6f;font-size:15px;margin-left: 40px;">即時監控</a>
-            <a class="nav-link active fw-bold title" aria-current="page" href="page2.html"
-            style="color:#6f6f6f;font-size:15px;margin-left: 40px;">數據收集狀況監測</a>
+          <a class="nav-link active fw-bold title" aria-current="page" href="dataScraping.html"
+            style="color:#6f6f6f;font-size:15px;margin-left: 40px;">資料分析</a>
+          </div></a>
         </div>
       </div>
     </div>
@@ -44,7 +45,8 @@
     <div id="liveAlertPlaceholder" class="d-none">
       <div class="alert alert-danger d-flex align-items-center" role="alert">
         <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
-          <use xlink:href="#exclamation-triangle-fill" /></svg>
+          <use xlink:href="#exclamation-triangle-fill" />
+        </svg>
         <div>
           警告：你與影像伺服器失去連線，請嘗試重開瀏覽器在開啟本頁面，如此通知並未消失，請再聯絡相關技術人員。
         </div>
@@ -454,7 +456,9 @@
                         class="subtitle setting_colorbar_max is-visible" style="width:56px;height:21px;" required>
                     </div>
                     <div class="col-12 mt-1 text-danger setting_colorbar-visible-error d-none">
-                      # 量測範圍設定錯誤，格式: [測量最小值] < [測量最大值] </div> </div> </div> <button type="submit" hidden>get</button>
+                      # 量測範圍設定錯誤，格式: [測量最小值] < [測量最大值] </div>
+                    </div>
+                  </div> <button type="submit" hidden>get</button>
               </form>
             </div>
 
@@ -500,8 +504,10 @@
                             required>
                         </div>
                         <div class="col-12 mt-1 text-danger alarm-visible-error d-none">
-                          # 警報溫度範圍設定錯誤，格式: [第一段警報溫度] < [第二段警報溫度] </div> </div> </div> <button type="submit" hidden>
-                            get</button>
+                          # 警報溫度範圍設定錯誤，格式: [第一段警報溫度] < [第二段警報溫度] </div>
+                        </div>
+                      </div> <button type="submit" hidden>
+                        get</button>
                   </form>
                 </div>
               </div>
@@ -662,7 +668,7 @@
               z++
             })
           },
-          error: function (thrownError) {}
+          error: function (thrownError) { }
         })
       }
 
@@ -956,8 +962,8 @@
                         data: data,
                         dataType: 'json',
                         contentType: 'application/json; charset=utf-8',
-                        success: function (response) {},
-                        error: function (thrownError) {}
+                        success: function (response) { },
+                        error: function (thrownError) { }
                       })
                     }, 5000)
                   }
@@ -975,8 +981,8 @@
                         data: data,
                         dataType: 'json',
                         contentType: 'application/json; charset=utf-8',
-                        success: function (response) {},
-                        error: function (thrownError) {}
+                        success: function (response) { },
+                        error: function (thrownError) { }
                       })
                     }, 5000)
                   }
@@ -1038,7 +1044,7 @@
         var setting_first_alarm_temperature = $(".setting_first_alarm_temperature");
         var setting_second_alarm_temperature = $(".setting_second_alarm_temperature");
         if (parseFloat(setting_first_alarm_temperature.val()) > parseFloat(setting_second_alarm_temperature
-            .val())) {
+          .val())) {
           setting_first_alarm_temperature.addClass("is-error")
           setting_second_alarm_temperature.addClass("is-error")
           $(".alarm-visible-error").removeClass("d-none")

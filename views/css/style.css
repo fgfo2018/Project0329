@@ -100,7 +100,7 @@
 
 .video2 {
   /* position: absolute; */
-  width: 918px;
+  /* width: 918px; */
   height: 230px;
   /* height: 282px; */
   /* background: #000; */
@@ -113,7 +113,7 @@
   padding-top: 14px;
 }
 
-.gap {
+/* .gap {
   width: 10px;
   height: 230px;
   background-color: rgb(255, 255, 255);
@@ -129,7 +129,7 @@
   position: absolute;
   left: 620px;
   z-index: 99999;
-}
+} */
 
 .navbar {
   height: 30px;
