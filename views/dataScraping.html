@@ -17,8 +17,8 @@
 	<script src="./js/echarts.min.js"></script>
 
 	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
 	<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css">
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
 		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
@@ -469,11 +469,10 @@
 	</script>
 </head>
 
-<body class="bg-light">
-	<nav class="navbar navbar-expand-lg navbar-light bg-dark darken py-0 shadow-sm">
-
+<body style="background-color: #e2e2e2;">
+	<!-- <nav class="navbar navbar-expand-lg navbar-light bg-dark darken py-0 shadow-sm">
 		<div class="container-fluid">
-			<!-- <a class="navbar-brand" href="#">Navbar</a> -->
+			<a class="navbar-brand" href="#">Navbar</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
 				aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -487,7 +486,20 @@
 				</div>
 			</div>
 		</div>
-	</nav>
+	</nav> -->
+
+	<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark bg-gradient">
+		<div class="container">
+		  <ul class="navbar-nav">
+			<li class="nav-item">
+			  <a href="index.html" class="nav-link">即時監控</a>
+			</li>
+			<li class="nav-item">
+			  <a href="dataScraping.html" class="nav-link">資料分析</a>
+			</li>
+		  </ul>
+		</div>
+	  </nav>
 
 
 	<div class="container-fluid mt-3 mr-0">
@@ -793,8 +805,8 @@
 								width: '3',
 								shadowOffsetY: '0',
 								shadowOffsetX: '0',
+								align: 'center',
 
-								// lineHeight: '10',
 
 							},
 						}
