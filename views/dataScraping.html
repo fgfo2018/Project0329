@@ -20,15 +20,14 @@
 	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
 	<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css">
-	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
-		</script>
+
+	</script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
 		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-		</script>
+	</script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
 		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
-		</script>
+	</script>
 	<script src="https://kit.fontawesome.com/a04ef755a4.js" crossorigin="anonymous"></script>
 	<!-- BS Table -->
 	<script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js"></script>
@@ -41,148 +40,38 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 	<script>
 		var $table = $('#table');
-		var mydata2 = [
-			{
-				"id": 1,
-				"bucketNumber": "",
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"maxTempForLF": "450.5°C",
-				"maxTempForDownStairs": "460.5.°C",
-				"maxTempForLD": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
+		var mydata2 = [];
+		jQuery.ajax({
+			url: '/temp/Data/20220421.txt',
+			method: 'GET',
+			dataType: "json",
+			success: function (res) {
+				console.log(res)
+				var length = 0
+				res.forEach(element => {
+					mydata2[length] = element
+					length++
+				});
 			},
-			{
-				"id": 2,
-				"bucketNumber": "",
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"maxTempForLF": "450.5°C",
-				"maxTempForDownStairs": "460.5.°C",
-				"maxTempForLD": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
+			error: function (err) {
+				console.log(err)
 			},
-			{
-				"id": 3,
-				"bucketNumber": "",
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"maxTempForLF": "450.5°C",
-				"maxTempForDownStairs": "460.5.°C",
-				"maxTempForLD": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
-			},
-			{
-				"id": 4,
-				"bucketNumber": "",
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"maxTempForLF": "450.5°C",
-				"maxTempForDownStairs": "460.5.°C",
-				"maxTempForLD": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
-			},
-			{
-				"id": 5,
-				"bucketNumber": "",
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"maxTempForLF": "450.5°C",
-				"maxTempForDownStairs": "460.5.°C",
-				"maxTempForLD": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
-			},
-			{
-				"id": 6,
-				"bucketNumber": "",
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"maxTempForLF": "450.5°C",
-				"maxTempForDownStairs": "460.5.°C",
-				"maxTempForLD": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
-			},
-			{
-				"id": 7,
-				"bucketNumber": "",
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"maxTempForLF": "450.5°C",
-				"maxTempForDownStairs": "460.5.°C",
-				"maxTempForLD": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
-			},
-			{
-				"id": 8,
-				"bucketNumber": "",
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"maxTempForLF": "450.5°C",
-				"maxTempForDownStairs": "460.5.°C",
-				"maxTempForLD": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
-			},
-			{
-				"id": 9,
-				"bucketNumber": "",
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"maxTempForLF": "450.5°C",
-				"maxTempForDownStairs": "460.5.°C",
-				"maxTempForLD": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
-			},
-			{
-				"id": 10,
-				"bucketNumber": "",
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"maxTempForLF": "450.5°C",
-				"maxTempForDownStairs": "460.5.°C",
-				"maxTempForLD": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
-			},
-		];
+		})
+		// console.log(mydata2)
+		// setInterval(function () {
+		// 	const dateTime = Date.now();
+		// 	const timestamp = Math.floor(dateTime / 1000);
+		// 	var date = document.getElementById('date');
+
+		// 	var dateNow = new Date(timestamp * 1000);
+		// 	var hours = dateNow.getHours();
+		// 	// Minutes part from the timestamp
+		// 	var minutes = "0" + dateNow.getMinutes();
+		// 	// Seconds part from the timestamp
+		// 	var seconds = "0" + dateNow.getSeconds();
+		// 	var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+		// }, 1000)
+		// 
 
 		$(function () {
 
@@ -277,8 +166,9 @@
 		});
 
 		// input輸入框
-		function bucketNumberForm() {
-			return ['<input type="number" min="0" style="width:50px">']
+		function bucketNumberForm(e) {
+			console.log(e)
+			return ['<input type="number" min="0" style="width:50px" value="' + e + '">']
 		}
 	</script>
 </head>
@@ -330,11 +220,13 @@
 					</div>
 					<div class="card-body" style="font-size: 12px;">
 						<div class="table-responsive">
-							<table id="table2" data-height="807" data-show-export="true" data-pagination="false"
-								data-click-to-select="true" data-toolbar="#toolbar" data-show-toggle="true"
-								data-show-columns="true" data-sortable="true" data-toggle="table2" data-search="true"
-								data-live-search="true" data-show-refresh="true">
-							</table>
+							<form class="data-report">
+								<table id="table2" data-height="807" data-show-export="true" data-pagination="false"
+									data-click-to-select="true" data-toolbar="#toolbar" data-show-toggle="true"
+									data-show-columns="true" data-sortable="true" data-toggle="table2"
+									data-search="true" data-live-search="true" data-show-refresh="true">
+								</table>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -483,24 +375,24 @@
 
 			},
 			series: [{
-				name: 'L/F 副料區',
-				type: 'line',
-				data: [300, 314, 325, 330, 330, 344, 348, 332, 320, 307, 300],
-				smooth: true,
+					name: 'L/F 副料區',
+					type: 'line',
+					data: [300, 314, 325, 330, 330, 344, 348, 332, 320, 307, 300],
+					smooth: true,
 
-			},
-			{
-				name: '出鋼室地下樓梯',
-				type: 'line',
-				data: [300, 300, 310, 320, 337, 340, 349, 333, 320, 310, 305],
-				smooth: true,
-			},
-			{
-				name: 'L/D 2F平台',
-				type: 'line',
-				data: [320, 330, 330, 350, 342, 340, 330, 325, 320, 314, 312],
-				smooth: true,
-			},
+				},
+				{
+					name: '出鋼室地下樓梯',
+					type: 'line',
+					data: [300, 300, 310, 320, 337, 340, 349, 333, 320, 310, 305],
+					smooth: true,
+				},
+				{
+					name: 'L/D 2F平台',
+					type: 'line',
+					data: [320, 330, 330, 350, 342, 340, 330, 325, 320, 314, 312],
+					smooth: true,
+				},
 			]
 		};
 		// 使用刚指定的配置项和数据显示图表。
