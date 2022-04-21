@@ -167,7 +167,6 @@
 
 		// input輸入框
 		function bucketNumberForm(e) {
-			console.log(e)
 			return ['<input type="number" min="0" style="width:50px" value="' + e + '">']
 		}
 	</script>
@@ -313,12 +312,8 @@
 	<!-- 折線圖 -->
 	<script type="text/javascript">
 		// 基于准备好的dom，初始化echarts实例
-		var myChart = echarts.init(document.getElementById('main'));
+		var Trend = echarts.init(document.getElementById('main'));
 		const colorPalette2 = ['#7180AC', '#2B4570', '#A8D0DB', '#E49273']
-
-
-
-
 		// 指定图表的配置项和数据
 		var option = {
 			title: {
@@ -338,7 +333,6 @@
 				}
 			},
 			// color: 'colorPalette2',
-
 			grid: {
 				left: '2%',
 				right: '3%',
@@ -358,7 +352,6 @@
 				show: true,
 				interval: 1,
 				triggerEvent: true,
-				data: [0, 1, 2, 3, 4, 5, 6],
 			},
 			yAxis: {
 				// type: 'value'
@@ -376,48 +369,146 @@
 			},
 			series: [{
 					name: 'L/F 副料區',
-					type: 'line',
-					data: [300, 314, 325, 330, 330, 344, 348, 332, 320, 307, 300],
 					smooth: true,
-
+					type: 'line'
 				},
 				{
 					name: '出鋼室地下樓梯',
-					type: 'line',
-					data: [300, 300, 310, 320, 337, 340, 349, 333, 320, 310, 305],
 					smooth: true,
+					type: 'line'
 				},
 				{
 					name: 'L/D 2F平台',
-					type: 'line',
-					data: [320, 330, 330, 350, 342, 340, 330, 325, 320, 314, 312],
 					smooth: true,
+					type: 'line'
 				},
 			]
 		};
 		// 使用刚指定的配置项和数据显示图表。
-		myChart.setOption(option);
-		myChart.on('click', function (params) {
-			var click_this_val = null
-			if (params.componentType === 'series') {
-				click_this_val = params.dataIndex
-			} else if (params.componentType === 'xAxis') {
-				click_this_val = params.value
+		Trend.setOption(option);
+
+		// Trend.on('click', function (params) {
+		// 	var click_this_val = null
+		// 	if (params.componentType === 'series') {
+		// 		click_this_val = params.dataIndex
+		// 	} else if (params.componentType === 'xAxis') {
+		// 		click_this_val = params.value
+		// 	}
+		// 	console.log(parseInt(click_this_val))
+		// 	this_video = document.getElementById("videoList");
+		// 	this_video.currentTime = click_this_val
+		// 	this_video.pause()
+		// });
+
+		Trend.on('click', function (params) {
+			if (params.componentType === 'markPoint') {
+				// 点击到了 markPoint 上
+				console.log('1')
+				if (params.seriesIndex === 5) {
+					// 点击到了 index 为 5 的 series 的 markPoint 上。
+					console.log('2')
+				}
+			} else if (params.componentType === 'series') {
+				console.log('3')
+				if (params.seriesType === 'graph') {
+					console.log('4')
+					if (params.dataType === 'edge') {
+						console.log('5')
+						// 点击到了 graph 的 edge（边）上。
+					} else {
+						console.log('6')
+						// 点击到了 graph 的 node（节点）上。
+					}
+				}
 			}
-			console.log(parseInt(click_this_val))
-			this_video = document.getElementById("videoList");
-			this_video.currentTime = click_this_val
-			this_video.pause()
 		});
+		// 無限載入數據
+		var play = 0 //定義x軸起點
+		var x1 = [] //宣告x軸陣列
+		var x11 = [] //宣告x1(副料區)陣列
+		var x12 = [] //宣告x2陣列
+		var x13 = [] //宣告x3陣列
+		var shift = false // 設定最大值
+		setInterval(function () {
+			// 設定最多顯示多少資料
+			if(x1.length >= 5){
+				shift = true
+			}
+			x1.push(play) //在陣列後端新增變數
+			x11.push(sum()) //在陣列後端新增變數
+			x12.push(sum()) //在陣列後端新增變數
+			x13.push(sum()) //在陣列後端新增變數
+			if(shift){ //如果shift為true則刪除陣列的最舊key
+				x1.shift()
+				x11.shift()
+				x12.shift()
+				x13.shift()
+			}
+			// 設定echarts data
+			Trend.setOption({
+				xAxis: {
+					data: x1,
+				},
+				series: [{
+						name: 'L/F 副料區',
+						data: x11
+					},
+					{
+						name: '出鋼室地下樓梯',
+						data: x12
+					},
+					{
+						name: 'L/D 2F平台',
+						data: x13
+					},
+				]
+			})
+			play++
+		}, 500)
+		// 亂數設定
+		function sum() {
+			min = Math.ceil(300); 
+			max = Math.floor(350);
+			return Math.floor(Math.random() * (max - min + 1) + min)
+		}
+		// 非同步載入資料
+		// setInterval(function () {
+		// 	$.ajax({
+		// 		url: '/temp/Trend/20220421.txt',
+		// 		method: 'GET',
+		// 		dataType: "json",
+		// 		success: function (res) {
+		// 			Trend.setOption({
+		// 				xAxis: {
+		// 					data: [0, 1, 2, 3, 4, 5],
+		// 				},
+		// 				series: [{
+		// 						name: 'L/F 副料區',
+		// 						data: res[0].data
+
+		// 					},
+		// 					{
+		// 						name: '出鋼室地下樓梯',
+		// 						data: res[1].data
+		// 					},
+		// 					{
+		// 						name: 'L/D 2F平台',
+		// 						data: res[2].data
+		// 					},
+		// 				]
+		// 			})
+		// 		},
+		// 		error: function (err) {
+		// 			console.log(err)
+		// 		},
+		// 	})
+		// 	console.log("get")
+		// }, 1000)
 	</script>
 	<!-- 熱像圖 -->
 	<script type="text/javascript">
 		// 基于准备好的dom，初始化echarts实例
 		var myChart = echarts.init(document.getElementById('main2'));
-
-
-
-
 
 		// 指定图表的配置项和数据
 		// prettier-ignore
