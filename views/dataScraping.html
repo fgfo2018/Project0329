@@ -22,13 +22,13 @@
 	<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css">
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
 		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
-	</script>
+		</script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
 		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-	</script>
+		</script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
 		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
-	</script>
+		</script>
 	<script src="https://kit.fontawesome.com/a04ef755a4.js" crossorigin="anonymous"></script>
 	<!-- BS Table -->
 	<script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js"></script>
@@ -41,17 +41,16 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 	<script>
 		var $table = $('#table');
-		var mydata2 = [{
+		var mydata2 = [
+			{
 				"id": 1,
+				"bucketNumber": "",
 				"start": "13:00",
 				"stop": "13:07",
 				"sec": "7s",
-				"thermal1": "L/F 副料區",
-				"thermal2": "出鋼室地下樓梯",
-				"thermal3": "L/D 2F平台",
-				"maxTemp1": "450.5°C",
-				"maxTemp2": "460.5.°C",
-				"maxTemp3": "470.5°C",
+				"maxTempForLF": "450.5°C",
+				"maxTempForDownStairs": "460.5.°C",
+				"maxTempForLD": "470.5°C",
 				"shootingTime": "13:04",
 				"alertPixels1": "20px",
 				"alertPixels2": "20px",
@@ -59,45 +58,41 @@
 			},
 			{
 				"id": 2,
+				"bucketNumber": "",
 				"start": "13:00",
 				"stop": "13:07",
 				"sec": "7s",
-				"thermal1": "L/F 副料區",
-				"thermal2": "出鋼室地下樓梯",
-				"thermal3": "L/D 2F平台",
-				"maxTemp1": "450.5°C",
-				"maxTemp2": "460.5.°C",
-				"maxTemp3": "470.5°C",
+				"maxTempForLF": "450.5°C",
+				"maxTempForDownStairs": "460.5.°C",
+				"maxTempForLD": "470.5°C",
 				"shootingTime": "13:04",
 				"alertPixels1": "20px",
 				"alertPixels2": "20px",
 				"alertPixels3": "20px",
-			}, {
+			},
+			{
 				"id": 3,
+				"bucketNumber": "",
 				"start": "13:00",
 				"stop": "13:07",
 				"sec": "7s",
-				"thermal1": "L/F 副料區",
-				"thermal2": "出鋼室地下樓梯",
-				"thermal3": "L/D 2F平台",
-				"maxTemp1": "450.5°C",
-				"maxTemp2": "460.5.°C",
-				"maxTemp3": "470.5°C",
+				"maxTempForLF": "450.5°C",
+				"maxTempForDownStairs": "460.5.°C",
+				"maxTempForLD": "470.5°C",
 				"shootingTime": "13:04",
 				"alertPixels1": "20px",
 				"alertPixels2": "20px",
 				"alertPixels3": "20px",
-			}, {
+			},
+			{
 				"id": 4,
+				"bucketNumber": "",
 				"start": "13:00",
 				"stop": "13:07",
 				"sec": "7s",
-				"thermal1": "L/F 副料區",
-				"thermal2": "出鋼室地下樓梯",
-				"thermal3": "L/D 2F平台",
-				"maxTemp1": "450.5°C",
-				"maxTemp2": "460.5.°C",
-				"maxTemp3": "470.5°C",
+				"maxTempForLF": "450.5°C",
+				"maxTempForDownStairs": "460.5.°C",
+				"maxTempForLD": "470.5°C",
 				"shootingTime": "13:04",
 				"alertPixels1": "20px",
 				"alertPixels2": "20px",
@@ -105,15 +100,13 @@
 			},
 			{
 				"id": 5,
+				"bucketNumber": "",
 				"start": "13:00",
 				"stop": "13:07",
 				"sec": "7s",
-				"thermal1": "L/F 副料區",
-				"thermal2": "出鋼室地下樓梯",
-				"thermal3": "L/D 2F平台",
-				"maxTemp1": "450.5°C",
-				"maxTemp2": "460.5.°C",
-				"maxTemp3": "470.5°C",
+				"maxTempForLF": "450.5°C",
+				"maxTempForDownStairs": "460.5.°C",
+				"maxTempForLD": "470.5°C",
 				"shootingTime": "13:04",
 				"alertPixels1": "20px",
 				"alertPixels2": "20px",
@@ -121,45 +114,41 @@
 			},
 			{
 				"id": 6,
+				"bucketNumber": "",
 				"start": "13:00",
 				"stop": "13:07",
 				"sec": "7s",
-				"thermal1": "L/F 副料區",
-				"thermal2": "出鋼室地下樓梯",
-				"thermal3": "L/D 2F平台",
-				"maxTemp1": "450.5°C",
-				"maxTemp2": "460.5.°C",
-				"maxTemp3": "470.5°C",
+				"maxTempForLF": "450.5°C",
+				"maxTempForDownStairs": "460.5.°C",
+				"maxTempForLD": "470.5°C",
 				"shootingTime": "13:04",
 				"alertPixels1": "20px",
 				"alertPixels2": "20px",
 				"alertPixels3": "20px",
-			}, {
+			},
+			{
 				"id": 7,
+				"bucketNumber": "",
 				"start": "13:00",
 				"stop": "13:07",
 				"sec": "7s",
-				"thermal1": "L/F 副料區",
-				"thermal2": "出鋼室地下樓梯",
-				"thermal3": "L/D 2F平台",
-				"maxTemp1": "450.5°C",
-				"maxTemp2": "460.5.°C",
-				"maxTemp3": "470.5°C",
+				"maxTempForLF": "450.5°C",
+				"maxTempForDownStairs": "460.5.°C",
+				"maxTempForLD": "470.5°C",
 				"shootingTime": "13:04",
 				"alertPixels1": "20px",
 				"alertPixels2": "20px",
 				"alertPixels3": "20px",
-			}, {
+			},
+			{
 				"id": 8,
+				"bucketNumber": "",
 				"start": "13:00",
 				"stop": "13:07",
 				"sec": "7s",
-				"thermal1": "L/F 副料區",
-				"thermal2": "出鋼室地下樓梯",
-				"thermal3": "L/D 2F平台",
-				"maxTemp1": "450.5°C",
-				"maxTemp2": "460.5.°C",
-				"maxTemp3": "470.5°C",
+				"maxTempForLF": "450.5°C",
+				"maxTempForDownStairs": "460.5.°C",
+				"maxTempForLD": "470.5°C",
 				"shootingTime": "13:04",
 				"alertPixels1": "20px",
 				"alertPixels2": "20px",
@@ -167,15 +156,13 @@
 			},
 			{
 				"id": 9,
+				"bucketNumber": "",
 				"start": "13:00",
 				"stop": "13:07",
 				"sec": "7s",
-				"thermal1": "L/F 副料區",
-				"thermal2": "出鋼室地下樓梯",
-				"thermal3": "L/D 2F平台",
-				"maxTemp1": "450.5°C",
-				"maxTemp2": "460.5.°C",
-				"maxTemp3": "470.5°C",
+				"maxTempForLF": "450.5°C",
+				"maxTempForDownStairs": "460.5.°C",
+				"maxTempForLD": "470.5°C",
 				"shootingTime": "13:04",
 				"alertPixels1": "20px",
 				"alertPixels2": "20px",
@@ -183,175 +170,18 @@
 			},
 			{
 				"id": 10,
+				"bucketNumber": "",
 				"start": "13:00",
 				"stop": "13:07",
 				"sec": "7s",
-				"thermal1": "L/F 副料區",
-				"thermal2": "出鋼室地下樓梯",
-				"thermal3": "L/D 2F平台",
-				"maxTemp1": "450.5°C",
-				"maxTemp2": "460.5.°C",
-				"maxTemp3": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
-			}, {
-				"id": 11,
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"thermal1": "L/F 副料區",
-				"thermal2": "出鋼室地下樓梯",
-				"thermal3": "L/D 2F平台",
-				"maxTemp1": "450.5°C",
-				"maxTemp2": "460.5.°C",
-				"maxTemp3": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
-			}, {
-				"id": 12,
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"thermal1": "L/F 副料區",
-				"thermal2": "出鋼室地下樓梯",
-				"thermal3": "L/D 2F平台",
-				"maxTemp1": "450.5°C",
-				"maxTemp2": "460.5.°C",
-				"maxTemp3": "470.5°C",
+				"maxTempForLF": "450.5°C",
+				"maxTempForDownStairs": "460.5.°C",
+				"maxTempForLD": "470.5°C",
 				"shootingTime": "13:04",
 				"alertPixels1": "20px",
 				"alertPixels2": "20px",
 				"alertPixels3": "20px",
 			},
-			{
-				"id": 13,
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"thermal1": "L/F 副料區",
-				"thermal2": "出鋼室地下樓梯",
-				"thermal3": "L/D 2F平台",
-				"maxTemp1": "450.5°C",
-				"maxTemp2": "460.5.°C",
-				"maxTemp3": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
-			},
-			{
-				"id": 14,
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"thermal1": "L/F 副料區",
-				"thermal2": "出鋼室地下樓梯",
-				"thermal3": "L/D 2F平台",
-				"maxTemp1": "450.5°C",
-				"maxTemp2": "460.5.°C",
-				"maxTemp3": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
-			}, {
-				"id": 15,
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "6s",
-				"thermal1": "L/F 副料區",
-				"thermal2": "出鋼室地下樓梯",
-				"thermal3": "L/D 2F平台",
-				"maxTemp1": "450.5°C",
-				"maxTemp2": "460.5.°C",
-				"maxTemp3": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
-			}, {
-				"id": 16,
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"thermal1": "L/F 副料區",
-				"thermal2": "出鋼室地下樓梯",
-				"thermal3": "L/D 2F平台",
-				"maxTemp1": "450.5°C",
-				"maxTemp2": "460.5.°C",
-				"maxTemp3": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
-			},
-			{
-				"id": 17,
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"thermal1": "L/F 副料區",
-				"thermal2": "出鋼室地下樓梯",
-				"thermal3": "L/D 2F平台",
-				"maxTemp1": "450.5°C",
-				"maxTemp2": "460.5.°C",
-				"maxTemp3": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
-			},
-			{
-				"id": 18,
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"thermal1": "L/F 副料區",
-				"thermal2": "出鋼室地下樓梯",
-				"thermal3": "L/D 2F平台",
-				"maxTemp1": "450.5°C",
-				"maxTemp2": "460.5.°C",
-				"maxTemp3": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
-			}, {
-				"id": 19,
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"thermal1": "L/F 副料區",
-				"thermal2": "出鋼室地下樓梯",
-				"thermal3": "L/D 2F平台",
-				"maxTemp1": "450.5°C",
-				"maxTemp2": "460.5.°C",
-				"maxTemp3": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
-			}, {
-				"id": 20,
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"thermal1": "L/F 副料區",
-				"thermal2": "出鋼室地下樓梯",
-				"thermal3": "L/D 2F平台",
-				"maxTemp1": "450.5°C",
-				"maxTemp2": "460.5.°C",
-				"maxTemp3": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
-			},
-
 		];
 
 		$(function () {
@@ -362,19 +192,22 @@
 				exportTypes: ['txt', 'csv', 'excel'], // 導出類型
 				exportDataType: 'all', // basic', 'all', 'selected'
 				showToggle: true,
-				columns: [{
-						title: '選取',
-						field: 'checkbox',
-						align: 'center',
-						visible: true,
-						checkbox: true,
-					},
+				columns: [
+
 					{
 
 						title: '編號',
 						field: 'id',
 						align: 'center',
 						sortable: 'true',
+					},
+					{
+						title: '桶號',
+						field: 'bucketNumber',
+						align: 'center',
+						sortable: 'true',
+						formatter: bucketNumberForm,
+
 					},
 					{
 						title: '錄影開始時間',
@@ -391,47 +224,27 @@
 					},
 					{
 						title: '總秒數',
-						// field:'name',
 						field: 'sec',
 						align: 'center',
 						sortable: true,
 
 					},
 					{
-						title: '熱像中文名-1',
-						field: 'thermal1',
-						align: 'center',
-						sortable: true,
-					},
-					{
-						title: '熱像中文名-2',
-						field: 'thermal2',
+						title: 'L/F 副料區',
+						field: 'maxTempForLF',
 						align: 'center',
 						sortable: true,
 
 					},
 					{
-						title: '熱像中文名-3',
-						field: 'thermal3',
+						title: '出鋼室地下樓梯',
+						field: 'maxTempForDownStairs',
 						align: 'center',
 						sortable: true,
 					},
 					{
-						title: '最高溫度-1',
-						field: 'maxTemp1',
-						align: 'center',
-						sortable: true,
-
-					},
-					{
-						title: '最高溫度-2',
-						field: 'maxTemp2',
-						align: 'center',
-						sortable: true,
-					},
-					{
-						title: '最高溫度-3',
-						field: 'maxTemp3',
+						title: 'L/D 2F平台',
+						field: 'maxTempForLD',
 						align: 'center',
 						sortable: true,
 					},
@@ -462,6 +275,11 @@
 				]
 			});
 		});
+
+		// input輸入框
+		function bucketNumberForm() {
+			return ['<input type="number" min="0" style="width:50px">']
+		}
 	</script>
 </head>
 
@@ -486,16 +304,16 @@
 
 	<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark bg-gradient">
 		<div class="container">
-		  <ul class="navbar-nav">
-			<li class="nav-item">
-			  <a href="index.html" class="nav-link">即時監控</a>
-			</li>
-			<li class="nav-item">
-			  <a href="dataScraping.html" class="nav-link">資料分析</a>
-			</li>
-		  </ul>
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a href="index.html" class="nav-link">即時監控</a>
+				</li>
+				<li class="nav-item">
+					<a href="dataScraping.html" class="nav-link">資料分析</a>
+				</li>
+			</ul>
 		</div>
-	  </nav>
+	</nav>
 
 
 	<div class="container-fluid mt-3 mr-0">
@@ -537,7 +355,7 @@
 								</div>
 							</div>
 							<div class="card-body p-0 ">
-								<div class="row  align-items-center tri subtitle">
+								<div class="row align-items-center tri subtitle mx-4 mb-1 pt-1">
 									<div class="col-4">
 										&nbsp;&nbsp;&nbsp;L/F 副料區
 									</div>
@@ -548,13 +366,11 @@
 										&nbsp;&nbsp;&nbsp;L/D 2F平台
 									</div>
 								</div>
-								<div class="gap"></div>
-								<div class="gap2"></div>
+								<!-- <div class="gap"></div>
+								<div class="gap2"></div> -->
 								<video id="videoList" loop controls muted preload src="../mock_vod/20220415_T094924.mp4"
 									class="video2 imgCenter">
 								</video>
-								<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-								<!-- <div ref="main" style="width: 600px;height:400px;"></div> -->
 							</div>
 						</div>
 					</div>
@@ -574,7 +390,7 @@
 							</div>
 							<div class="card-body p-0 ">
 								<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-								<div id="main" style="width: 900px;height:220px;"></div>
+								<div id="main" style="width: 920px;height:290px;"></div>
 
 							</div>
 						</div>
@@ -594,7 +410,7 @@
 							<div class="card-body p-0 ">
 
 								<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-								<div id="main2" style="width: 900px;height:220px;padding-bottom: 0px;"></div>
+								<div id="main2" style="width: 920px;height:228px;padding-bottom: 0px;"></div>
 							</div>
 						</div>
 					</div>
@@ -609,6 +425,8 @@
 		const colorPalette2 = ['#7180AC', '#2B4570', '#A8D0DB', '#E49273']
 
 
+
+
 		// 指定图表的配置项和数据
 		var option = {
 			title: {
@@ -620,23 +438,25 @@
 			legend: {
 				data: ['L/F 副料區', '出鋼室地下樓梯', 'L/D 2F平台'],
 				//   selectedMode: 'single', // 設定顯示單一圖例的圖形，點選可切換
-				top: 20,
+				top: 10,
+				right: 0,
 				textStyle: {
 					color: '#666',
-					fontSize: 12,
+					fontSize: 9,
 				}
 			},
 			// color: 'colorPalette2',
 
 			grid: {
-				left: '3%',
-				right: '4%',
-				bottom: '3%',
-				containLabel: true
+				left: '2%',
+				right: '3%',
+				top: '15%',
+				containLabel: true,
+
 			},
 			toolbox: {
 				feature: {
-					saveAsImage: {}
+					// saveAsImage: {}
 				}
 			},
 			xAxis: {
@@ -646,7 +466,7 @@
 				show: true,
 				interval: 1,
 				triggerEvent: true,
-				data: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+				data: [0, 1, 2, 3, 4, 5, 6],
 			},
 			yAxis: {
 				// type: 'value'
@@ -663,24 +483,24 @@
 
 			},
 			series: [{
-					name: 'L/F 副料區',
-					type: 'line',
-					data: [300, 314, 325, 330, 330, 344, 348, 332, 320, 307, 300],
-					smooth: true,
+				name: 'L/F 副料區',
+				type: 'line',
+				data: [300, 314, 325, 330, 330, 344, 348, 332, 320, 307, 300],
+				smooth: true,
 
-				},
-				{
-					name: '出鋼室地下樓梯',
-					type: 'line',
-					data: [300, 300, 310, 320, 337, 340, 349, 333, 320, 310, 305],
-					smooth: true,
-				},
-				{
-					name: 'L/D 2F平台',
-					type: 'line',
-					data: [320, 330, 330, 350, 342, 340, 330, 325, 320, 314, 312],
-					smooth: true,
-				},
+			},
+			{
+				name: '出鋼室地下樓梯',
+				type: 'line',
+				data: [300, 300, 310, 320, 337, 340, 349, 333, 320, 310, 305],
+				smooth: true,
+			},
+			{
+				name: 'L/D 2F平台',
+				type: 'line',
+				data: [320, 330, 330, 350, 342, 340, 330, 325, 320, 314, 312],
+				smooth: true,
+			},
 			]
 		};
 		// 使用刚指定的配置项和数据显示图表。
@@ -811,14 +631,15 @@
 			},
 			animation: false,
 			grid: {
-				height: '75%',
-				top: '17%',
-				width: '87%',
-				left: '58',
+				height: '72%',
+				top: '20%',
+				width: '80%',
+				// width: '91%',
+				left: '48',
 			},
 			xAxis: {
 				type: 'category',
-				name: '(hours)',
+				name: '(hr)',
 				data: ['0', '1', '2', '3', '4', '5', '6',
 					'7', '8', '9', '10', '11',
 					'12', '13', '14', '15', '16', '17',
@@ -832,18 +653,20 @@
 			yAxis: {
 				type: 'category',
 				data: [0, 10, 20, 30, 40, 50],
-				name: '(mins)',
+				name: '(m)',
 				splitArea: {
 					show: true,
 				},
 			},
 			visualMap: {
-				show: false,
+				show: true,
 				min: 0,
 				max: 2,
 				calculable: true,
-				orient: 'horizontal',
-				left: 'center',
+				// orient: 'horizontal',
+				orient: 'vertical',
+				top: '45',
+				right: '30',
 				bottom: '15%',
 				// color: ['#F08080', '#000984' ],
 				// color: ['#367CEB', '#38B3F5', '#3ED1DE', '#38F5D0', '#A8D0DB', ],
@@ -884,7 +707,7 @@
 							},
 							b: {
 								backgroundColor: 'red',
-								height: '28',
+								height: '26',
 								width: '3',
 								shadowOffsetY: '0',
 								shadowOffsetX: '0',
@@ -909,13 +732,6 @@
 		// 使用刚指定的配置项和数据显示图表。
 		myChart.setOption(option);
 	</script>
-</body>
-
-</html>
-
-
-
-
 </body>
 
 </html>
