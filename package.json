@@ -10,7 +10,7 @@
     "rtsp-ffmpeg": "^0.0.16",
     "socket.io": "^4.4.1"
   },
-  "name": "express-example",
+  "name": "front-end",
   "license": "ISC",
   "bin": "start_server.js",
   "pkg": {

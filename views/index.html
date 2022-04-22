@@ -1168,19 +1168,15 @@
                 '.temperature_LD'
               ]
             for (var i = 0; i < machine_temperature.length; i++) {
-              if (machine_temperature[i] < 55) {
-                $(machine_temperature_this_div[i]).val($.number(machine_temperature[i], 1))
+              var temperature = $.number(machine_temperature[i], 1)
+              if (temperature < 55) {
+                $(machine_temperature_this_div[i]).val(temperature)
                 $(machine_temperature_this_div[i]).css("background-color", "#7fffd4")
-                // $(machine_temperature_this_div[i]).addClass('judge')
-                // $(machine_temperature_this_div[i]).removeClass('judge2')
-              } else if (machine_temperature[i] >= 55 && machine_temperature[i] <= 60) {
-                $(machine_temperature_this_div[i]).val($.number(machine_temperature[i], 1))
+              } else if (temperature >= 55 && temperature < 60) {
+                $(machine_temperature_this_div[i]).val(temperature)
                 $(machine_temperature_this_div[i]).css("background-color", "#ffc87f")
-                // $(machine_temperature_this_div[i]).addClass('judge2')
-                // $(machine_temperature_this_div[i]).removeClass(
-                // 'judge')
-              } else {
-                $(machine_temperature_this_div[i]).val($.number(machine_temperature[i], 1))
+              } else if (temperature >= 60){
+                $(machine_temperature_this_div[i]).val(temperature)
                 $(machine_temperature_this_div[i]).css("background-color", "#ff5452")
               }
             }

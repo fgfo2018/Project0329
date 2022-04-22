@@ -294,7 +294,7 @@
 							<div class="card-header title py-1" style="font-size: 14px;font-weight: 900;">
 								<div class="row g-3 align-items-center">
 									<div class="col-auto">
-										<div class="col-form-label subtitle p-0">熱力圖</div>
+										<div class="col-form-label subtitle p-0">吊起桶數</div>
 									</div>
 								</div>
 							</div>
@@ -399,41 +399,41 @@
 		// 使用刚指定的配置项和数据显示图表。
 		Trend.setOption(option);
 
-		// Trend.on('click', function (params) {
-		// 	var click_this_val = null
-		// 	if (params.componentType === 'series') {
-		// 		click_this_val = params.dataIndex
-		// 	} else if (params.componentType === 'xAxis') {
-		// 		click_this_val = params.value
-		// 	}
-		// 	console.log(parseInt(click_this_val))
-		// 	this_video = document.getElementById("videoList");
-		// 	this_video.currentTime = click_this_val
-		// 	this_video.pause()
-		// });
-
 		Trend.on('click', function (params) {
-			if (params.componentType === 'markPoint') {
-				// 点击到了 markPoint 上
-				console.log('1')
-				if (params.seriesIndex === 5) {
-					// 点击到了 index 为 5 的 series 的 markPoint 上。
-					console.log('2')
-				}
-			} else if (params.componentType === 'series') {
-				console.log('3')
-				if (params.seriesType === 'graph') {
-					console.log('4')
-					if (params.dataType === 'edge') {
-						console.log('5')
-						// 点击到了 graph 的 edge（边）上。
-					} else {
-						console.log('6')
-						// 点击到了 graph 的 node（节点）上。
-					}
-				}
+			var click_this_val = null
+			if (params.componentType === 'series') {
+				click_this_val = params.dataIndex
+			} else if (params.componentType === 'xAxis') {
+				click_this_val = params.value
 			}
+			console.log(parseInt(click_this_val))
+			this_video = document.getElementById("videoList");
+			this_video.currentTime = click_this_val
+			this_video.pause()
 		});
+
+		// Trend.on('click', function (params) {
+		// 	if (params.componentType === 'markPoint') {
+		// 		// 点击到了 markPoint 上
+		// 		console.log('1')
+		// 		if (params.seriesIndex === 5) {
+		// 			// 点击到了 index 为 5 的 series 的 markPoint 上。
+		// 			console.log('2')
+		// 		}
+		// 	} else if (params.componentType === 'series') {
+		// 		console.log('3')
+		// 		if (params.seriesType === 'graph') {
+		// 			console.log('4')
+		// 			if (params.dataType === 'edge') {
+		// 				console.log('5')
+		// 				// 点击到了 graph 的 edge（边）上。
+		// 			} else {
+		// 				console.log('6')
+		// 				// 点击到了 graph 的 node（节点）上。
+		// 			}
+		// 		}
+		// 	}
+		// });
 		// 使用動態效果step5: 取消註解函式
 		// 無限載入數據
 		// var play = 0 //定義x軸起點
