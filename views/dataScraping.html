@@ -20,9 +20,8 @@
 	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
 	<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css">
-	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous">
-		</script>
+
+	</script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
 		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
 		</script>
@@ -41,148 +40,38 @@
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 	<script>
 		var $table = $('#table');
-		var mydata2 = [
-			{
-				"id": 1,
-				"bucketNumber": "",
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"maxTempForLF": "450.5°C",
-				"maxTempForDownStairs": "460.5.°C",
-				"maxTempForLD": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
+		var mydata2 = [];
+		jQuery.ajax({
+			url: '/temp/Data/20220421.txt',
+			method: 'GET',
+			dataType: "json",
+			success: function (res) {
+				console.log(res)
+				var length = 0
+				res.forEach(element => {
+					mydata2[length] = element
+					length++
+				});
 			},
-			{
-				"id": 2,
-				"bucketNumber": "",
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"maxTempForLF": "450.5°C",
-				"maxTempForDownStairs": "460.5.°C",
-				"maxTempForLD": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
+			error: function (err) {
+				console.log(err)
 			},
-			{
-				"id": 3,
-				"bucketNumber": "",
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"maxTempForLF": "450.5°C",
-				"maxTempForDownStairs": "460.5.°C",
-				"maxTempForLD": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
-			},
-			{
-				"id": 4,
-				"bucketNumber": "",
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"maxTempForLF": "450.5°C",
-				"maxTempForDownStairs": "460.5.°C",
-				"maxTempForLD": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
-			},
-			{
-				"id": 5,
-				"bucketNumber": "",
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"maxTempForLF": "450.5°C",
-				"maxTempForDownStairs": "460.5.°C",
-				"maxTempForLD": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
-			},
-			{
-				"id": 6,
-				"bucketNumber": "",
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"maxTempForLF": "450.5°C",
-				"maxTempForDownStairs": "460.5.°C",
-				"maxTempForLD": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
-			},
-			{
-				"id": 7,
-				"bucketNumber": "",
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"maxTempForLF": "450.5°C",
-				"maxTempForDownStairs": "460.5.°C",
-				"maxTempForLD": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
-			},
-			{
-				"id": 8,
-				"bucketNumber": "",
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"maxTempForLF": "450.5°C",
-				"maxTempForDownStairs": "460.5.°C",
-				"maxTempForLD": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
-			},
-			{
-				"id": 9,
-				"bucketNumber": "",
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"maxTempForLF": "450.5°C",
-				"maxTempForDownStairs": "460.5.°C",
-				"maxTempForLD": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
-			},
-			{
-				"id": 10,
-				"bucketNumber": "",
-				"start": "13:00",
-				"stop": "13:07",
-				"sec": "7s",
-				"maxTempForLF": "450.5°C",
-				"maxTempForDownStairs": "460.5.°C",
-				"maxTempForLD": "470.5°C",
-				"shootingTime": "13:04",
-				"alertPixels1": "20px",
-				"alertPixels2": "20px",
-				"alertPixels3": "20px",
-			},
-		];
+		})
+		// console.log(mydata2)
+		// setInterval(function () {
+		// 	const dateTime = Date.now();
+		// 	const timestamp = Math.floor(dateTime / 1000);
+		// 	var date = document.getElementById('date');
+
+		// 	var dateNow = new Date(timestamp * 1000);
+		// 	var hours = dateNow.getHours();
+		// 	// Minutes part from the timestamp
+		// 	var minutes = "0" + dateNow.getMinutes();
+		// 	// Seconds part from the timestamp
+		// 	var seconds = "0" + dateNow.getSeconds();
+		// 	var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+		// }, 1000)
+		// 
 
 		$(function () {
 
@@ -277,8 +166,8 @@
 		});
 
 		// input輸入框
-		function bucketNumberForm() {
-			return ['<input type="number" min="0" style="width:50px">']
+		function bucketNumberForm(e) {
+			return ['<input type="number" min="0" style="width:50px" value="' + e + '">']
 		}
 	</script>
 </head>
@@ -330,11 +219,13 @@
 					</div>
 					<div class="card-body" style="font-size: 12px;">
 						<div class="table-responsive">
-							<table id="table2" data-height="807" data-show-export="true" data-pagination="false"
-								data-click-to-select="true" data-toolbar="#toolbar" data-show-toggle="true"
-								data-show-columns="true" data-sortable="true" data-toggle="table2" data-search="true"
-								data-live-search="true" data-show-refresh="true">
-							</table>
+							<form class="data-report">
+								<table id="table2" data-height="807" data-show-export="true" data-pagination="false"
+									data-click-to-select="true" data-toolbar="#toolbar" data-show-toggle="true"
+									data-show-columns="true" data-sortable="true" data-toggle="table2"
+									data-search="true" data-live-search="true" data-show-refresh="true">
+								</table>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -421,12 +312,8 @@
 	<!-- 折線圖 -->
 	<script type="text/javascript">
 		// 基于准备好的dom，初始化echarts实例
-		var myChart = echarts.init(document.getElementById('main'));
+		var Trend = echarts.init(document.getElementById('main'));
 		const colorPalette2 = ['#7180AC', '#2B4570', '#A8D0DB', '#E49273']
-
-
-
-
 		// 指定图表的配置项和数据
 		var option = {
 			title: {
@@ -446,7 +333,6 @@
 				}
 			},
 			// color: 'colorPalette2',
-
 			grid: {
 				left: '2%',
 				right: '3%',
@@ -466,8 +352,9 @@
 				show: true,
 				interval: 1,
 				triggerEvent: true,
+				// 使用動態效果step1: 需註解data
 				// data: [0,1,2,3,4,5,6],
-				// data: [0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 14., 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3, 3.2, 3.4, 3.6, 3.8, 4, 4.2, 4.4, 4.6, 4.8, 5, 5.2, 5.4, 5.6, 5.8, 6],
+				data: [0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 14., 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3, 3.2, 3.4, 3.6, 3.8, 4, 4.2, 4.4, 4.6, 4.8, 5, 5.2, 5.4, 5.6, 5.8, 6],
 				boundaryGap: false,
 				// boundaryGap: true,
 			},
@@ -485,50 +372,159 @@
 				// },
 
 			},
-			series: [{
-				name: 'L/F 副料區',
-				type: 'line',
-				data: [300, 307, 309, 314, 312, 310,310, 317, 310, 319, 313, 310, 310, 315, 320, 324, 328, 332, 330, 337, 340, 340, 345, 343, 346, 325, 328, 320, 318, 311, 331],
-				smooth: true,
-
-			},
-			{
-				name: '出鋼室地下樓梯',
-				type: 'line',
-				data: [300, 300, 303, 306, 307, 308, 310, 310, 311, 331, 314, 316, 320, 337, 340, 349, 333, 335, 330, 305,331, 321, 320, 316, 315, 311, 310, 306, 306, 307, 302],
-				smooth: true,
-			},
-			{
-				name: 'L/D 2F平台',
-				type: 'line',
-				data: [300, 302, 303, 303, 312, 310, 310, 315, 320, 324, 322,320, 320, 323, 326, 327, 338, 330, 330, 331, 331, 334, 346, 340, 347, 330, 333, 330, 320, 315, 310 ],
-				smooth: true,
-			},
+			series: [
+				{
+					name: 'L/F 副料區',
+					type: 'line',
+					// 使用動態效果step2: 需註解data
+					data: [300, 307, 309, 314, 312, 310, 310, 317, 310, 319, 313, 310, 310, 315, 320, 324, 328, 332, 330, 337, 340, 340, 345, 343, 346, 325, 328, 320, 318, 311, 331],
+					smooth: true,
+				},
+				{
+					name: '出鋼室地下樓梯',
+					type: 'line',
+					// 使用動態效果step3: 需註解data
+					data: [300, 300, 303, 306, 307, 308, 310, 310, 311, 331, 314, 316, 320, 337, 340, 349, 333, 335, 330, 305, 331, 321, 320, 316, 315, 311, 310, 306, 306, 307, 302],
+					smooth: true,
+				},
+				{
+					name: 'L/D 2F平台',
+					type: 'line',
+					// 使用動態效果step4: 需註解data
+					data: [300, 302, 303, 303, 312, 310, 310, 315, 320, 324, 322, 320, 320, 323, 326, 327, 338, 330, 330, 331, 331, 334, 346, 340, 347, 330, 333, 330, 320, 315, 310],
+					smooth: true,
+				},
 			]
 		};
 		// 使用刚指定的配置项和数据显示图表。
-		myChart.setOption(option);
-		myChart.on('click', function (params) {
-			var click_this_val = null
-			if (params.componentType === 'series') {
-				click_this_val = params.dataIndex
-			} else if (params.componentType === 'xAxis') {
-				click_this_val = params.value
+		Trend.setOption(option);
+
+		// Trend.on('click', function (params) {
+		// 	var click_this_val = null
+		// 	if (params.componentType === 'series') {
+		// 		click_this_val = params.dataIndex
+		// 	} else if (params.componentType === 'xAxis') {
+		// 		click_this_val = params.value
+		// 	}
+		// 	console.log(parseInt(click_this_val))
+		// 	this_video = document.getElementById("videoList");
+		// 	this_video.currentTime = click_this_val
+		// 	this_video.pause()
+		// });
+
+		Trend.on('click', function (params) {
+			if (params.componentType === 'markPoint') {
+				// 点击到了 markPoint 上
+				console.log('1')
+				if (params.seriesIndex === 5) {
+					// 点击到了 index 为 5 的 series 的 markPoint 上。
+					console.log('2')
+				}
+			} else if (params.componentType === 'series') {
+				console.log('3')
+				if (params.seriesType === 'graph') {
+					console.log('4')
+					if (params.dataType === 'edge') {
+						console.log('5')
+						// 点击到了 graph 的 edge（边）上。
+					} else {
+						console.log('6')
+						// 点击到了 graph 的 node（节点）上。
+					}
+				}
 			}
-			console.log(parseInt(click_this_val))
-			this_video = document.getElementById("videoList");
-			this_video.currentTime = click_this_val
-			this_video.pause()
 		});
+		// 使用動態效果step5: 取消註解函式
+		// 無限載入數據
+		// var play = 0 //定義x軸起點
+		// var x1 = [] //宣告x軸陣列
+		// var x11 = [] //宣告x1(副料區)陣列
+		// var x12 = [] //宣告x2陣列
+		// var x13 = [] //宣告x3陣列
+		// var shift = false // 設定最大值
+		// setInterval(function () {
+			// 設定最多顯示多少資料
+			// if(x1.length >= 5){
+			// 	shift = true
+			// }
+			// x1.push(play) //在陣列後端新增變數
+			// x11.push(sum()) //在陣列後端新增變數
+			// x12.push(sum()) //在陣列後端新增變數
+			// x13.push(sum()) //在陣列後端新增變數
+			// if(shift){ //如果shift為true則刪除陣列的最舊key
+			// 	x1.shift()
+			// 	x11.shift()
+			// 	x12.shift()
+			// 	x13.shift()
+			// }
+			// 設定echarts data
+		// 	Trend.setOption({
+		// 		xAxis: {
+		// 			data: x1,
+		// 		},
+		// 		series: [{
+		// 				name: 'L/F 副料區',
+		// 				data: x11
+		// 			},
+		// 			{
+		// 				name: '出鋼室地下樓梯',
+		// 				data: x12
+		// 			},
+		// 			{
+		// 				name: 'L/D 2F平台',
+		// 				data: x13
+		// 			},
+		// 		]
+		// 	})
+		// 	play++
+		// }, 500)
+
+		// 使用動態效果step6: 取消註解函式
+		// 亂數設定
+		// function sum() {
+		// 	min = Math.ceil(300);
+		// 	max = Math.floor(350);
+		// 	return Math.floor(Math.random() * (max - min + 1) + min)
+		// }
+
+		// 非同步載入資料
+		// setInterval(function () {
+		// 	$.ajax({
+		// 		url: '/temp/Trend/20220421.txt',
+		// 		method: 'GET',
+		// 		dataType: "json",
+		// 		success: function (res) {
+		// 			Trend.setOption({
+		// 				xAxis: {
+		// 					data: [0, 1, 2, 3, 4, 5],
+		// 				},
+		// 				series: [{
+		// 						name: 'L/F 副料區',
+		// 						data: res[0].data
+
+		// 					},
+		// 					{
+		// 						name: '出鋼室地下樓梯',
+		// 						data: res[1].data
+		// 					},
+		// 					{
+		// 						name: 'L/D 2F平台',
+		// 						data: res[2].data
+		// 					},
+		// 				]
+		// 			})
+		// 		},
+		// 		error: function (err) {
+		// 			console.log(err)
+		// 		},
+		// 	})
+		// 	console.log("get")
+		// }, 1000)
 	</script>
 	<!-- 熱像圖 -->
 	<script type="text/javascript">
 		// 基于准备好的dom，初始化echarts实例
 		var myChart = echarts.init(document.getElementById('main2'));
-
-
-
-
 
 		// 指定图表的配置项和数据
 		// prettier-ignore
