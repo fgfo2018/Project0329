@@ -54,6 +54,20 @@ app.get('/config', function (req, res) {
     // console.log();
     res.send(output)
 });
+
+app.get('/list', function (req, res) {
+    const output = getTime();
+    // console.log();
+    res.send(output)
+});
+
+
+app.get('/listdir', function (req, res) {
+    const output = getDir();
+    // console.log();
+    res.send(output)
+});
+
 var testtt = 0
 app.post('/log', function (req, res) {
     const id = JSON.parse(req.body)
@@ -65,6 +79,31 @@ app.post('/log', function (req, res) {
         success: true,
     })
 });
+
+const getDir = () => {
+    const testFolder = './views/temp/Data';
+    // fs.readdir(testFolder, (err, files) => {
+    //     var output = []
+    //     files.forEach(file => {
+    //         output.push(file)
+    //     });
+    //     console.log(JSON.stringify(output))
+    //     return JSON.stringify(output)
+    // });
+    var output = []
+    fs.readdirSync(testFolder).forEach(file => {
+        output.push(file)
+    });
+    console.log(JSON.stringify(output))
+    return JSON.stringify(output)
+    // console.log(output)
+}
+
+const getTime = () => {
+    const jsonData = fs.readFileSync('./views/temp/testTimeList.json')
+    // console.log(JSON.parse(jsonData))
+    return JSON.parse(jsonData)
+}
 const getSpotsData = () => {
     const jsonData = fs.readFileSync('./config.json')
     // console.log(JSON.parse(jsonData))

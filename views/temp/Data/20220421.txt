@@ -1,33 +1,6 @@
 [{
-    "id": 1,
-    "bucketNumber": "1",
-    "start": "13:00",
-    "stop": "13:07",
-    "sec": "7s",
-    "maxTempForLF": "450.5°C",
-    "maxTempForDownStairs": "460.5.°C",
-    "maxTempForLD": "470.5°C",
-    "shootingTime": "13:04",
-    "alertPixels1": "20px",
-    "alertPixels2": "20px",
-    "alertPixels3": "20px"
-}, {
     "id": 2,
-    "bucketNumber": "",
-    "start": "13:00",
-    "stop": "13:07",
-    "sec": "7s",
-    "maxTempForLF": "450.5°C",
-    "maxTempForDownStairs": "460.5.°C",
-    "maxTempForLD": "470.5°C",
-    "shootingTime": "13:04",
-    "alertPixels1": "20px",
-    "alertPixels2": "20px",
-    "alertPixels3": "20px"
-}
-, {
-    "id": 3,
-    "bucketNumber": "",
+    "bucketNumber": "12",
     "start": "13:00",
     "stop": "13:07",
     "sec": "7s",

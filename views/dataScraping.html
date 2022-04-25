@@ -24,10 +24,10 @@
 	</script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
 		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-		</script>
+	</script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
 		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
-		</script>
+	</script>
 	<script src="https://kit.fontawesome.com/a04ef755a4.js" crossorigin="anonymous"></script>
 	<!-- BS Table -->
 	<script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.js"></script>
@@ -39,24 +39,6 @@
 	<script src="https://unpkg.com/tableexport.jquery.plugin/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 	<script>
-		var $table = $('#table');
-		var mydata2 = [];
-		jQuery.ajax({
-			url: '/temp/Data/20220421.txt',
-			method: 'GET',
-			dataType: "json",
-			success: function (res) {
-				console.log(res)
-				var length = 0
-				res.forEach(element => {
-					mydata2[length] = element
-					length++
-				});
-			},
-			error: function (err) {
-				console.log(err)
-			},
-		})
 		// console.log(mydata2)
 		// setInterval(function () {
 		// 	const dateTime = Date.now();
@@ -74,101 +56,133 @@
 		// 
 
 		$(function () {
+			//
+			$.ajax({
+				url: '/listdir',
+				method: 'GET',
+				dataType: "json",
+				success: function (data) {
+					console.log(data);
+				},
+				error: function (err) {
+					console.log(err)
+				},
+			})
+			//
+			var mydata2 = [];
+			$.ajax({
+				url: '/temp/Data/20220421.txt',
+				method: 'GET',
+				dataType: "json",
+				success: function (res) {
+					var length = 0
+					res.forEach(element => {
+						mydata2[length] = element
+						length++
+					});
+					mydata(mydata2)
+				},
+				error: function (err) {
+					console.log(err)
+				},
+			})
 
-			$('#table2').bootstrapTable({
-				data: mydata2,
-				classes: 'table table-borderless table-striped table-hover data-checkbox="true" data-field="',
-				exportTypes: ['txt', 'csv', 'excel'], // 導出類型
-				exportDataType: 'all', // basic', 'all', 'selected'
-				showToggle: true,
-				columns: [
+			function mydata(mydata2) {
+				$('#table2').bootstrapTable({
+					data: mydata2,
+					classes: 'table table-borderless table-striped table-hover data-checkbox="true" data-field="',
+					exportTypes: ['txt', 'csv', 'excel'], // 導出類型
+					exportDataType: 'all', // basic', 'all', 'selected'
+					showToggle: true,
+					columns: [
 
-					{
+						{
 
-						title: '編號',
-						field: 'id',
-						align: 'center',
-						sortable: 'true',
-					},
-					{
-						title: '桶號',
-						field: 'bucketNumber',
-						align: 'center',
-						sortable: 'true',
-						formatter: bucketNumberForm,
+							title: '編號',
+							field: 'id',
+							align: 'center',
+							sortable: 'true',
+						},
+						{
+							title: '桶號',
+							field: 'bucketNumber',
+							align: 'center',
+							sortable: 'true',
+							formatter: bucketNumberForm,
 
-					},
-					{
-						title: '錄影開始時間',
-						field: 'start',
-						align: 'center',
-						sortable: true,
+						},
+						{
+							title: '錄影開始時間',
+							field: 'start',
+							align: 'center',
+							sortable: true,
 
-					},
-					{
-						title: '錄影終止時間',
-						field: 'stop',
-						align: 'center',
-						sortable: true,
-					},
-					{
-						title: '總秒數',
-						field: 'sec',
-						align: 'center',
-						sortable: true,
+						},
+						{
+							title: '錄影終止時間',
+							field: 'stop',
+							align: 'center',
+							sortable: true,
+						},
+						{
+							title: '總秒數',
+							field: 'sec',
+							align: 'center',
+							sortable: true,
 
-					},
-					{
-						title: 'L/F 副料區',
-						field: 'maxTempForLF',
-						align: 'center',
-						sortable: true,
+						},
+						{
+							title: 'L/F 副料區',
+							field: 'maxTempForLF',
+							align: 'center',
+							sortable: true,
 
-					},
-					{
-						title: '出鋼室地下樓梯',
-						field: 'maxTempForDownStairs',
-						align: 'center',
-						sortable: true,
-					},
-					{
-						title: 'L/D 2F平台',
-						field: 'maxTempForLD',
-						align: 'center',
-						sortable: true,
-					},
-					{
-						title: '拍照時間',
-						field: 'shootingTime',
-						align: 'center',
-						sortable: true,
-					},
-					{
-						title: '警示大於像素-1',
-						field: 'alertPixels1',
-						align: 'center',
-						sortable: true,
-					},
-					{
-						title: '警示大於像素-2',
-						field: 'alertPixels2',
-						align: 'center',
-						sortable: true,
-					},
-					{
-						title: '警示大於像素-3',
-						field: 'alertPixels3',
-						align: 'center',
-						sortable: true,
-					},
-				]
-			});
+						},
+						{
+							title: '出鋼室地下樓梯',
+							field: 'maxTempForDownStairs',
+							align: 'center',
+							sortable: true,
+						},
+						{
+							title: 'L/D 2F平台',
+							field: 'maxTempForLD',
+							align: 'center',
+							sortable: true,
+						},
+						{
+							title: '拍照時間',
+							field: 'shootingTime',
+							align: 'center',
+							sortable: true,
+						},
+						{
+							title: '警示大於像素-1',
+							field: 'alertPixels1',
+							align: 'center',
+							sortable: true,
+						},
+						{
+							title: '警示大於像素-2',
+							field: 'alertPixels2',
+							align: 'center',
+							sortable: true,
+						},
+						{
+							title: '警示大於像素-3',
+							field: 'alertPixels3',
+							align: 'center',
+							sortable: true,
+						},
+					]
+				});
+			}
+
+			function bucketNumberForm(e) {
+				return ['<input type="number" min="0" style="width:50px" name="test" value="' + e + '">']
+			}
 		});
-
 		// input輸入框
-		function bucketNumberForm(e) {
-			return ['<input type="number" min="0" style="width:50px" value="' + e + '">']
-		}
 	</script>
 </head>
 
@@ -192,13 +206,13 @@
 	</nav> -->
 
 	<nav class="navbar sticky-top navbar-expand-lg navbar-dark  bg-gradient" style="background-color: #262626;">
-		<div class="container" style="margin-left: 281px;"> 
+		<div class="container" style="margin-left: 281px;">
 			<ul class="navbar-nav">
 				<li class="nav-item">
 					<a href="index.html" class="nav-link">即時監控</a>
 				</li>
 				<li class="nav-item">
-					<a href="dataScraping.html" class="nav-link" >資料分析</a>
+					<a href="dataScraping.html" class="nav-link">資料分析</a>
 				</li>
 			</ul>
 		</div>
@@ -225,6 +239,7 @@
 									data-show-columns="true" data-sortable="true" data-toggle="table2"
 									data-search="true" data-live-search="true" data-show-refresh="true">
 								</table>
+								<button hidden="true" type="submit"></button>
 							</form>
 						</div>
 					</div>
@@ -301,7 +316,8 @@
 							<div class="card-body p-0 ">
 
 								<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-								<div id="main2" style="width: 920px;height:228px;padding-bottom: 0px;"></div>
+								<div id="main2" style="width: 920px;height:228px;padding-bottom: 0px;">
+								</div>
 							</div>
 						</div>
 					</div>
@@ -354,7 +370,9 @@
 				triggerEvent: true,
 				// 使用動態效果step1: 需註解data
 				// data: [0,1,2,3,4,5,6],
-				data: [0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 14., 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3, 3.2, 3.4, 3.6, 3.8, 4, 4.2, 4.4, 4.6, 4.8, 5, 5.2, 5.4, 5.6, 5.8, 6],
+				data: [0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3, 3.2, 3.4, 3.6, 3.8, 4, 4.2,
+					4.4, 4.6, 4.8, 5, 5.2, 5.4, 5.6, 5.8, 6
+				],
 				boundaryGap: false,
 				// boundaryGap: true,
 			},
@@ -372,26 +390,31 @@
 				// },
 
 			},
-			series: [
-				{
+			series: [{
 					name: 'L/F 副料區',
 					type: 'line',
 					// 使用動態效果step2: 需註解data
-					data: [300, 307, 309, 314, 312, 310, 310, 317, 310, 319, 313, 310, 310, 315, 320, 324, 328, 332, 330, 337, 340, 340, 345, 343, 346, 325, 328, 320, 318, 311, 331],
+					data: [300, 307, 309, 314, 312, 310, 310, 317, 310, 319, 313, 310, 310, 315, 320, 324, 328, 332,
+						330, 337, 340, 340, 345, 343, 346, 325, 328, 320, 318, 311, 331
+					],
 					smooth: true,
 				},
 				{
 					name: '出鋼室地下樓梯',
 					type: 'line',
 					// 使用動態效果step3: 需註解data
-					data: [300, 300, 303, 306, 307, 308, 310, 310, 311, 331, 314, 316, 320, 337, 340, 349, 333, 335, 330, 305, 331, 321, 320, 316, 315, 311, 310, 306, 306, 307, 302],
+					data: [300, 300, 303, 306, 307, 308, 310, 310, 311, 331, 314, 316, 320, 337, 340, 349, 333, 335,
+						330, 305, 331, 321, 320, 316, 315, 311, 310, 306, 306, 307, 302
+					],
 					smooth: true,
 				},
 				{
 					name: 'L/D 2F平台',
 					type: 'line',
 					// 使用動態效果step4: 需註解data
-					data: [300, 302, 303, 303, 312, 310, 310, 315, 320, 324, 322, 320, 320, 323, 326, 327, 338, 330, 330, 331, 331, 334, 346, 340, 347, 330, 333, 330, 320, 315, 310],
+					data: [300, 302, 303, 303, 312, 310, 310, 315, 320, 324, 322, 320, 320, 323, 326, 327, 338, 330,
+						330, 331, 331, 334, 346, 340, 347, 330, 333, 330, 320, 315, 310
+					],
 					smooth: true,
 				},
 			]
@@ -402,11 +425,12 @@
 		Trend.on('click', function (params) {
 			var click_this_val = null
 			if (params.componentType === 'series') {
-				click_this_val = params.dataIndex
+				click_this_val = params.name
 			} else if (params.componentType === 'xAxis') {
 				click_this_val = params.value
 			}
-			console.log(parseInt(click_this_val))
+			console.log(click_this_val)
+			// console.log(params)
 			this_video = document.getElementById("videoList");
 			this_video.currentTime = click_this_val
 			this_video.pause()
@@ -443,21 +467,21 @@
 		// var x13 = [] //宣告x3陣列
 		// var shift = false // 設定最大值
 		// setInterval(function () {
-			// 設定最多顯示多少資料
-			// if(x1.length >= 5){
-			// 	shift = true
-			// }
-			// x1.push(play) //在陣列後端新增變數
-			// x11.push(sum()) //在陣列後端新增變數
-			// x12.push(sum()) //在陣列後端新增變數
-			// x13.push(sum()) //在陣列後端新增變數
-			// if(shift){ //如果shift為true則刪除陣列的最舊key
-			// 	x1.shift()
-			// 	x11.shift()
-			// 	x12.shift()
-			// 	x13.shift()
-			// }
-			// 設定echarts data
+		// 設定最多顯示多少資料
+		// if(x1.length >= 5){
+		// 	shift = true
+		// }
+		// x1.push(play) //在陣列後端新增變數
+		// x11.push(sum()) //在陣列後端新增變數
+		// x12.push(sum()) //在陣列後端新增變數
+		// x13.push(sum()) //在陣列後端新增變數
+		// if(shift){ //如果shift為true則刪除陣列的最舊key
+		// 	x1.shift()
+		// 	x11.shift()
+		// 	x12.shift()
+		// 	x13.shift()
+		// }
+		// 設定echarts data
 		// 	Trend.setOption({
 		// 		xAxis: {
 		// 			data: x1,
@@ -529,100 +553,6 @@
 		// 指定图表的配置项和数据
 		// prettier-ignore
 		// (x, y , 0:沒事 1:有事, 拉了幾桶(3桶/hr))
-		var data = [
-			[0, 0, 0, 0],
-			[0, 1, 0, 0],
-			[0, 2, 0, 1],
-			[0, 3, 0, 1],
-			[0, 4, 0, 0],
-			[0, 5, 0, 1],
-			[1, 0, 0, 0],
-			[1, 1, 0, 0],
-			[1, 2, 1, 1],
-			[1, 3, 0, 0],
-			[1, 4, 0, 0],
-			[1, 5, 0, 2],
-			[2, 0, 0, 1],
-			[2, 1, 0, 0],
-			[2, 2, 0, 0],
-			[2, 3, 0, 1],
-			[2, 4, 0, 0],
-			[2, 5, 0, 1],
-			[3, 0, 0, 0],
-			[3, 1, 0, 1],
-			[3, 2, 0, 1],
-			[3, 3, 0, 0],
-			[3, 4, 1, 1],
-			[3, 5, 0, 0],
-			[4, 0, 0, 1],
-			[4, 1, 0, 0],
-			[4, 2, 0, 1],
-			[4, 3, 0, 1],
-			[4, 4, 0, 0],
-			[4, 5, 0, 0],
-			[5, 0, 0, 0],
-			[5, 1, 0, 2],
-			[5, 2, 0, 0],
-			[5, 3, 0, 0],
-			[5, 4, 0, 1],
-			[5, 5, 0, 0],
-			[6, 0, 1, 1],
-			[6, 1, 0, 0],
-			[6, 2, 0, 2],
-			[6, 3, 0, 0],
-			[6, 4, 0, 0],
-			[6, 5, 0, 0],
-			[7, 0, 0, 0],
-			[7, 1, 0, 1],
-			[7, 2, 0, 1],
-			[7, 3, 0, 0],
-			[7, 4, 0, 1],
-			[7, 5, 0, 0],
-			[8, 0, 0, 0],
-			[8, 1, 0, 0],
-			[8, 2, 0, 1],
-			[8, 3, 0, 1],
-			[8, 4, 0, 0],
-			[8, 5, 0, 1],
-			[9, 0, 0, 0],
-			[9, 1, 0, 1],
-			[9, 2, 0, 0],
-			[9, 3, 0, 1],
-			[9, 4, 0, 1],
-			[9, 5, 0, 0],
-			[10, 0, 0, 1],
-			[10, 1, 0, 0],
-			[10, 2, 0, 1],
-			[10, 3, 0, 0],
-			[10, 4, 0, 0],
-			[10, 5, 0, 1],
-			[11, 0, 0, 0],
-			[11, 1, 0, 2],
-			[11, 2, 0, 0],
-			[11, 3, 1, 1],
-			[11, 4, 0, 0],
-			[11, 5, 0, 0],
-			[12, 0, 0, 1],
-			[12, 1, 0, 0],
-			[12, 2, 0, 1],
-			[12, 3, 0, 1],
-			[12, 4, 0, 0],
-			[12, 5, 0, 0],
-			[13, 0, 0, 0],
-			[13, 1, 0, 0],
-			[13, 2, 1, 1],
-			[13, 3, 0, 1],
-			[13, 4, 0, 0],
-			[13, 5, 0, 1],
-			[14, 0, 0, 0],
-			[14, 1, 0, 0],
-			[14, 2, 0, 0],
-			[14, 3, 1, 2],
-			[14, 4, 0, 0],
-			[14, 5, 0, 1],
-		].map(function (item) {
-			return [item[0], item[1], item[2], item[3]];
-		});
 
 		option = {
 			tooltip: {
@@ -678,7 +608,6 @@
 			series: [{
 				name: '',
 				type: 'heatmap',
-				data: data,
 				label: {
 					show: true,
 					normal: {
@@ -690,15 +619,6 @@
 								return '{b|' + params.data['3'] + '}';
 							}
 						},
-						//  formatter:function(params){
-						//           if (params.data['3'] == 0){
-						//              return '{g|' + params.data['3'] + '}';
-						//           }else if (params.data['3'] == 1) {
-						//              return '{f|' + params.data['3'] + '}';
-						//           } else if (params.data['3'] == 2) {
-						//              return '{a|' + params.data['3'] + '}';
-						//           }     
-						//  },
 						rich: {
 							a: {
 								//  backgroundColor:'#fff',
@@ -730,6 +650,93 @@
 
 		// 使用刚指定的配置项和数据显示图表。
 		myChart.setOption(option);
+
+		// -------時間計算器
+		setInterval(function () {
+			jQuery.ajax({
+				url: '/list',
+				method: 'GET',
+				dataType: "json",
+				success: function (res) {
+					var data = listinterval(res)
+					data = data.map(function (item) {
+						return [item[0], item[1], item[2], item[3]];
+					})
+					myChart.setOption({
+						series: [{
+							name: '',
+							data: data,
+						}]
+					});
+				},
+				error: function (err) {
+					console.log(err)
+				},
+			})
+		}, 500)
+
+		// 時間篩選
+		function listinterval(res) {
+			// 宣告陣列
+			var output = []
+			// 取得今天日期
+			var NowDate = new Date()
+			var NYear = NowDate.getFullYear()
+			var NMonth = NowDate.getMonth()
+			var NDate = NowDate.getDate()
+			// 設定間隔時間(設定範圍1~60，並且可除盡60)
+			var interval = 10
+			// 判斷interval 是否為合理範圍，否則將強制變動
+			if (interval === 0) {
+				interval = 1
+			} else if (interval > 60) {
+				interval = 60
+			}
+			// 計算間隔時間
+			setinterval = (1440 / interval) + 1
+			// 指標時間變數
+			var lastTime = null
+			var NewMin = null
+			// 間隔十分鐘
+			for (var i = 1; i < setinterval; i++) {
+				// 宣告日期
+				var today = new Date(NYear, NMonth, NDate)
+				var today1 = new Date(NYear, NMonth, NDate)
+				// 判斷初始，存入起始時間
+				if (i == 1) {
+					lastTime = new Date(today)
+				} else {
+					lastTime = new Date(lastTime)
+					lastTime = today1.setMinutes(today1.getMinutes() + ((i - 1) * interval))
+					lastTime = new Date(lastTime)
+				}
+				// 結束時間
+				NewTime = today.setMinutes(today.getMinutes() + (i * interval))
+				NewTime = new Date(NewTime)
+				// 判斷時間
+				var timeSum = 0;
+				var Hours = lastTime.getHours();
+				var Minutes = lastTime.getMinutes();
+				var status = 0
+				res.forEach(function (item) {
+					var listTime = new Date(item.time)
+					// 判斷間隔時間如果符合，就在此區段增加統計數
+					if (listTime > lastTime && listTime < NewTime) {
+						// 此區段如果有任何一桶有問題，則將狀態變更為1
+						if (item.status === 1) {
+							status = 1
+						}
+						timeSum++
+					}
+				})
+				// 將區段統計結果新增到陣列中
+				array = [Hours, (Minutes / 10), status, timeSum]
+				output.push(array)
+
+			}
+			// 印出陣列
+			return output
+		}
 	</script>
 </body>
 
