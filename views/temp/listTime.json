@@ -1,7 +1,7 @@
 [{
         "bucketNumber": "",
         "start": "2022-04-26 19:33:25",
-        "stop": "2022-04-26 19:50:33",
+        "stop": "2022-04-26 19:33:33",
         "sec": "7s",
         "maxTempForLF": "450.5°C",
         "maxTempForDownStairs": "460.5.°C",
@@ -28,7 +28,7 @@
     }, {
         "bucketNumber": "",
         "start": "2022-04-26 13:00:59",
-        "stop": "2022-04-26 13:07:33",
+        "stop": "2022-04-27 23:07:33",
         "sec": "7s",
         "maxTempForLF": "450.5°C",
         "maxTempForDownStairs": "460.5.°C",

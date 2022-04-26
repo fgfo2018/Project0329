@@ -41,8 +41,9 @@
 	<script>
 		$(function () {
 			//初始化資料報表
+			const url = '/listdir' //定義資料報表API位置
 			$.ajax({
-				url: '/listdir',
+				url: url,
 				method: 'GET',
 				dataType: "json",
 				success: function (data) {
@@ -50,20 +51,28 @@
 					var sum = 0
 					array.forEach(element => {
 						array[sum].id = sum + 1
+						var start = new Date(element.start)
+						var end = new Date(element.stop)
+						var totle = (end.getTime() - start.getTime()) / 1000
+						// console.log(totle)
+						totle = getDuration(totle)
+						// console.log(totle)
+						array[sum].sec = totle
 						sum++
 					})
 					mydata(array)
-					console.log(array)
+					// console.log(array)
 				},
 				error: function (err) {
 					console.log(err)
 				},
 			})
+
 			// 按刷新鍵觸發此動作
 			$('.table-responsive').on('click', 'button', function () {
 				if (this.name === "refresh") {
 					$.ajax({
-						url: '/listdir',
+						url: url,
 						method: 'GET',
 						dataType: "json",
 						success: function (data) {
@@ -71,6 +80,13 @@
 							var sum = 0
 							array.forEach(element => {
 								array[sum].id = sum + 1
+								var start = new Date(element.start)
+								var end = new Date(element.stop)
+								var totle = (end.getTime() - start.getTime()) / 1000
+								// console.log(totle)
+								totle = getDuration(totle)
+								// console.log(totle)
+								array[sum].sec = totle
 								sum++
 							})
 							updata(array)
@@ -81,8 +97,9 @@
 					})
 				}
 			})
+
 			function updata(mydata2) {
-				console.log(mydata2)
+				// console.log(mydata2)
 				$('#table2').bootstrapTable('refreshOptions', {
 					data: mydata2,
 					classes: 'table table-borderless table-striped table-hover data-checkbox="true" data-field="',
@@ -167,6 +184,7 @@
 					]
 				});
 			}
+
 			function mydata(mydata2) {
 				$('#table2').bootstrapTable({
 					data: mydata2,
@@ -250,13 +268,32 @@
 					]
 				});
 			}
+
+			// input輸入框
 			function bucketNumberForm(e) {
 				return ['<input type="number" min="0" style="width:50px" name="test" value="' + e + '">']
 			}
+			// 秒 轉 分、時、天，並且隱藏時間未到的單位
+			function getDuration(second) {
+				var days = Math.floor(second / 86400);
+				var hours = Math.floor((second % 86400) / 3600);
+				var minutes = Math.floor(((second % 86400) % 3600) / 60);
+				var seconds = Math.floor(((second % 86400) % 3600) % 60);
+				if (second < 60) {
+					var duration = seconds + "秒";
+				} else if (second >= 60 && second < 3600) {
+					var duration = minutes + "分" + seconds + "秒";
+				} else if (second >= 3600 && second < 86400) {
+					var duration = hours + "時<br />" + minutes + "分" + seconds + "秒";
+				} else if (second >= 86400) {
+					var duration = days + "天" + hours + "時<br />" + minutes + "分" + seconds + "秒";
+				}
+				return duration;
+			}
 		});
-		// input輸入框
 	</script>
 </head>
+
 <body style="background-color: #e2e2e2;">
 	<nav class="navbar sticky-top navbar-expand-lg navbar-dark  bg-gradient" style="background-color: #262626;">
 		<div class="container" style="margin-left: 281px;">
@@ -289,7 +326,7 @@
 									data-click-to-select="true" data-toolbar="#toolbar" data-show-toggle="true"
 									data-show-columns="true" data-sortable="true" data-toggle="table2"
 									data-search="true" data-live-search="true" data-show-refresh="true"
-									data-unique-id="id">
+									data-unique-id="id" data-virtual-scroll="true">
 								</table>
 								<button hidden="true" type="submit"></button>
 							</form>
@@ -321,8 +358,7 @@
 										&nbsp;&nbsp;&nbsp;L/D 2F平台
 									</div>
 								</div>
-								<video id="videoList" loop controls muted preload src="../mock_vod/20220425_T193325.mp4"
-									class="video2 imgCenter">
+								<video id="videoList" loop controls muted preload src="" class="video2 imgCenter">
 								</video>
 							</div>
 						</div>
@@ -369,143 +405,188 @@
 	</div>
 	<!-- 折線圖 -->
 	<script type="text/javascript">
-		// 基于准备好的dom，初始化echarts实例
-		var Trend = echarts.init(document.getElementById('main'));
-		const colorPalette2 = ['#7180AC', '#2B4570', '#A8D0DB', '#E49273']
-		// 指定图表的配置项和数据
-		var option = {
-			title: {
-				// text: ''
-			},
-			tooltip: {
-				trigger: 'axis'
-			},
-			legend: {
-				data: ['L/F 副料區', '出鋼室地下樓梯', 'L/D 2F平台'],
-				//   selectedMode: 'single', // 設定顯示單一圖例的圖形，點選可切換
-				top: 10,
-				right: 0,
-				textStyle: {
-					color: '#666',
-					fontSize: 9,
-				}
-			},
-			// color: 'colorPalette2',
-			grid: {
-				left: '2%',
-				right: '3%',
-				top: '15%',
-				containLabel: true, //grid区域是否包含坐标轴的刻度标签。
+		$(document).ready(function () {
+			// 基于准备好的dom，初始化echarts实例
+			var Trend = echarts.init(document.getElementById('main'));
+			const colorPalette2 = ['#7180AC', '#2B4570', '#A8D0DB', '#E49273']
+			// 指定图表的配置项和数据
+			var optionTrend = {
+				title: {
+					// text: ''
+				},
+				tooltip: {
+					trigger: 'axis'
+				},
+				legend: {
+					data: ['L/F 副料區', '出鋼室地下樓梯', 'L/D 2F平台'],
+					//   selectedMode: 'single', // 設定顯示單一圖例的圖形，點選可切換
+					top: 10,
+					right: 0,
+					textStyle: {
+						color: '#666',
+						fontSize: 9,
+					}
+				},
+				// color: 'colorPalette2',
+				grid: {
+					left: '2%',
+					right: '3%',
+					top: '15%',
+					containLabel: true, //grid区域是否包含坐标轴的刻度标签。
 
-			},
-			toolbox: {
-				feature: {
-					// saveAsImage: {}
-				}
-			},
-			xAxis: {
-				type: 'category',
-				boundaryGap: false,
-				name: '(s)',
-				show: true,
-				interval: 1,
-				triggerEvent: true,
-				// 使用動態效果step1: 需註解data
-				// data: [0,1,2,3,4,5,6],
-				data: [0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3, 3.2, 3.4, 3.6, 3.8, 4, 4.2,
-					4.4, 4.6, 4.8, 5, 5.2, 5.4, 5.6, 5.8, 6
-				],
-				boundaryGap: false,
-				// boundaryGap: true,
-			},
-			yAxis: {
-				// type: 'value'
+				},
+				toolbox: {
+					feature: {
+						// saveAsImage: {}
+					}
+				},
+				xAxis: {
+					type: 'category',
+					boundaryGap: false,
+					name: '(s)',
+					show: true,
+					interval: 1,
+					triggerEvent: true,
+					boundaryGap: false,
+					// boundaryGap: true,
+				},
+				yAxis: {
+					// type: 'value'
 
-				type: 'value',
-				name: '(°C)',
-				min: 300,
-				max: 350,
-				show: true,
-			},
-			series: [{
-					name: 'L/F 副料區',
-					type: 'line',
-					// 使用動態效果step2: 需註解data
-					data: [300, 307, 309, 314, 312, 310, 310, 317, 310, 319, 313, 310, 310, 315, 320, 324, 328, 332,
-						330, 337, 340, 340, 345, 343, 346, 325, 328, 320, 318, 311, 331
-					],
-					smooth: true,
+					type: 'value',
+					name: '(°C)',
+					min: 300,
+					max: 350,
+					show: true,
 				},
-				{
-					name: '出鋼室地下樓梯',
-					type: 'line',
-					// 使用動態效果step3: 需註解data
-					data: [300, 300, 303, 306, 307, 308, 310, 310, 311, 331, 314, 316, 320, 337, 340, 349, 333, 335,
-						330, 305, 331, 321, 320, 316, 315, 311, 310, 306, 306, 307, 302
-					],
-					smooth: true,
-				},
-				{
-					name: 'L/D 2F平台',
-					type: 'line',
-					// 使用動態效果step4: 需註解data
-					data: [300, 302, 303, 303, 312, 310, 310, 315, 320, 324, 322, 320, 320, 323, 326, 327, 338, 330,
-						330, 331, 331, 334, 346, 340, 347, 330, 333, 330, 320, 315, 310
-					],
-					smooth: true,
-				},
-			]
-		};
-		// 使用刚指定的配置项和数据显示图表。
-		Trend.setOption(option);
-		Trend.on('click', function (params) {
-			var click_this_val = null
-			if (params.componentType === 'series') {
-				click_this_val = params.name
-			} else if (params.componentType === 'xAxis') {
-				click_this_val = params.value
-			}
-			console.log(click_this_val)
-			// console.log(params)
-			this_video = document.getElementById("videoList");
-			this_video.currentTime = click_this_val
-			this_video.pause()
-		});
-		// 點擊報表觸發/影片趨勢圖連動
-		$('.table-responsive').on('click', 'tr', function () {
-			var id = parseInt($(this).attr("data-index")) + 1
-			const data = $('#table2').bootstrapTable(
+				series: [{
+						name: 'L/F 副料區',
+						type: 'line',
+						smooth: true,
+					},
+					{
+						name: '出鋼室地下樓梯',
+						type: 'line',
+						smooth: true,
+					},
+					{
+						name: 'L/D 2F平台',
+						type: 'line',
+						smooth: true,
+					},
+				]
+			};
+			// 使用刚指定的配置项和数据显示图表。
+			Trend.setOption(optionTrend);
+			Trend.on('click', function (params) {
+				var click_this_val = null
+				if (params.componentType === 'series') {
+					click_this_val = params.name
+				} else if (params.componentType === 'xAxis') {
+					click_this_val = params.value
+				}
+				this_video = document.getElementById("videoList");
+				this_video.currentTime = click_this_val
+				this_video.pause()
+			});
+			// 讀取目前影片撥放時間(暫無用處)
+			// this_video = document.getElementById("videoList");
+			// this_video.addEventListener("timeupdate",
+			// 	function (ev) {
+			// 		// console.log(ev.target.currentTime);
+			// 	});
+			// 初始化_讓影片以及趨勢圖讀取資料報表第一條
+			var initInterval = null;
+			initInterval = setInterval(function () {
+				const data = $('#table2').bootstrapTable(
+					'getRowByUniqueId',
+					1)
+				if (data.id === 1) {
+					getDATA(data)
+					clearInterval(initInterval)
+				}
+			}, 1000)
+			// 點擊報表觸發/影片趨勢圖連動
+			const testdata = $('#table2').bootstrapTable(
 				'getRowByUniqueId',
-				id)
-			const url = '/temp/Data/' + data.name + '.txt' //設定api位置
-			const video = '../mock_vod/' + data.name + '.mp4'
-			$("#videoList").attr("src", video)
-			$.ajax({
-				url: url,
-				method: 'GET',
-				dataType: "json",
-				success: function (response) {
-					Trend.setOption({
-						xAxis: {
-							data: response.xAxis
-						},
-						series: [{
-								name: 'L/F 副料區',
-								data: response.temperature_LF
-							},
-							{
-								name: '出鋼室地下樓梯',
-								data: response.temperature_STAIR
-							},
-							{
-								name: 'L/D 2F平台',
-								data: response.temperature_LD
-							},
-						]
-					});
-				},
-				error: function (err) {}
+				1)
+			$('.table-responsive').on('click', 'tr', function () {
+				if (Interval !== null) {
+					clearInterval(Interval)
+				}
+				var id = parseInt($(this).attr("data-index")) + 1
+				const data = $('#table2').bootstrapTable(
+					'getRowByUniqueId',
+					id)
+				getDATA(data)
 			})
+			function getDATA(data) {
+				const url = '/temp/Data/' + data.name + '.txt' //設定api位置
+				const video = '../mock_vod/' + data.name + '.mp4'
+				$("#videoList").attr("src", video)
+				$.ajax({
+					url: url,
+					method: 'GET',
+					dataType: "json",
+					success: function (response) {
+						Trend.setOption({
+							xAxis: {
+								data: response.xAxis
+							},
+							series: [{
+									name: 'L/F 副料區',
+									data: response.temperature_LF
+								},
+								{
+									name: '出鋼室地下樓梯',
+									data: response.temperature_STAIR
+								},
+								{
+									name: 'L/D 2F平台',
+									data: response.temperature_LD
+								},
+							]
+						});
+						// 自動高亮
+						var hover = true //如果鼠標在圖表上，就設定為false 讓Interval不會再更新高亮的index
+						Trend.getZr().on('mousemove', function () {
+							if (hover) {
+								hover = false
+							}
+						});
+						Trend.getZr().on('globalout', function () {
+							hover = true
+						});
+						let currentIndex = -1;
+						Interval = setInterval(function () {
+							if (hover) {
+								var dataLen = response.xAxis.length;
+								Trend.dispatchAction({
+									type: 'downplay',
+									seriesIndex: 0,
+									dataIndex: currentIndex
+								});
+								currentIndex = (currentIndex + 1) % dataLen;
+								Trend.dispatchAction({
+									type: 'highlight',
+									seriesIndex: 0,
+									dataIndex: currentIndex
+								});
+								Trend.dispatchAction({
+									type: 'showTip',
+									seriesIndex: 0,
+									dataIndex: currentIndex
+								});
+								// 影片設定
+								this_video = document.getElementById("videoList");
+								this_video.currentTime = response.xAxis[currentIndex]
+								this_video.pause()
+							}
+						}, 1000);
+					},
+					error: function (err) {}
+				})
+			}
 		})
 	</script>
 	<!-- 熱像圖 -->
