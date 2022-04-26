@@ -39,21 +39,6 @@
 	<script src="https://unpkg.com/tableexport.jquery.plugin/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 	<script>
-		// console.log(mydata2)
-		// setInterval(function () {
-		// 	const dateTime = Date.now();
-		// 	const timestamp = Math.floor(dateTime / 1000);
-		// 	var date = document.getElementById('date');
-
-		// 	var dateNow = new Date(timestamp * 1000);
-		// 	var hours = dateNow.getHours();
-		// 	// Minutes part from the timestamp
-		// 	var minutes = "0" + dateNow.getMinutes();
-		// 	// Seconds part from the timestamp
-		// 	var seconds = "0" + dateNow.getSeconds();
-		// 	var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-		// }, 1000)
-		// 
 		$(function () {
 			//初始化資料報表
 			$.ajax({
@@ -62,9 +47,6 @@
 				dataType: "json",
 				success: function (data) {
 					var array = data
-					// data.forEach(element => {
-						// array.push(getTxt(element))
-					// })
 					var sum = 0
 					array.forEach(element => {
 						array[sum].id = sum + 1
@@ -86,13 +68,10 @@
 						dataType: "json",
 						success: function (data) {
 							var array = data
-							// data.forEach(element => {
-							// array.push(getTxt(element))
-							// })
 							var sum = 0
 							array.forEach(element => {
-							array[sum].id = sum + 1
-							sum++
+								array[sum].id = sum + 1
+								sum++
 							})
 							updata(array)
 						},
@@ -102,34 +81,6 @@
 					})
 				}
 			})
-			$('.table-responsive').on('click', 'tr', function () {
-				console.log($(this).attr("data-index"))
-			})
-			//
-			// function getTxt(data) {
-			// 	var mydata2 = null;
-			// 	var url = '/temp/Data/' + data
-			// 	$.ajax({
-			// 		url: url,
-			// 		method: 'GET',
-			// 		dataType: "json",
-			// 		async: false,
-			// 		success: function (res) {
-			// 			// var length = 0
-			// 			// res.forEach(element => {
-			// 			// mydata2[length] = element
-			// 			// length++
-			// 			// });
-			// 			// mydata(mydata2)
-			// 			mydata2 = res
-			// 		},
-			// 		error: function (err) {
-			// 			console.log(err)
-			// 		},
-			// 	})
-			// 	return mydata2
-			// }
-
 			function updata(mydata2) {
 				console.log(mydata2)
 				$('#table2').bootstrapTable('refreshOptions', {
@@ -139,7 +90,6 @@
 					exportDataType: 'all', // basic', 'all', 'selected'
 					showToggle: true,
 					columns: [{
-
 							title: '編號',
 							field: 'id',
 							align: 'center',
@@ -171,14 +121,12 @@
 							field: 'sec',
 							align: 'center',
 							sortable: true,
-
 						},
 						{
 							title: 'L/F 副料區',
 							field: 'maxTempForLF',
 							align: 'center',
 							sortable: true,
-
 						},
 						{
 							title: '出鋼室地下樓梯',
@@ -219,7 +167,6 @@
 					]
 				});
 			}
-
 			function mydata(mydata2) {
 				$('#table2').bootstrapTable({
 					data: mydata2,
@@ -228,7 +175,6 @@
 					exportDataType: 'all', // basic', 'all', 'selected'
 					showToggle: true,
 					columns: [{
-
 							title: '編號',
 							field: 'id',
 							align: 'center',
@@ -240,14 +186,12 @@
 							align: 'center',
 							sortable: 'true',
 							formatter: bucketNumberForm,
-
 						},
 						{
 							title: '錄影開始時間',
 							field: 'start',
 							align: 'center',
 							sortable: true,
-
 						},
 						{
 							title: '錄影終止時間',
@@ -260,14 +204,12 @@
 							field: 'sec',
 							align: 'center',
 							sortable: true,
-
 						},
 						{
 							title: 'L/F 副料區',
 							field: 'maxTempForLF',
 							align: 'center',
 							sortable: true,
-
 						},
 						{
 							title: '出鋼室地下樓梯',
@@ -308,7 +250,6 @@
 					]
 				});
 			}
-
 			function bucketNumberForm(e) {
 				return ['<input type="number" min="0" style="width:50px" name="test" value="' + e + '">']
 			}
@@ -316,26 +257,7 @@
 		// input輸入框
 	</script>
 </head>
-
 <body style="background-color: #e2e2e2;">
-	<!-- <nav class="navbar navbar-expand-lg navbar-light bg-dark darken py-0 shadow-sm">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="#">Navbar</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-				aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-				<div class="navbar-nav">
-					<a class="nav-link active fw-bold title" aria-current="page" href="index.html"
-						style="color:#6f6f6f;font-size:15px;margin-left: 40px;">即時監控</a>
-					<a class="nav-link active fw-bold title" aria-current="page" href="dataScraping.html"
-						style="color:#6f6f6f;font-size:15px;margin-left: 40px;">資料分析</a>
-				</div>
-			</div>
-		</div>
-	</nav> -->
-
 	<nav class="navbar sticky-top navbar-expand-lg navbar-dark  bg-gradient" style="background-color: #262626;">
 		<div class="container" style="margin-left: 281px;">
 			<ul class="navbar-nav">
@@ -348,8 +270,6 @@
 			</ul>
 		</div>
 	</nav>
-
-
 	<div class="container-fluid mt-3 mr-0">
 		<div class="row ">
 			<div class="col-md-6">
@@ -368,7 +288,8 @@
 								<table id="table2" data-height="807" data-show-export="true" data-pagination="false"
 									data-click-to-select="true" data-toolbar="#toolbar" data-show-toggle="true"
 									data-show-columns="true" data-sortable="true" data-toggle="table2"
-									data-search="true" data-live-search="true" data-show-refresh="true">
+									data-search="true" data-live-search="true" data-show-refresh="true"
+									data-unique-id="id">
 								</table>
 								<button hidden="true" type="submit"></button>
 							</form>
@@ -376,9 +297,6 @@
 					</div>
 				</div>
 			</div>
-
-
-
 			<div class="col-md-6">
 				<div class="row">
 					<div class="col-md-12">
@@ -403,17 +321,12 @@
 										&nbsp;&nbsp;&nbsp;L/D 2F平台
 									</div>
 								</div>
-								<!-- <div class="gap"></div>
-								<div class="gap2"></div> -->
-								<video id="videoList" loop controls muted preload src="../mock_vod/20220415_T094924.mp4"
+								<video id="videoList" loop controls muted preload src="../mock_vod/20220425_T193325.mp4"
 									class="video2 imgCenter">
 								</video>
 							</div>
 						</div>
 					</div>
-
-
-
 					<div class="col-md-12 ">
 						<!-- 下1---------------------------------------------------------------------------------------------- -->
 						<div class="card mt-3 shadow " style="height:273px;">
@@ -432,8 +345,6 @@
 							</div>
 						</div>
 					</div>
-
-
 					<div class="col-md-12">
 						<!-- 下1---------------------------------------------------------------------------------------------- -->
 						<div class="card mt-3 shadow" style="height:273px;">
@@ -515,11 +426,6 @@
 				min: 300,
 				max: 350,
 				show: true,
-				// interval: 10,
-				//             axisLabel: {
-				//   formatter: '{value} %',
-				// },
-
 			},
 			series: [{
 					name: 'L/F 副料區',
@@ -552,7 +458,6 @@
 		};
 		// 使用刚指定的配置项和数据显示图表。
 		Trend.setOption(option);
-
 		Trend.on('click', function (params) {
 			var click_this_val = null
 			if (params.componentType === 'series') {
@@ -566,125 +471,50 @@
 			this_video.currentTime = click_this_val
 			this_video.pause()
 		});
-
-		// Trend.on('click', function (params) {
-		// 	if (params.componentType === 'markPoint') {
-		// 		// 点击到了 markPoint 上
-		// 		console.log('1')
-		// 		if (params.seriesIndex === 5) {
-		// 			// 点击到了 index 为 5 的 series 的 markPoint 上。
-		// 			console.log('2')
-		// 		}
-		// 	} else if (params.componentType === 'series') {
-		// 		console.log('3')
-		// 		if (params.seriesType === 'graph') {
-		// 			console.log('4')
-		// 			if (params.dataType === 'edge') {
-		// 				console.log('5')
-		// 				// 点击到了 graph 的 edge（边）上。
-		// 			} else {
-		// 				console.log('6')
-		// 				// 点击到了 graph 的 node（节点）上。
-		// 			}
-		// 		}
-		// 	}
-		// });
-		// 使用動態效果step5: 取消註解函式
-		// 無限載入數據
-		// var play = 0 //定義x軸起點
-		// var x1 = [] //宣告x軸陣列
-		// var x11 = [] //宣告x1(副料區)陣列
-		// var x12 = [] //宣告x2陣列
-		// var x13 = [] //宣告x3陣列
-		// var shift = false // 設定最大值
-		// setInterval(function () {
-		// 設定最多顯示多少資料
-		// if(x1.length >= 5){
-		// 	shift = true
-		// }
-		// x1.push(play) //在陣列後端新增變數
-		// x11.push(sum()) //在陣列後端新增變數
-		// x12.push(sum()) //在陣列後端新增變數
-		// x13.push(sum()) //在陣列後端新增變數
-		// if(shift){ //如果shift為true則刪除陣列的最舊key
-		// 	x1.shift()
-		// 	x11.shift()
-		// 	x12.shift()
-		// 	x13.shift()
-		// }
-		// 設定echarts data
-		// 	Trend.setOption({
-		// 		xAxis: {
-		// 			data: x1,
-		// 		},
-		// 		series: [{
-		// 				name: 'L/F 副料區',
-		// 				data: x11
-		// 			},
-		// 			{
-		// 				name: '出鋼室地下樓梯',
-		// 				data: x12
-		// 			},
-		// 			{
-		// 				name: 'L/D 2F平台',
-		// 				data: x13
-		// 			},
-		// 		]
-		// 	})
-		// 	play++
-		// }, 500)
-
-		// 使用動態效果step6: 取消註解函式
-		// 亂數設定
-		// function sum() {
-		// 	min = Math.ceil(300);
-		// 	max = Math.floor(350);
-		// 	return Math.floor(Math.random() * (max - min + 1) + min)
-		// }
-
-		// 非同步載入資料
-		// setInterval(function () {
-		// 	$.ajax({
-		// 		url: '/temp/Trend/20220421.txt',
-		// 		method: 'GET',
-		// 		dataType: "json",
-		// 		success: function (res) {
-		// 			Trend.setOption({
-		// 				xAxis: {
-		// 					data: [0, 1, 2, 3, 4, 5],
-		// 				},
-		// 				series: [{
-		// 						name: 'L/F 副料區',
-		// 						data: res[0].data
-
-		// 					},
-		// 					{
-		// 						name: '出鋼室地下樓梯',
-		// 						data: res[1].data
-		// 					},
-		// 					{
-		// 						name: 'L/D 2F平台',
-		// 						data: res[2].data
-		// 					},
-		// 				]
-		// 			})
-		// 		},
-		// 		error: function (err) {
-		// 			console.log(err)
-		// 		},
-		// 	})
-		// 	console.log("get")
-		// }, 1000)
+		// 點擊報表觸發/影片趨勢圖連動
+		$('.table-responsive').on('click', 'tr', function () {
+			var id = parseInt($(this).attr("data-index")) + 1
+			const data = $('#table2').bootstrapTable(
+				'getRowByUniqueId',
+				id)
+			const url = '/temp/Data/' + data.name + '.txt' //設定api位置
+			const video = '../mock_vod/' + data.name + '.mp4'
+			$("#videoList").attr("src", video)
+			$.ajax({
+				url: url,
+				method: 'GET',
+				dataType: "json",
+				success: function (response) {
+					Trend.setOption({
+						xAxis: {
+							data: response.xAxis
+						},
+						series: [{
+								name: 'L/F 副料區',
+								data: response.temperature_LF
+							},
+							{
+								name: '出鋼室地下樓梯',
+								data: response.temperature_STAIR
+							},
+							{
+								name: 'L/D 2F平台',
+								data: response.temperature_LD
+							},
+						]
+					});
+				},
+				error: function (err) {}
+			})
+		})
 	</script>
 	<!-- 熱像圖 -->
 	<script type="text/javascript">
 		// 基于准备好的dom，初始化echarts实例
 		var myChart = echarts.init(document.getElementById('main2'));
-
 		// 指定图表的配置项和数据
 		// prettier-ignore
 		// (x, y , 0:沒事 1:有事, 拉了幾桶(3桶/hr))
-
 		option = {
 			tooltip: {
 				position: 'top'
@@ -762,13 +592,9 @@
 								shadowOffsetY: '0',
 								shadowOffsetX: '0',
 								align: 'center',
-
-
 							},
 						}
 					}
-
-
 				},
 				emphasis: {
 					itemStyle: {
@@ -778,10 +604,8 @@
 				}
 			}]
 		};
-
 		// 使用刚指定的配置项和数据显示图表。
 		myChart.setOption(option);
-
 		// -------時間計算器
 		setInterval(function () {
 			jQuery.ajax({
@@ -805,7 +629,6 @@
 				},
 			})
 		}, 500)
-
 		// 時間篩選
 		function listinterval(res) {
 			// 宣告陣列
@@ -863,7 +686,6 @@
 				// 將區段統計結果新增到陣列中
 				array = [Hours, (Minutes / 10), status, timeSum]
 				output.push(array)
-
 			}
 			// 印出陣列
 			return output
