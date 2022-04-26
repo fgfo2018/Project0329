@@ -1,0 +1,13 @@
+{
+    "bucketNumber": "12",
+    "start": "2022-04-25 18:44:30",
+    "stop": "2022-04-25 19:07:20",
+    "sec": "7s",
+    "maxTempForLF": "450.5°C",
+    "maxTempForDownStairs": "460.5.°C",
+    "maxTempForLD": "470.5°C",
+    "shootingTime": "13:04",
+    "alertPixels1": "20px",
+    "alertPixels2": "20px",
+    "alertPixels3": "20px"
+}

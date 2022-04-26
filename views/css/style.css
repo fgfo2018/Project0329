@@ -198,3 +198,11 @@
   opacity: 0;
   transition: 1s;
 }
+
+.fixed-table-body {
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+.fixed-table-container tr{
+  cursor:pointer;
+}

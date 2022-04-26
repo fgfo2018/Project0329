@@ -81,22 +81,17 @@ app.post('/log', function (req, res) {
 });
 
 const getDir = () => {
-    const testFolder = './views/temp/Data';
-    // fs.readdir(testFolder, (err, files) => {
-    //     var output = []
-    //     files.forEach(file => {
-    //         output.push(file)
-    //     });
-    //     console.log(JSON.stringify(output))
-    //     return JSON.stringify(output)
+    // const testFolder = './views/temp/Data';
+    // var output = []
+    // fs.readdirSync(testFolder).forEach(file => {
+    //     output.push(file)
     // });
-    var output = []
-    fs.readdirSync(testFolder).forEach(file => {
-        output.push(file)
-    });
-    console.log(JSON.stringify(output))
-    return JSON.stringify(output)
+    // console.log(JSON.stringify(output))
+    // return JSON.stringify(output)
     // console.log(output)
+    const jsonData = fs.readFileSync('./views/temp/listTime.json')
+    // console.log(JSON.parse(jsonData))
+    return JSON.parse(jsonData)
 }
 
 const getTime = () => {

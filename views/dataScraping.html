@@ -54,38 +54,171 @@
 		// 	var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
 		// }, 1000)
 		// 
-
 		$(function () {
-			//
+			//初始化資料報表
 			$.ajax({
 				url: '/listdir',
 				method: 'GET',
 				dataType: "json",
 				success: function (data) {
-					console.log(data);
+					var array = data
+					// data.forEach(element => {
+						// array.push(getTxt(element))
+					// })
+					var sum = 0
+					array.forEach(element => {
+						array[sum].id = sum + 1
+						sum++
+					})
+					mydata(array)
+					console.log(array)
 				},
 				error: function (err) {
 					console.log(err)
 				},
+			})
+			// 按刷新鍵觸發此動作
+			$('.table-responsive').on('click', 'button', function () {
+				if (this.name === "refresh") {
+					$.ajax({
+						url: '/listdir',
+						method: 'GET',
+						dataType: "json",
+						success: function (data) {
+							var array = data
+							// data.forEach(element => {
+							// array.push(getTxt(element))
+							// })
+							var sum = 0
+							array.forEach(element => {
+							array[sum].id = sum + 1
+							sum++
+							})
+							updata(array)
+						},
+						error: function (err) {
+							console.log(err)
+						},
+					})
+				}
+			})
+			$('.table-responsive').on('click', 'tr', function () {
+				console.log($(this).attr("data-index"))
 			})
 			//
-			var mydata2 = [];
-			$.ajax({
-				url: '/temp/Data/20220421.txt',
-				method: 'GET',
-				dataType: "json",
-				success: function (res) {
-					var length = 0
-					res.forEach(element => {
-						mydata2[length] = element
-						length++
-					});
-					mydata(mydata2)
-				},
-				error: function (err) {
-					console.log(err)
-				},
-			})
+			// function getTxt(data) {
+			// 	var mydata2 = null;
+			// 	var url = '/temp/Data/' + data
+			// 	$.ajax({
+			// 		url: url,
+			// 		method: 'GET',
+			// 		dataType: "json",
+			// 		async: false,
+			// 		success: function (res) {
+			// 			// var length = 0
+			// 			// res.forEach(element => {
+			// 			// mydata2[length] = element
+			// 			// length++
+			// 			// });
+			// 			// mydata(mydata2)
+			// 			mydata2 = res
+			// 		},
+			// 		error: function (err) {
+			// 			console.log(err)
+			// 		},
+			// 	})
+			// 	return mydata2
+			// }
+
+			function updata(mydata2) {
+				console.log(mydata2)
+				$('#table2').bootstrapTable('refreshOptions', {
+					data: mydata2,
+					classes: 'table table-borderless table-striped table-hover data-checkbox="true" data-field="',
+					exportTypes: ['txt', 'csv', 'excel'], // 導出類型
+					exportDataType: 'all', // basic', 'all', 'selected'
+					showToggle: true,
+					columns: [{
+
+							title: '編號',
+							field: 'id',
+							align: 'center',
+							sortable: 'true',
+						},
+						{
+							title: '桶號',
+							field: 'bucketNumber',
+							align: 'center',
+							sortable: 'true',
+							formatter: bucketNumberForm,
+
+						},
+						{
+							title: '錄影開始時間',
+							field: 'start',
+							align: 'center',
+							sortable: true,
+
+						},
+						{
+							title: '錄影終止時間',
+							field: 'stop',
+							align: 'center',
+							sortable: true,
+						},
+						{
+							title: '總秒數',
+							field: 'sec',
+							align: 'center',
+							sortable: true,
+
+						},
+						{
+							title: 'L/F 副料區',
+							field: 'maxTempForLF',
+							align: 'center',
+							sortable: true,
+
+						},
+						{
+							title: '出鋼室地下樓梯',
+							field: 'maxTempForDownStairs',
+							align: 'center',
+							sortable: true,
+						},
+						{
+							title: 'L/D 2F平台',
+							field: 'maxTempForLD',
+							align: 'center',
+							sortable: true,
+						},
+						{
+							title: '拍照時間',
+							field: 'shootingTime',
+							align: 'center',
+							sortable: true,
+						},
+						{
+							title: '警示大於像素-1',
+							field: 'alertPixels1',
+							align: 'center',
+							sortable: true,
+						},
+						{
+							title: '警示大於像素-2',
+							field: 'alertPixels2',
+							align: 'center',
+							sortable: true,
+						},
+						{
+							title: '警示大於像素-3',
+							field: 'alertPixels3',
+							align: 'center',
+							sortable: true,
+						},
+					]
+				});
+			}
 
 			function mydata(mydata2) {
 				$('#table2').bootstrapTable({
@@ -94,9 +227,7 @@
 					exportTypes: ['txt', 'csv', 'excel'], // 導出類型
 					exportDataType: 'all', // basic', 'all', 'selected'
 					showToggle: true,
-					columns: [
-
-						{
+					columns: [{
 
 							title: '編號',
 							field: 'id',

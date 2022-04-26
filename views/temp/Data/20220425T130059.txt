@@ -1,8 +1,7 @@
-[{
-    "id": 2,
-    "bucketNumber": "12",
-    "start": "13:00",
-    "stop": "13:07",
+{
+    "bucketNumber": "",
+    "start": "2022-04-25 13:00:59",
+    "stop": "2022-04-25 13:07:33",
     "sec": "7s",
     "maxTempForLF": "450.5°C",
     "maxTempForDownStairs": "460.5.°C",
@@ -11,4 +10,4 @@
     "alertPixels1": "20px",
     "alertPixels2": "20px",
     "alertPixels3": "20px"
-}]
+}
