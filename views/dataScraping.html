@@ -49,6 +49,14 @@
 				success: function (data) {
 					var array = data
 					var sum = 0
+					array.sort(function (a, b) {
+						var keyA = new Date(a.start),
+							keyB = new Date(b.start);
+						// Compare the 2 dates
+						if (keyA < keyB) return 1;
+						if (keyA > keyB) return -1;
+						return 0;
+					});
 					array.forEach(element => {
 						array[sum].id = sum + 1
 						var start = new Date(element.start)
@@ -56,6 +64,11 @@
 						var totle = (end.getTime() - start.getTime()) / 1000
 						// console.log(totle)
 						totle = getDuration(totle)
+
+						array[sum].bucketNumber = {
+							bucketNumber: element.bucketNumber,
+							name: element.name
+						}
 						// console.log(totle)
 						array[sum].sec = totle
 						sum++
@@ -67,6 +80,28 @@
 					console.log(err)
 				},
 			})
+			// input 比對 
+			var tempInputVal = null;
+			$('.table-responsive').on('focus', 'input', function () {
+				tempInputVal = $(this).val()
+			})
+			$('.table-responsive').on('focusout', 'input', function () {
+				if (tempInputVal !== $(this).val()) {
+					console.log("this is updata")
+					$(this).css("background-color", "#c9c9c9")
+				}
+			})
+			$("form").on("submit", function (event) {
+				event.preventDefault();
+				$("input").css("background-color", "#fff")
+				console.log($(this).serialize());
+			});
+			// $('form').keypress(function (event) {
+			// 	if (event.which === 13) {
+			// 		event.preventDefault();
+			// 		console.log(123)
+			// 	}
+			// });
 
 			// 按刷新鍵觸發此動作
 			$('.table-responsive').on('click', 'button', function () {
@@ -78,12 +113,24 @@
 						success: function (data) {
 							var array = data
 							var sum = 0
+							array.sort(function (a, b) {
+								var keyA = new Date(a.start),
+									keyB = new Date(b.start);
+								// Compare the 2 dates
+								if (keyA < keyB) return -1;
+								if (keyA > keyB) return 1;
+								return 0;
+							});
 							array.forEach(element => {
 								array[sum].id = sum + 1
 								var start = new Date(element.start)
 								var end = new Date(element.stop)
 								var totle = (end.getTime() - start.getTime()) / 1000
 								// console.log(totle)
+								array[sum].bucketNumber = {
+									bucketNumber: element.bucketNumber,
+									name: element.name
+								}
 								totle = getDuration(totle)
 								// console.log(totle)
 								array[sum].sec = totle
@@ -160,24 +207,6 @@
 						{
 							title: '拍照時間',
 							field: 'shootingTime',
-							align: 'center',
-							sortable: true,
-						},
-						{
-							title: '警示大於像素-1',
-							field: 'alertPixels1',
-							align: 'center',
-							sortable: true,
-						},
-						{
-							title: '警示大於像素-2',
-							field: 'alertPixels2',
-							align: 'center',
-							sortable: true,
-						},
-						{
-							title: '警示大於像素-3',
-							field: 'alertPixels3',
 							align: 'center',
 							sortable: true,
 						},
@@ -271,7 +300,9 @@
 
 			// input輸入框
 			function bucketNumberForm(e) {
-				return ['<input type="number" min="0" style="width:50px" name="test" value="' + e + '">']
+				return ['<input type="number" min="0" style="width:50px" name="' + e.name + '" value="' + e
+					.bucketNumber + '">'
+				]
 			}
 			// 秒 轉 分、時、天，並且隱藏時間未到的單位
 			function getDuration(second) {
@@ -326,7 +357,7 @@
 									data-click-to-select="true" data-toolbar="#toolbar" data-show-toggle="true"
 									data-show-columns="true" data-sortable="true" data-toggle="table2"
 									data-search="true" data-live-search="true" data-show-refresh="true"
-									data-unique-id="id" data-virtual-scroll="true">
+									data-unique-id="id">
 								</table>
 								<button hidden="true" type="submit"></button>
 							</form>
@@ -410,6 +441,7 @@
 			var Trend = echarts.init(document.getElementById('main'));
 			const colorPalette2 = ['#7180AC', '#2B4570', '#A8D0DB', '#E49273']
 			// 指定图表的配置项和数据
+			var testasd = 0;
 			var optionTrend = {
 				title: {
 					// text: ''
@@ -422,6 +454,7 @@
 					//   selectedMode: 'single', // 設定顯示單一圖例的圖形，點選可切換
 					top: 10,
 					right: 0,
+					left: "center",
 					textStyle: {
 						color: '#666',
 						fontSize: 9,
@@ -436,8 +469,32 @@
 
 				},
 				toolbox: {
+					show: true,
+					left: "right",
+					top: "top",
+					itemSize: 30,
+					// show: false,
 					feature: {
 						// saveAsImage: {}
+						myTool2: {
+							show: true,
+							title: '自動播放',
+							icon: 'image://static/play.png',
+							onclick: function () {
+								console.log(testasd);
+								testasd++
+								Trend.setOption({
+									toolbox: {
+										feature: {
+											myTool2: {
+												title: '暫停',
+												icon: 'image://static/pause.png',
+											}
+										}
+									}
+								})
+							}
+						}
 					}
 				},
 				xAxis: {
@@ -520,6 +577,7 @@
 					id)
 				getDATA(data)
 			})
+
 			function getDATA(data) {
 				const url = '/temp/Data/' + data.name + '.txt' //設定api位置
 				const video = '../mock_vod/' + data.name + '.mp4'
@@ -549,12 +607,25 @@
 						});
 						// 自動高亮
 						var hover = true //如果鼠標在圖表上，就設定為false 讓Interval不會再更新高亮的index
+						var video = document.getElementById("videoList");
+						video.removeAttribute("controls")
+						$('#videoList').hover(function () {
+							if (hover) {
+								video.setAttribute("controls", "controls")
+								hover = false
+							}
+						}, function () {
+							video.removeAttribute("controls")
+							hover = true
+						});
 						Trend.getZr().on('mousemove', function () {
 							if (hover) {
+								video.setAttribute("controls", "controls")
 								hover = false
 							}
 						});
 						Trend.getZr().on('globalout', function () {
+							video.removeAttribute("controls")
 							hover = true
 						});
 						let currentIndex = -1;
@@ -582,7 +653,7 @@
 								this_video.currentTime = response.xAxis[currentIndex]
 								this_video.pause()
 							}
-						}, 1000);
+						}, 1500);
 					},
 					error: function (err) {}
 				})
@@ -596,7 +667,23 @@
 		// 指定图表的配置项和数据
 		// prettier-ignore
 		// (x, y , 0:沒事 1:有事, 拉了幾桶(3桶/hr))
+
 		option = {
+			aria: {
+				// 下面几行可以不写，因为 label.enabled 默认 true
+				// label: {
+				// enabled: true
+				// },
+				enabled: true
+			},
+			title: {
+				textStyle: {
+					color: '#6f6f6f',
+					fontSize: 12,
+					lineHeight: 50,
+				},
+				x: 'right'
+			},
 			tooltip: {
 				position: 'top'
 			},
@@ -632,7 +719,7 @@
 			visualMap: {
 				show: true,
 				min: 0,
-				max: 2,
+				// max: 5,
 				calculable: true,
 				// orient: 'horizontal',
 				orient: 'vertical',
@@ -687,18 +774,51 @@
 		};
 		// 使用刚指定的配置项和数据显示图表。
 		myChart.setOption(option);
-		// -------時間計算器
-		setInterval(function () {
-			jQuery.ajax({
-				url: '/list',
+		//初始化資料報表
+		const url = '/listdir' //定義資料報表API位置
+		$('.table-responsive').on('click', 'button', function () {
+			if (this.name === "refresh") {
+				getData(url)
+			}
+		})
+		getData(url)
+
+		function getData(url) {
+			$.ajax({
+				url: url,
 				method: 'GET',
 				dataType: "json",
-				success: function (res) {
-					var data = listinterval(res)
+				success: function (data) {
+					var date = new Date();
+					var time = date.getFullYear() +
+						"/" +
+						(date.getMonth() + 1).toString().padStart(2, '0') +
+						"/" +
+						date.getDate().toString().padStart(2, '0') +
+						" " +
+						date.getHours().toString().padStart(2, '0') +
+						":" +
+						date.getMinutes().toString().padStart(2, '0') +
+						":" +
+						date.getSeconds().toString().padStart(2, '0');
+					var data = listinterval(data)
+					// 判斷時段中拉起桶數的最大值
+					var max = []
+					data.forEach(function (item) {
+						max.push(item[3])
+					})
+					max = Math.max(...max)
+					// 判斷時段中拉起桶數的最大值 end
 					data = data.map(function (item) {
 						return [item[0], item[1], item[2], item[3]];
 					})
 					myChart.setOption({
+						visualMap: {
+							max: max
+						},
+						title: {
+							text: '資料最後更新時間:' + time,
+						},
 						series: [{
 							name: '',
 							data: data,
@@ -709,7 +829,30 @@
 					console.log(err)
 				},
 			})
-		}, 500)
+		}
+		// -------時間計算器
+		// setInterval(function () {
+		// 	jQuery.ajax({
+		// 		url: '/list',
+		// 		method: 'GET',
+		// 		dataType: "json",
+		// 		success: function (res) {
+		// 			var data = listinterval(res)
+		// 			data = data.map(function (item) {
+		// 				return [item[0], item[1], item[2], item[3]];
+		// 			})
+		// 			myChart.setOption({
+		// 				series: [{
+		// 					name: '',
+		// 					data: data,
+		// 				}]
+		// 			});
+		// 		},
+		// 		error: function (err) {
+		// 			console.log(err)
+		// 		},
+		// 	})
+		// }, 500)
 		// 時間篩選
 		function listinterval(res) {
 			// 宣告陣列
@@ -732,6 +875,7 @@
 			// 指標時間變數
 			var lastTime = null
 			var NewMin = null
+
 			// 間隔十分鐘
 			for (var i = 1; i < setinterval; i++) {
 				// 宣告日期
@@ -754,7 +898,7 @@
 				var Minutes = lastTime.getMinutes();
 				var status = 0
 				res.forEach(function (item) {
-					var listTime = new Date(item.time)
+					var listTime = new Date(item.start)
 					// 判斷間隔時間如果符合，就在此區段增加統計數
 					if (listTime > lastTime && listTime < NewTime) {
 						// 此區段如果有任何一桶有問題，則將狀態變更為1
