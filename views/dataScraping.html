@@ -20,7 +20,7 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
 		integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css">
-
+	<link rel="stylesheet" href="./css/daterangepicker.css">
 	</script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
 		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
@@ -38,6 +38,9 @@
 	<script src="https://unpkg.com/tableexport.jquery.plugin/libs/jsPDF/jspdf.min.js"></script>
 	<script src="https://unpkg.com/tableexport.jquery.plugin/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+	<script src="./js/moment.min.js"></script>
+	<script src="./js/daterangepicker.js"></script>
+
 	<script>
 		$(function () {
 			//初始化資料報表
@@ -47,6 +50,7 @@
 				method: 'GET',
 				dataType: "json",
 				success: function (data) {
+					var maxtre = maxtr()
 					var array = data
 					var sum = 0
 					array.sort(function (a, b) {
@@ -69,17 +73,35 @@
 							bucketNumber: element.bucketNumber,
 							name: element.name
 						}
+						// L/F
+						array[sum].maxTempForLF = {
+							maxTr: element.maxTempForLF,
+							status: Compare(element.maxTempForLF, f_tr, s_tr)
+						}
+						array[sum].maxTempForDownStairs = {
+							maxTr: element.maxTempForDownStairs,
+							status: Compare(element.maxTempForDownStairs, f_tr, s_tr)
+						}
+						array[sum].maxTempForLD = {
+							maxTr: element.maxTempForLD,
+							status: Compare(element.maxTempForLD, f_tr, s_tr)
+						}
 						// console.log(totle)
 						array[sum].sec = totle
 						sum++
 					})
 					mydata(array)
-					// console.log(array)
+					// $('.max_tr01').parent().css('background','#ff8d00')
+					// $('.max_tr01').closest('tr').css('background','rgb(255 220 223)')
+					$('.max_tr01').closest('tr').css('background', '#F8EFEA')
+					// $('.max_tr02').parent().css('background','rgb(255, 0, 0)')
+					$('.max_tr02').closest('tr').css('background', '#F8EFEA')
 				},
 				error: function (err) {
 					console.log(err)
 				},
 			})
+
 			// input 比對 
 			var tempInputVal = null;
 			$('.table-responsive').on('focus', 'input', function () {
@@ -111,14 +133,15 @@
 						method: 'GET',
 						dataType: "json",
 						success: function (data) {
+							var maxtre = maxtr()
 							var array = data
 							var sum = 0
 							array.sort(function (a, b) {
 								var keyA = new Date(a.start),
 									keyB = new Date(b.start);
 								// Compare the 2 dates
-								if (keyA < keyB) return -1;
-								if (keyA > keyB) return 1;
+								if (keyA < keyB) return 1;
+								if (keyA > keyB) return -1;
 								return 0;
 							});
 							array.forEach(element => {
@@ -127,16 +150,37 @@
 								var end = new Date(element.stop)
 								var totle = (end.getTime() - start.getTime()) / 1000
 								// console.log(totle)
+								totle = getDuration(totle)
+
 								array[sum].bucketNumber = {
 									bucketNumber: element.bucketNumber,
 									name: element.name
 								}
-								totle = getDuration(totle)
+								// L/F
+								array[sum].maxTempForLF = {
+									maxTr: element.maxTempForLF,
+									status: Compare(element.maxTempForLF, f_tr, s_tr)
+								}
+								array[sum].maxTempForDownStairs = {
+									maxTr: element.maxTempForDownStairs,
+									status: Compare(element.maxTempForDownStairs,
+										f_tr, s_tr)
+								}
+								array[sum].maxTempForLD = {
+									maxTr: element.maxTempForLD,
+									status: Compare(element.maxTempForLD, f_tr, s_tr)
+								}
 								// console.log(totle)
 								array[sum].sec = totle
 								sum++
 							})
 							updata(array)
+
+							// $('.max_tr01').parent().css('background','#ff8d00')
+							// $('.max_tr01').closest('tr').css('background','rgb(255 220 223)')
+							$('.max_tr01').closest('tr').css('background', '#F8EFEA')
+							// $('.max_tr02').parent().css('background','rgb(255, 0, 0)')
+							$('.max_tr02').closest('tr').css('background', '#F8EFEA')
 						},
 						error: function (err) {
 							console.log(err)
@@ -144,80 +188,53 @@
 					})
 				}
 			})
-
-			function updata(mydata2) {
-				// console.log(mydata2)
-				$('#table2').bootstrapTable('refreshOptions', {
-					data: mydata2,
-					classes: 'table table-borderless table-striped table-hover data-checkbox="true" data-field="',
-					exportTypes: ['txt', 'csv', 'excel'], // 導出類型
-					exportDataType: 'all', // basic', 'all', 'selected'
-					showToggle: true,
-					columns: [{
-							title: '編號',
-							field: 'id',
-							align: 'center',
-							sortable: 'true',
-						},
-						{
-							title: '桶號',
-							field: 'bucketNumber',
-							align: 'center',
-							sortable: 'true',
-							formatter: bucketNumberForm,
-
-						},
-						{
-							title: '錄影開始時間',
-							field: 'start',
-							align: 'center',
-							sortable: true,
-
-						},
-						{
-							title: '錄影終止時間',
-							field: 'stop',
-							align: 'center',
-							sortable: true,
-						},
-						{
-							title: '總秒數',
-							field: 'sec',
-							align: 'center',
-							sortable: true,
-						},
-						{
-							title: 'L/F 副料區',
-							field: 'maxTempForLF',
-							align: 'center',
-							sortable: true,
-						},
-						{
-							title: '出鋼室地下樓梯',
-							field: 'maxTempForDownStairs',
-							align: 'center',
-							sortable: true,
-						},
-						{
-							title: 'L/D 2F平台',
-							field: 'maxTempForLD',
-							align: 'center',
-							sortable: true,
-						},
-						{
-							title: '拍照時間',
-							field: 'shootingTime',
-							align: 'center',
-							sortable: true,
-						},
-					]
-				});
+			// 取得警報溫度
+			function maxtr() {
+				var array = []
+				$.ajax({
+					url: 'http://localhost:5000/api/data/normal',
+					dataType: "json",
+					method: 'GET',
+					async: false, // 關閉非同步作業
+					success: function (res) {
+						f_tr = res.setting_first_alarm_temperature
+						s_tr = res.setting_second_alarm_temperature
+						array = {
+							f_tr: f_tr,
+							s_tr: s_tr,
+						}
+						$(".f_tr").val(f_tr)
+						$(".s_tr").val(s_tr)
+					},
+					error: function (err) {}
+				})
+				return array
 			}
-
+			// 計算超溫狀態
+			function Compare(int, f_tr, s_tr) {
+				var output = null
+				if (int < f_tr) {
+					output = 0
+				} else if (int >= f_tr && int < s_tr) {
+					output = 1
+				} else if (int >= s_tr) {
+					output = 2
+				}
+				return output;
+			}
+			// 初始
 			function mydata(mydata2) {
-				$('#table2').bootstrapTable({
+				$('#table2').bootstrapTable(database(mydata2));
+			}
+			// 更新
+			function updata(mydata2) {
+				$('#table2').bootstrapTable('refreshOptions', database(mydata2));
+			}
+			// table格式化
+			function database(mydata2) {
+				var array = {
 					data: mydata2,
-					classes: 'table table-borderless table-striped table-hover data-checkbox="true" data-field="',
+					classes: 'table table-borderless  table-hover data-checkbox="true" data-field="',
 					exportTypes: ['txt', 'csv', 'excel'], // 導出類型
 					exportDataType: 'all', // basic', 'all', 'selected'
 					showToggle: true,
@@ -257,52 +274,47 @@
 							field: 'maxTempForLF',
 							align: 'center',
 							sortable: true,
+							formatter: maxTemp,
 						},
 						{
 							title: '出鋼室地下樓梯',
 							field: 'maxTempForDownStairs',
 							align: 'center',
 							sortable: true,
+							formatter: maxTemp,
 						},
 						{
 							title: 'L/D 2F平台',
 							field: 'maxTempForLD',
 							align: 'center',
 							sortable: true,
+							formatter: maxTemp,
 						},
 						{
 							title: '拍照時間',
 							field: 'shootingTime',
 							align: 'center',
 							sortable: true,
-						},
-						{
-							title: '警示大於像素-1',
-							field: 'alertPixels1',
-							align: 'center',
-							sortable: true,
-						},
-						{
-							title: '警示大於像素-2',
-							field: 'alertPixels2',
-							align: 'center',
-							sortable: true,
-						},
-						{
-							title: '警示大於像素-3',
-							field: 'alertPixels3',
-							align: 'center',
-							sortable: true,
-						},
+						}
 					]
-				});
+				}
+				return array
 			}
-
 			// input輸入框
 			function bucketNumberForm(e) {
 				return ['<input type="number" min="0" style="width:50px" name="' + e.name + '" value="' + e
 					.bucketNumber + '">'
 				]
+			}
+			// 合併溫度方法
+			function maxTemp(e) {
+				if (e.status === 0) {
+					return [e.maxTr + '°C']
+				} else if (e.status === 1) {
+					return ['<span class="max_tr01">' + e.maxTr + '°C</span>']
+				} else if (e.status === 2) {
+					return ['<span class="max_tr02">' + e.maxTr + '°C</span>']
+				}
 			}
 			// 秒 轉 分、時、天，並且隱藏時間未到的單位
 			function getDuration(second) {
@@ -320,6 +332,50 @@
 					var duration = days + "天" + hours + "時<br />" + minutes + "分" + seconds + "秒";
 				}
 				return duration;
+			}
+			// 日期選擇
+			$('input[name="dates"]').daterangepicker({
+				locale: formatDates(),
+				showDropdowns: false,
+				maxSpan: {
+					"days": 7
+				},
+			});
+
+			function formatDates() {
+				return {
+					"format": "YYYY/MM/DD",
+					"separator": " - ",
+					"applyLabel": "確定",
+					"cancelLabel": "取消",
+					"fromLabel": "表單",
+					"toLabel": "至",
+					"customRangeLabel": "自訂",
+					"daysOfWeek": [
+						"日",
+						"一",
+						"二",
+						"三",
+						"四",
+						"五",
+						"六"
+					],
+					"monthNames": [
+						"1月",
+						"2月",
+						"3月",
+						"4月",
+						"5月",
+						"6月",
+						"7月",
+						"8月",
+						"9月",
+						"10月",
+						"11月",
+						"12月"
+					],
+					"firstDay": 0
+				}
 			}
 		});
 	</script>
@@ -352,12 +408,49 @@
 					</div>
 					<div class="card-body" style="font-size: 12px;">
 						<div class="table-responsive">
+							<div class="toolbar">
+								<div class="row">
+									<div class="col-12">
+										<div class="row">
+											<div class="col-6">
+												<div class="form-floating">
+													<input type="number" class="form-control f_tr"
+														id="floatingInputGrid" placeholder="第一段警報溫度" value="">
+													<label for="floatingInputGrid">第一段警報溫度</label>
+												</div>
+											</div>
+											<div class="col-6">
+												<div class="form-floating">
+													<input type="number" class="form-control s_tr"
+														id="floatingInputGrid" placeholder="第一段警報溫度" value="">
+													<label for="floatingInputGrid">第二段警報溫度</label>
+												</div>
+											</div>
+										</div>
+										<!-- <div class="">第一段警報溫度:<input class="form-control w-25 m-1 f_tr" value="">°C</div> -->
+										<!-- <div class="">第二段警報溫度:<input class="form-control w-25 m-1 s_tr" value="">°C</div> -->
+									</div>
+									<div class="col-12 pt-1">
+										<div class="form-floating">
+											<input name="dates" class="form-control" id="floatingInputGrid" />
+											<label for="floatingInputGrid">選擇資料日期範圍</label>
+										</div>
+									</div>
+								</div>
+							</div>
 							<form class="data-report">
-								<table id="table2" data-height="807" data-show-export="true" data-pagination="false"
-									data-click-to-select="true" data-toolbar="#toolbar" data-show-toggle="true"
-									data-show-columns="true" data-sortable="true" data-toggle="table2"
-									data-search="true" data-live-search="true" data-show-refresh="true"
-									data-unique-id="id">
+								<table id="table2" data-height="807" data-toolbar=".toolbar" data-show-export="true"
+									data-pagination="false" data-click-to-select="true" data-toolbar="#toolbar"
+									data-show-toggle="true" data-show-columns="true" data-sortable="true"
+									data-toggle="table2" data-search="true" data-live-search="true"
+									data-show-refresh="true" data-unique-id="id">
+									<thead>
+										<tr>
+											<th data-field="id">ID</th>
+											<th data-field="bucketNumber">Item Name</th>
+											<th data-field="start">Item Price</th>
+										</tr>
+									</thead>
 								</table>
 								<button hidden="true" type="submit"></button>
 							</form>
@@ -746,6 +839,8 @@
 								return '{a|' + params.data['3'] + '}';
 							} else if (params.data['2'] == 1) {
 								return '{b|' + params.data['3'] + '}';
+							} else if (params.data['2'] == 2) {
+								return '{c|' + params.data['3'] + '}';
 							}
 						},
 						rich: {
@@ -754,7 +849,15 @@
 								color: '#E3DCD3'
 							},
 							b: {
-								backgroundColor: 'red',
+								backgroundColor: '#DED369',
+								height: '26',
+								width: '3',
+								shadowOffsetY: '0',
+								shadowOffsetX: '0',
+								align: 'center',
+							},
+							c: {
+								backgroundColor: '#E0475B',
 								height: '26',
 								width: '3',
 								shadowOffsetY: '0',
@@ -855,6 +958,21 @@
 		// }, 500)
 		// 時間篩選
 		function listinterval(res) {
+			// 撈取警報溫度
+			var f_tr = null;
+			var s_tr = null;
+			$.ajax({
+				url: 'http://localhost:5000/api/data/normal',
+				dataType: "json",
+				method: 'GET',
+				async: false, // 關閉非同步作業
+				success: function (res) {
+					f_tr = res.setting_first_alarm_temperature
+					s_tr = res.setting_second_alarm_temperature
+				},
+				error: function (err) {}
+			})
+
 			// 宣告陣列
 			var output = []
 			// 取得今天日期
@@ -901,9 +1019,19 @@
 					var listTime = new Date(item.start)
 					// 判斷間隔時間如果符合，就在此區段增加統計數
 					if (listTime > lastTime && listTime < NewTime) {
+						// console.log(item.maxTempForLF);
+						// console.log(item.maxTempForDownStairs);
+						// console.log(item.maxTempForLD);
 						// 此區段如果有任何一桶有問題，則將狀態變更為1
-						if (item.status === 1) {
+						if (item.maxTempForLF > f_tr && item.maxTempForLF < s_tr || item.maxTempForDownStairs >
+							f_tr &&
+							item.maxTempForDownStairs < s_tr || item.maxTempForLD >
+							f_tr && item.maxTempForLD < s_tr) {
 							status = 1
+						} else if (item.maxTempForLF >= s_tr || item.maxTempForDownStairs >= s_tr || item
+							.maxTempForLD >=
+							s_tr) {
+							status = 2
 						}
 						timeSum++
 					}

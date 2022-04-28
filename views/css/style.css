@@ -203,6 +203,23 @@
   opacity: 1;
   transition: opacity 0.5s;
 }
-.fixed-table-container tr{
-  cursor:pointer;
+
+.fixed-table-container tr {
+  cursor: pointer;
+}
+
+.max_tr01 {
+  color: #DED369;
+  font-weight: 900;
+}
+
+.max_tr02 {
+  color: #E0475B;
+  font-weight: 900;
+}
+.toolbar{
+  /* max-width: 40% */
+}
+.search.btn-group {
+  margin-top: 15px !important;
 }
