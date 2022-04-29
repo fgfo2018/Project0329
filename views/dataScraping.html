@@ -106,24 +106,40 @@
 			var tempInputVal = null;
 			$('#table2').on('focus', 'input', function () {
 				tempInputVal = $(this).val()
+				$(this).addClass("thisdataupdata")
 			})
 			$('#table2').on('focusout', 'input', function () {
 				if (tempInputVal !== $(this).val()) {
 					// console.log("this is updata")
 					$(this).addClass("thisdataupdata")
+				} else {
+					$(".thisdataupdata").removeClass("thisdataupdata")
 				}
 			})
-			$("form").on("submit", function (event) {
-				event.preventDefault();
-				console.log($(".thisdataupdata").serializeArray());
-				$(".thisdataupdata").removeClass("thisdataupdata")
-			});
-			// $('form').keypress(function (event) {
-			// 	if (event.which === 13) {
-			// 		event.preventDefault();
-			// 		console.log(123)
-			// 	}
+			// $("form").on("submit", function (event) {
+			// 	event.preventDefault();
+			// 	console.log($(".thisdataupdata").serializeArray());
+			// 	$(".thisdataupdata").removeClass("thisdataupdata")
 			// });
+			$(window).keypress(function (event) {
+				if (event.which === 13) {
+					event.preventDefault();
+					console.log($(".thisdataupdata").serializeArray());
+					var data = JSON.stringify($(".thisdataupdata").serializeArray())
+					$(".thisdataupdata").removeClass("thisdataupdata")
+					$.ajax({
+						url: '/api/analysis/setnumber',
+						data: data,
+						method: 'POST',
+						dataType: "json",
+						contentType: 'application/json; charset=utf-8',
+						success: function (res) {
+							console.log(res)
+						},
+						error: function (err) {}
+					})
+				}
+			});
 
 			// 按刷新鍵觸發此動作
 			$('.table-responsive').on('click', 'button', function () {
@@ -624,7 +640,7 @@
 				series: [{
 						name: 'L/F 副料區',
 						type: 'line',
-						color: '#BCCBD1',
+						color: '#77849A',
 						smooth: true,
 					},
 					{
@@ -694,7 +710,7 @@
 						// $('#table2').bootstrapTable('updateByUniqueId', {
 						// 	id: 3,
 						// 	row: {
-								
+
 						// 	}
 						// })
 						getDATA(data)
@@ -854,7 +870,7 @@
 				// color: ['#F08080', '#000984' ],
 				// color: ['#367CEB', '#38B3F5', '#3ED1DE', '#38F5D0', '#A8D0DB', ],
 				// color: ['#3E5A8E', '#54739A', '#6A8BA6', '#89AEC1', '#a8bcdb'],
-				color: ['#BCCBD1', '#D0CAC4', '#CF8786']
+				color: ['#7E6E68', '#907D76', '#A99792', '#BBACA9', '#D0C8C7']
 				// color: ['#0198E6', '#42C0FF', '#83C5E6'],
 
 

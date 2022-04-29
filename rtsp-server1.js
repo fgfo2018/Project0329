@@ -67,7 +67,23 @@ app.get('/listdir', function (req, res) {
     // console.log();
     res.send(output)
 });
-
+app.post('/api/analysis/setnumber', function (req, res) {
+    const output = getDir();
+    const id = JSON.parse(req.body)
+    var data = []
+    output.forEach(function (item) {
+        data.push(item.name)
+    })
+    id.forEach(function(item){
+        
+        console.log(data.indexOf(item.name))
+    })
+    
+    // saveDir(id)
+    res.send({
+        success: true,
+    })
+})
 var testtt = 0
 app.post('/log', function (req, res) {
     const id = JSON.parse(req.body)
@@ -81,17 +97,13 @@ app.post('/log', function (req, res) {
 });
 
 const getDir = () => {
-    // const testFolder = './views/temp/Data';
-    // var output = []
-    // fs.readdirSync(testFolder).forEach(file => {
-    //     output.push(file)
-    // });
-    // console.log(JSON.stringify(output))
-    // return JSON.stringify(output)
-    // console.log(output)
     const jsonData = fs.readFileSync('./views/temp/listTime.json')
     // console.log(JSON.parse(jsonData))
     return JSON.parse(jsonData)
+}
+const saveDir = (data) => {
+    const stringifyData = JSON.stringify(data)
+    fs.writeFileSync('./views/temp/listTime.json', stringifyData)
 }
 
 const getTime = () => {
