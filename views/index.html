@@ -13,10 +13,10 @@
     crossorigin="anonymous"></script>
   <script src="./js/bootstrap.js"></script>
   <script src="./js/jqurey.number.js"></script>
-  
+
 </head>
 
-<body style="background-color: #e2e2e2;" >
+<body style="background-color: #e2e2e2;">
   <div class="loading_bar"></div>
   <!-- <nav class="navbar navbar-expand-lg navbar-light bg-dark darken py-0 shadow-sm">
     <div class="container-fluid">
@@ -37,18 +37,18 @@
     </div>
   </nav> -->
 
-	<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark bg-gradient">
-		<div class="container">
-		  <ul class="navbar-nav" >
-			<li class="nav-item">
-			  <a href="index.html" class="nav-link">即時監控</a>
-			</li>
-			<li class="nav-item">
-			  <a href="dataScraping.html" class="nav-link">資料分析</a>
-			</li>
-		  </ul>
-		</div>
-	  </nav>
+  <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark bg-gradient">
+    <div class="container">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a href="index.html" class="nav-link">即時監控</a>
+        </li>
+        <li class="nav-item">
+          <a href="dataScraping.html" class="nav-link">資料分析</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
   <div class="container-fluid mt-3">
     <div id="liveAlertPlaceholder" class="d-none" style="position: absolute;z-index: 9999;margin-left: 26.8%">
@@ -462,9 +462,7 @@
                         class="subtitle setting_colorbar_max is-visible" style="width:56px;height:21px;" required>
                     </div>
                     <div class="col-12 mt-1 text-danger setting_colorbar-visible-error d-none">
-                      # 量測範圍設定錯誤，格式: [測量最小值] < [測量最大值] </div>
-                    </div>
-                  </div> <button type="submit" hidden>get</button>
+                      # 量測範圍設定錯誤，格式: [測量最小值] < [測量最大值] </div> </div> </div> <button type="submit" hidden>get</button>
               </form>
             </div>
 
@@ -510,10 +508,8 @@
                             required>
                         </div>
                         <div class="col-12 mt-1 text-danger alarm-visible-error d-none">
-                          # 警報溫度範圍設定錯誤，格式: [第一段警報溫度] < [第二段警報溫度] </div>
-                        </div>
-                      </div> <button type="submit" hidden>
-                        get</button>
+                          # 警報溫度範圍設定錯誤，格式: [第一段警報溫度] < [第二段警報溫度] </div> </div> </div> <button type="submit" hidden>
+                            get</button>
                   </form>
                 </div>
               </div>
@@ -674,7 +670,7 @@
               z++
             })
           },
-          error: function (thrownError) { }
+          error: function (thrownError) {}
         })
       }
 
@@ -984,8 +980,8 @@
                         data: data,
                         dataType: 'json',
                         contentType: 'application/json; charset=utf-8',
-                        success: function (response) { },
-                        error: function (thrownError) { }
+                        success: function (response) {},
+                        error: function (thrownError) {}
                       })
                     }, 5000)
                   }
@@ -1003,8 +999,8 @@
                         data: data,
                         dataType: 'json',
                         contentType: 'application/json; charset=utf-8',
-                        success: function (response) { },
-                        error: function (thrownError) { }
+                        success: function (response) {},
+                        error: function (thrownError) {}
                       })
                     }, 5000)
                   }
@@ -1066,7 +1062,7 @@
         var setting_first_alarm_temperature = $(".setting_first_alarm_temperature");
         var setting_second_alarm_temperature = $(".setting_second_alarm_temperature");
         if (parseFloat(setting_first_alarm_temperature.val()) > parseFloat(setting_second_alarm_temperature
-          .val())) {
+            .val())) {
           setting_first_alarm_temperature.addClass("is-error")
           setting_second_alarm_temperature.addClass("is-error")
           $(".alarm-visible-error").removeClass("d-none")
@@ -1176,7 +1172,7 @@
               } else if (temperature >= 55 && temperature < 60) {
                 $(machine_temperature_this_div[i]).val(temperature)
                 $(machine_temperature_this_div[i]).css("background-color", "#ffc87f")
-              } else if (temperature >= 60){
+              } else if (temperature >= 60) {
                 $(machine_temperature_this_div[i]).val(temperature)
                 $(machine_temperature_this_div[i]).css("background-color", "#ff5452")
               }

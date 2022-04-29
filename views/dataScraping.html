@@ -93,9 +93,9 @@
 					mydata(array)
 					// $('.max_tr01').parent().css('background','#ff8d00')
 					// $('.max_tr01').closest('tr').css('background','rgb(255 220 223)')
-					$('.max_tr01').closest('tr').css('background', '#F8EFEA')
+					$('.max_tr01').closest('tr').css('background', '#F4EAE4')
 					// $('.max_tr02').parent().css('background','rgb(255, 0, 0)')
-					$('.max_tr02').closest('tr').css('background', '#F8EFEA')
+					$('.max_tr02').closest('tr').css('background', '#F4EAE4')
 				},
 				error: function (err) {
 					console.log(err)
@@ -104,19 +104,19 @@
 
 			// input 比對 
 			var tempInputVal = null;
-			$('.table-responsive').on('focus', 'input', function () {
+			$('#table2').on('focus', 'input', function () {
 				tempInputVal = $(this).val()
 			})
-			$('.table-responsive').on('focusout', 'input', function () {
+			$('#table2').on('focusout', 'input', function () {
 				if (tempInputVal !== $(this).val()) {
-					console.log("this is updata")
-					$(this).css("background-color", "#c9c9c9")
+					// console.log("this is updata")
+					$(this).addClass("thisdataupdata")
 				}
 			})
 			$("form").on("submit", function (event) {
 				event.preventDefault();
-				$("input").css("background-color", "#fff")
-				console.log($(this).serialize());
+				console.log($(".thisdataupdata").serializeArray());
+				$(".thisdataupdata").removeClass("thisdataupdata")
 			});
 			// $('form').keypress(function (event) {
 			// 	if (event.which === 13) {
@@ -178,9 +178,9 @@
 
 							// $('.max_tr01').parent().css('background','#ff8d00')
 							// $('.max_tr01').closest('tr').css('background','rgb(255 220 223)')
-							$('.max_tr01').closest('tr').css('background', '#F8EFEA')
+							$('.max_tr01').closest('tr').css('background', '#F4EAE4')
 							// $('.max_tr02').parent().css('background','rgb(255, 0, 0)')
-							$('.max_tr02').closest('tr').css('background', '#F8EFEA')
+							$('.max_tr02').closest('tr').css('background', '#F4EAE4')
 						},
 						error: function (err) {
 							console.log(err)
@@ -224,7 +224,16 @@
 			}
 			// 初始
 			function mydata(mydata2) {
-				$('#table2').bootstrapTable(database(mydata2));
+				$('#table2').bootstrapTable(database(mydata2), function () {
+					// $('.max_tr01').closest('tr').css('background', '#F4EAE4')
+					// $('.max_tr02').closest('tr').css('background', '#F4EAE4')
+					// console.log(123)
+				});
+				$('#table2').on('click', '.table-borderless',
+					function () {
+						console.log(123)
+					}
+				)
 			}
 			// 更新
 			function updata(mydata2) {
@@ -238,6 +247,7 @@
 					exportTypes: ['txt', 'csv', 'excel'], // 導出類型
 					exportDataType: 'all', // basic', 'all', 'selected'
 					showToggle: true,
+					sortReset: true,
 					columns: [{
 							title: '編號',
 							field: 'id',
@@ -289,20 +299,22 @@
 							align: 'center',
 							sortable: true,
 							formatter: maxTemp,
-						},
-						{
-							title: '拍照時間',
-							field: 'shootingTime',
-							align: 'center',
-							sortable: true,
 						}
+						// ,
+						// {
+						// 	title: '拍照時間',
+						// 	field: 'shootingTime',
+						// 	align: 'center',
+						// 	sortable: true,
+						// }
 					]
 				}
 				return array
 			}
 			// input輸入框
 			function bucketNumberForm(e) {
-				return ['<input type="number" min="0" style="width:50px" name="' + e.name + '" value="' + e
+				return ['<input type="number" min="0" style="width:50px;text-align: center;" name="' + e.name +
+					'" value="' + e
 					.bucketNumber + '">'
 				]
 			}
@@ -532,7 +544,7 @@
 		$(document).ready(function () {
 			// 基于准备好的dom，初始化echarts实例
 			var Trend = echarts.init(document.getElementById('main'));
-			const colorPalette2 = ['#7180AC', '#2B4570', '#A8D0DB', '#E49273']
+			// const colorPalette2 = ['#7180AC', '#2B4570', '#A8D0DB', '#E49273']
 			// 指定图表的配置项和数据
 			var testasd = 0;
 			var optionTrend = {
@@ -612,16 +624,19 @@
 				series: [{
 						name: 'L/F 副料區',
 						type: 'line',
+						color: '#BCCBD1',
 						smooth: true,
 					},
 					{
 						name: '出鋼室地下樓梯',
 						type: 'line',
+						color: '#D0CAC4',
 						smooth: true,
 					},
 					{
 						name: 'L/D 2F平台',
 						type: 'line',
+						color: '#CF8786',
 						smooth: true,
 					},
 				]
@@ -660,15 +675,32 @@
 			const testdata = $('#table2').bootstrapTable(
 				'getRowByUniqueId',
 				1)
+			var clickSum = null;
 			$('.table-responsive').on('click', 'tr', function () {
-				if (Interval !== null) {
-					clearInterval(Interval)
-				}
 				var id = parseInt($(this).attr("data-index")) + 1
-				const data = $('#table2').bootstrapTable(
-					'getRowByUniqueId',
-					id)
-				getDATA(data)
+				$('.max_tr01').closest('tr').css('background', '#F4EAE4')
+				$('.max_tr02').closest('tr').css('background', '#F4EAE4')
+
+				if (!isNaN(id)) { // 判斷id是否有數字
+					if (clickSum !== id) { // 判斷是否點擊同一列
+						if (Interval !== null) {
+							clearInterval(Interval)
+						}
+						$('.active').removeClass('active')
+						$(this).addClass('active')
+						const data = $('#table2').bootstrapTable(
+							'getRowByUniqueId',
+							id)
+						// $('#table2').bootstrapTable('updateByUniqueId', {
+						// 	id: 3,
+						// 	row: {
+								
+						// 	}
+						// })
+						getDATA(data)
+					}
+				}
+				clickSum = id
 			})
 
 			function getDATA(data) {
@@ -821,7 +853,8 @@
 				bottom: '15%',
 				// color: ['#F08080', '#000984' ],
 				// color: ['#367CEB', '#38B3F5', '#3ED1DE', '#38F5D0', '#A8D0DB', ],
-				color: ['#3E5A8E', '#54739A', '#6A8BA6', '#89AEC1', '#a8bcdb'],
+				// color: ['#3E5A8E', '#54739A', '#6A8BA6', '#89AEC1', '#a8bcdb'],
+				color: ['#BCCBD1', '#D0CAC4', '#CF8786']
 				// color: ['#0198E6', '#42C0FF', '#83C5E6'],
 
 
@@ -849,7 +882,7 @@
 								color: '#E3DCD3'
 							},
 							b: {
-								backgroundColor: '#DED369',
+								backgroundColor: '#811C21',
 								height: '26',
 								width: '3',
 								shadowOffsetY: '0',
@@ -857,7 +890,7 @@
 								align: 'center',
 							},
 							c: {
-								backgroundColor: '#E0475B',
+								backgroundColor: '#B56666',
 								height: '26',
 								width: '3',
 								shadowOffsetY: '0',

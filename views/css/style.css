@@ -209,17 +209,65 @@
 }
 
 .max_tr01 {
-  color: #DED369;
+  color: #811C21;
   font-weight: 900;
 }
 
 .max_tr02 {
-  color: #E0475B;
+  color: #B56666;
   font-weight: 900;
 }
-.toolbar{
+
+.toolbar {
   /* max-width: 40% */
 }
+
 .search.btn-group {
   margin-top: 15px !important;
+}
+
+.thisdataupdata {
+  /* background-color: #F0EFF4; */
+  border: 2px solid #5A8100;
+  border-radius: 2px
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* 滾動條樣式 */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-button {
+  background: transparent;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track-piece {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 1px solid slategrey;
+
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: transparent;
+
+}
+
+#table2 {
+  color: #3F332F;
+}
+
+tr.active {
+  background-color: #c0b8b3 !important;
 }
