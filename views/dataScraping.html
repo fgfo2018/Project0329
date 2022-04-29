@@ -54,8 +54,8 @@
 					var array = data
 					var sum = 0
 					array.sort(function (a, b) {
-						var keyA = new Date(a.start),
-							keyB = new Date(b.start);
+						var keyA = new Date(a.table_start),
+							keyB = new Date(b.table_start);
 						// Compare the 2 dates
 						if (keyA < keyB) return 1;
 						if (keyA > keyB) return -1;
@@ -63,28 +63,28 @@
 					});
 					array.forEach(element => {
 						array[sum].id = sum + 1
-						var start = new Date(element.start)
-						var end = new Date(element.stop)
+						var start = new Date(element.table_start)
+						var end = new Date(element.table_stop)
 						var totle = (end.getTime() - start.getTime()) / 1000
 						// console.log(totle)
 						totle = getDuration(totle)
 
-						array[sum].bucketNumber = {
-							bucketNumber: element.bucketNumber,
-							name: element.name
+						array[sum].table_bucketNumber = {
+							bucketNumber: element.table_bucketNumber,
+							table_itemName: element.table_itemName
 						}
 						// L/F
-						array[sum].maxTempForLF = {
-							maxTr: element.maxTempForLF,
-							status: Compare(element.maxTempForLF, f_tr, s_tr)
+						array[sum].table_maxTempLF = {
+							maxTr: element.table_maxTempLF,
+							status: Compare(element.table_maxTempLF, f_tr, s_tr)
 						}
-						array[sum].maxTempForDownStairs = {
-							maxTr: element.maxTempForDownStairs,
-							status: Compare(element.maxTempForDownStairs, f_tr, s_tr)
+						array[sum].table_maxTempSTAIR = {
+							maxTr: element.table_maxTempSTAIR,
+							status: Compare(element.table_maxTempSTAIR, f_tr, s_tr)
 						}
-						array[sum].maxTempForLD = {
-							maxTr: element.maxTempForLD,
-							status: Compare(element.maxTempForLD, f_tr, s_tr)
+						array[sum].table_maxTempLD = {
+							maxTr: element.table_maxTempLD,
+							status: Compare(element.table_maxTempLD, f_tr, s_tr)
 						}
 						// console.log(totle)
 						array[sum].sec = totle
@@ -101,19 +101,21 @@
 					console.log(err)
 				},
 			})
+			// 警報input
 
 			// input 比對 
-			var tempInputVal = null;
+			// var tempInputVal = null;
 			$('#table2').on('focus', 'input', function () {
-				tempInputVal = $(this).val()
+				// tempInputVal = $(this).val()
 				$(this).addClass("thisdataupdata")
 			})
 			$('#table2').on('focusout', 'input', function () {
+				var tempInputVal = $(this).attr("data-tmp")
 				if (tempInputVal !== $(this).val()) {
 					// console.log("this is updata")
 					$(this).addClass("thisdataupdata")
 				} else {
-					$(".thisdataupdata").removeClass("thisdataupdata")
+					$(this).removeClass("thisdataupdata")
 				}
 			})
 			// $("form").on("submit", function (event) {
@@ -125,6 +127,7 @@
 				if (event.which === 13) {
 					event.preventDefault();
 					console.log($(".thisdataupdata").serializeArray());
+					$('input').blur()
 					var data = JSON.stringify($(".thisdataupdata").serializeArray())
 					$(".thisdataupdata").removeClass("thisdataupdata")
 					$.ajax({
@@ -153,8 +156,8 @@
 							var array = data
 							var sum = 0
 							array.sort(function (a, b) {
-								var keyA = new Date(a.start),
-									keyB = new Date(b.start);
+								var keyA = new Date(a.table_start),
+									keyB = new Date(b.table_start);
 								// Compare the 2 dates
 								if (keyA < keyB) return 1;
 								if (keyA > keyB) return -1;
@@ -162,36 +165,37 @@
 							});
 							array.forEach(element => {
 								array[sum].id = sum + 1
-								var start = new Date(element.start)
-								var end = new Date(element.stop)
+								var start = new Date(element.table_start)
+								var end = new Date(element.table_stop)
 								var totle = (end.getTime() - start.getTime()) / 1000
 								// console.log(totle)
 								totle = getDuration(totle)
 
-								array[sum].bucketNumber = {
-									bucketNumber: element.bucketNumber,
-									name: element.name
+								array[sum].table_bucketNumber = {
+									bucketNumber: element.table_bucketNumber,
+									table_itemName: element.table_itemName
 								}
 								// L/F
-								array[sum].maxTempForLF = {
-									maxTr: element.maxTempForLF,
-									status: Compare(element.maxTempForLF, f_tr, s_tr)
+								array[sum].table_maxTempLF = {
+									maxTr: element.table_maxTempLF,
+									status: Compare(element.table_maxTempLF, f_tr,
+										s_tr)
 								}
-								array[sum].maxTempForDownStairs = {
-									maxTr: element.maxTempForDownStairs,
-									status: Compare(element.maxTempForDownStairs,
-										f_tr, s_tr)
+								array[sum].table_maxTempSTAIR = {
+									maxTr: element.table_maxTempSTAIR,
+									status: Compare(element.table_maxTempSTAIR, f_tr,
+										s_tr)
 								}
-								array[sum].maxTempForLD = {
-									maxTr: element.maxTempForLD,
-									status: Compare(element.maxTempForLD, f_tr, s_tr)
+								array[sum].table_maxTempLD = {
+									maxTr: element.table_maxTempLD,
+									status: Compare(element.table_maxTempLD, f_tr,
+										s_tr)
 								}
 								// console.log(totle)
 								array[sum].sec = totle
 								sum++
 							})
 							updata(array)
-
 							// $('.max_tr01').parent().css('background','#ff8d00')
 							// $('.max_tr01').closest('tr').css('background','rgb(255 220 223)')
 							$('.max_tr01').closest('tr').css('background', '#F4EAE4')
@@ -272,20 +276,20 @@
 						},
 						{
 							title: '桶號',
-							field: 'bucketNumber',
+							field: 'table_bucketNumber',
 							align: 'center',
 							sortable: 'true',
 							formatter: bucketNumberForm,
 						},
 						{
 							title: '錄影開始時間',
-							field: 'start',
+							field: 'table_start',
 							align: 'center',
 							sortable: true,
 						},
 						{
 							title: '錄影終止時間',
-							field: 'stop',
+							field: 'table_stop',
 							align: 'center',
 							sortable: true,
 						},
@@ -297,21 +301,21 @@
 						},
 						{
 							title: 'L/F 副料區',
-							field: 'maxTempForLF',
+							field: 'table_maxTempLF',
 							align: 'center',
 							sortable: true,
 							formatter: maxTemp,
 						},
 						{
 							title: '出鋼室地下樓梯',
-							field: 'maxTempForDownStairs',
+							field: 'table_maxTempSTAIR',
 							align: 'center',
 							sortable: true,
 							formatter: maxTemp,
 						},
 						{
 							title: 'L/D 2F平台',
-							field: 'maxTempForLD',
+							field: 'table_maxTempLD',
 							align: 'center',
 							sortable: true,
 							formatter: maxTemp,
@@ -319,7 +323,7 @@
 						// ,
 						// {
 						// 	title: '拍照時間',
-						// 	field: 'shootingTime',
+						// field: 'table_shootingTime',
 						// 	align: 'center',
 						// 	sortable: true,
 						// }
@@ -331,6 +335,7 @@
 			function bucketNumberForm(e) {
 				return ['<input type="number" min="0" style="width:50px;text-align: center;" name="' + e.name +
 					'" value="' + e
+					.bucketNumber + '" data-tmp="' + e
 					.bucketNumber + '">'
 				]
 			}
@@ -466,22 +471,18 @@
 									</div>
 								</div>
 							</div>
-							<form class="data-report">
-								<table id="table2" data-height="807" data-toolbar=".toolbar" data-show-export="true"
-									data-pagination="false" data-click-to-select="true" data-toolbar="#toolbar"
-									data-show-toggle="true" data-show-columns="true" data-sortable="true"
-									data-toggle="table2" data-search="true" data-live-search="true"
-									data-show-refresh="true" data-unique-id="id">
-									<thead>
-										<tr>
-											<th data-field="id">ID</th>
-											<th data-field="bucketNumber">Item Name</th>
-											<th data-field="start">Item Price</th>
-										</tr>
-									</thead>
-								</table>
-								<button hidden="true" type="submit"></button>
-							</form>
+							<table id="table2" data-height="807" data-toolbar=".toolbar" data-show-export="true"
+								data-pagination="false" data-click-to-select="true" data-toolbar="#toolbar"
+								data-show-toggle="true" data-show-columns="true" data-sortable="true"
+								data-toggle="table2" data-search="true" data-live-search="true" data-show-refresh="true"
+								data-unique-id="id">
+								<thead>
+									<form class="data-report">
+										<button hidden="true" type="submit"></button>
+									</form>
+								</thead>
+							</table>
+
 						</div>
 					</div>
 				</div>
@@ -720,8 +721,8 @@
 			})
 
 			function getDATA(data) {
-				const url = '/temp/Data/' + data.name + '.txt' //設定api位置
-				const video = '../mock_vod/' + data.name + '.mp4'
+				const url = '/temp/Data/' + data.table_itemName + '.txt' //設定api位置
+				const video = '../mock_vod/' + data.table_itemName + '.mp4'
 				$("#videoList").attr("src", video)
 				$.ajax({
 					url: url,
@@ -934,26 +935,44 @@
 			}
 		})
 		getData(url)
+		// 判斷表單點到的日期
+		var clickSum = null;
+		$('.table-responsive').on('click', 'tr', function () {
+			var id = parseInt($(this).attr("data-index")) + 1
+			if (!isNaN(id)) { // 判斷id是否有數字
+				if (clickSum !== id) { // 判斷是否點擊同一列
+					if (Interval !== null) {
+						clearInterval(Interval)
+					}
+					const data = $('#table2').bootstrapTable(
+						'getRowByUniqueId',
+						id)
+					var clickdata = new Date(data.table_start)
+					getData(url, clickdata)
+					// console.log(clickdata)
+				}
+			}
+			clickSum = id
+		})
 
-		function getData(url) {
+		function getData(url, clickdata) {
 			$.ajax({
 				url: url,
 				method: 'GET',
 				dataType: "json",
 				success: function (data) {
-					var date = new Date();
+					if (clickdata != undefined) {
+					// console.log(clickdata)
+					var date = new Date(clickdata)
+					} else {
+					var date = new Date()
+					}
 					var time = date.getFullYear() +
 						"/" +
 						(date.getMonth() + 1).toString().padStart(2, '0') +
 						"/" +
-						date.getDate().toString().padStart(2, '0') +
-						" " +
-						date.getHours().toString().padStart(2, '0') +
-						":" +
-						date.getMinutes().toString().padStart(2, '0') +
-						":" +
-						date.getSeconds().toString().padStart(2, '0');
-					var data = listinterval(data)
+						date.getDate().toString().padStart(2, '0')
+					var data = listinterval(data, clickdata)
 					// 判斷時段中拉起桶數的最大值
 					var max = []
 					data.forEach(function (item) {
@@ -969,7 +988,7 @@
 							max: max
 						},
 						title: {
-							text: '資料最後更新時間:' + time,
+							text: '統計日期:' + time,
 						},
 						series: [{
 							name: '',
@@ -1006,7 +1025,7 @@
 		// 	})
 		// }, 500)
 		// 時間篩選
-		function listinterval(res) {
+		function listinterval(res, clickdata) {
 			// 撈取警報溫度
 			var f_tr = null;
 			var s_tr = null;
@@ -1025,7 +1044,12 @@
 			// 宣告陣列
 			var output = []
 			// 取得今天日期
-			var NowDate = new Date()
+			if (clickdata != undefined) {
+				// console.log(clickdata)
+				var NowDate = new Date(clickdata)
+			} else {
+				var NowDate = new Date()
+			}
 			var NYear = NowDate.getFullYear()
 			var NMonth = NowDate.getMonth()
 			var NDate = NowDate.getDate()
@@ -1065,20 +1089,17 @@
 				var Minutes = lastTime.getMinutes();
 				var status = 0
 				res.forEach(function (item) {
-					var listTime = new Date(item.start)
+					var listTime = new Date(item.table_start)
 					// 判斷間隔時間如果符合，就在此區段增加統計數
 					if (listTime > lastTime && listTime < NewTime) {
-						// console.log(item.maxTempForLF);
-						// console.log(item.maxTempForDownStairs);
-						// console.log(item.maxTempForLD);
 						// 此區段如果有任何一桶有問題，則將狀態變更為1
-						if (item.maxTempForLF > f_tr && item.maxTempForLF < s_tr || item.maxTempForDownStairs >
+						if (item.table_maxTempLF > f_tr && item.table_maxTempLF < s_tr || item.table_maxTempSTAIR >
 							f_tr &&
-							item.maxTempForDownStairs < s_tr || item.maxTempForLD >
-							f_tr && item.maxTempForLD < s_tr) {
+							item.table_maxTempSTAIR < s_tr || item.table_maxTempLD >
+							f_tr && item.table_maxTempLD < s_tr) {
 							status = 1
-						} else if (item.maxTempForLF >= s_tr || item.maxTempForDownStairs >= s_tr || item
-							.maxTempForLD >=
+						} else if (item.table_maxTempLF >= s_tr || item.table_maxTempSTAIR >= s_tr || item
+							.table_maxTempLD >=
 							s_tr) {
 							status = 2
 						}
@@ -1094,5 +1115,4 @@
 		}
 	</script>
 </body>
-
 </html>
