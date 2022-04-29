@@ -102,7 +102,15 @@
 				},
 			})
 			// 警報input
-
+			var alarmInput = false
+			$('.toolbar').on('focus', 'input', function () {
+				alarmInput = true
+			})
+			$('.toolbar').on('focusout', 'input', function () {
+				// if($(this).val() === $(this).attr("data-value")) {
+				alarmInput = false
+				// }
+			})
 			// input 比對 
 			// var tempInputVal = null;
 			$('#table2').on('focus', 'input', function () {
@@ -126,6 +134,30 @@
 			$(window).keypress(function (event) {
 				if (event.which === 13) {
 					event.preventDefault();
+					if (alarmInput) {
+						var data = {
+							"setting_first_alarm_temperature": $('.f_tr').val(),
+							"setting_second_alarm_temperature": $('.s_tr').val()
+						}
+						if($('.f_tr').val() > $('.s_tr').val()){
+							return false
+						}
+						data = JSON.stringify(data)
+						console.log(data)
+						$.ajax({
+							url: 'http://127.0.0.1:5000/api/data/changed',
+							method: 'POST',
+							data: data,
+							dataType: "json",
+							contentType: 'application/json; charset=utf-8',
+							success: function (res) {
+								startRefresh()
+							},
+							error: function (err) {}
+						})
+						// console.log(alarmInput)
+						alarmInput = false;
+					}
 					console.log($(".thisdataupdata").serializeArray());
 					$('input').blur()
 					var data = JSON.stringify($(".thisdataupdata").serializeArray())
@@ -147,67 +179,71 @@
 			// 按刷新鍵觸發此動作
 			$('.table-responsive').on('click', 'button', function () {
 				if (this.name === "refresh") {
-					$.ajax({
-						url: url,
-						method: 'GET',
-						dataType: "json",
-						success: function (data) {
-							var maxtre = maxtr()
-							var array = data
-							var sum = 0
-							array.sort(function (a, b) {
-								var keyA = new Date(a.table_start),
-									keyB = new Date(b.table_start);
-								// Compare the 2 dates
-								if (keyA < keyB) return 1;
-								if (keyA > keyB) return -1;
-								return 0;
-							});
-							array.forEach(element => {
-								array[sum].id = sum + 1
-								var start = new Date(element.table_start)
-								var end = new Date(element.table_stop)
-								var totle = (end.getTime() - start.getTime()) / 1000
-								// console.log(totle)
-								totle = getDuration(totle)
-
-								array[sum].table_bucketNumber = {
-									bucketNumber: element.table_bucketNumber,
-									table_itemName: element.table_itemName
-								}
-								// L/F
-								array[sum].table_maxTempLF = {
-									maxTr: element.table_maxTempLF,
-									status: Compare(element.table_maxTempLF, f_tr,
-										s_tr)
-								}
-								array[sum].table_maxTempSTAIR = {
-									maxTr: element.table_maxTempSTAIR,
-									status: Compare(element.table_maxTempSTAIR, f_tr,
-										s_tr)
-								}
-								array[sum].table_maxTempLD = {
-									maxTr: element.table_maxTempLD,
-									status: Compare(element.table_maxTempLD, f_tr,
-										s_tr)
-								}
-								// console.log(totle)
-								array[sum].sec = totle
-								sum++
-							})
-							updata(array)
-							// $('.max_tr01').parent().css('background','#ff8d00')
-							// $('.max_tr01').closest('tr').css('background','rgb(255 220 223)')
-							$('.max_tr01').closest('tr').css('background', '#F4EAE4')
-							// $('.max_tr02').parent().css('background','rgb(255, 0, 0)')
-							$('.max_tr02').closest('tr').css('background', '#F4EAE4')
-						},
-						error: function (err) {
-							console.log(err)
-						},
-					})
+					startRefresh()
 				}
 			})
+
+			function startRefresh() {
+				$.ajax({
+					url: url,
+					method: 'GET',
+					dataType: "json",
+					success: function (data) {
+						var maxtre = maxtr()
+						var array = data
+						var sum = 0
+						array.sort(function (a, b) {
+							var keyA = new Date(a.table_start),
+								keyB = new Date(b.table_start);
+							// Compare the 2 dates
+							if (keyA < keyB) return 1;
+							if (keyA > keyB) return -1;
+							return 0;
+						});
+						array.forEach(element => {
+							array[sum].id = sum + 1
+							var start = new Date(element.table_start)
+							var end = new Date(element.table_stop)
+							var totle = (end.getTime() - start.getTime()) / 1000
+							// console.log(totle)
+							totle = getDuration(totle)
+
+							array[sum].table_bucketNumber = {
+								bucketNumber: element.table_bucketNumber,
+								table_itemName: element.table_itemName
+							}
+							// L/F
+							array[sum].table_maxTempLF = {
+								maxTr: element.table_maxTempLF,
+								status: Compare(element.table_maxTempLF, f_tr,
+									s_tr)
+							}
+							array[sum].table_maxTempSTAIR = {
+								maxTr: element.table_maxTempSTAIR,
+								status: Compare(element.table_maxTempSTAIR, f_tr,
+									s_tr)
+							}
+							array[sum].table_maxTempLD = {
+								maxTr: element.table_maxTempLD,
+								status: Compare(element.table_maxTempLD, f_tr,
+									s_tr)
+							}
+							// console.log(totle)
+							array[sum].sec = totle
+							sum++
+						})
+						updata(array)
+						// $('.max_tr01').parent().css('background','#ff8d00')
+						// $('.max_tr01').closest('tr').css('background','rgb(255 220 223)')
+						$('.max_tr01').closest('tr').css('background', '#F4EAE4')
+						// $('.max_tr02').parent().css('background','rgb(255, 0, 0)')
+						$('.max_tr02').closest('tr').css('background', '#F4EAE4')
+					},
+					error: function (err) {
+						console.log(err)
+					},
+				})
+			}
 			// 取得警報溫度
 			function maxtr() {
 				var array = []
@@ -225,6 +261,8 @@
 						}
 						$(".f_tr").val(f_tr)
 						$(".s_tr").val(s_tr)
+						$(".f_tr").attr("data-value", f_tr)
+						$(".s_tr").attr("data-value", s_tr)
 					},
 					error: function (err) {}
 				})
@@ -708,12 +746,6 @@
 						const data = $('#table2').bootstrapTable(
 							'getRowByUniqueId',
 							id)
-						// $('#table2').bootstrapTable('updateByUniqueId', {
-						// 	id: 3,
-						// 	row: {
-
-						// 	}
-						// })
 						getDATA(data)
 					}
 				}
@@ -804,18 +836,11 @@
 	</script>
 	<!-- 熱像圖 -->
 	<script type="text/javascript">
-		// 基于准备好的dom，初始化echarts实例
 		var myChart = echarts.init(document.getElementById('main2'));
-		// 指定图表的配置项和数据
 		// prettier-ignore
 		// (x, y , 0:沒事 1:有事, 拉了幾桶(3桶/hr))
-
 		option = {
 			aria: {
-				// 下面几行可以不写，因为 label.enabled 默认 true
-				// label: {
-				// enabled: true
-				// },
 				enabled: true
 			},
 			title: {
@@ -868,14 +893,7 @@
 				top: '45',
 				right: '30',
 				bottom: '15%',
-				// color: ['#F08080', '#000984' ],
-				// color: ['#367CEB', '#38B3F5', '#3ED1DE', '#38F5D0', '#A8D0DB', ],
-				// color: ['#3E5A8E', '#54739A', '#6A8BA6', '#89AEC1', '#a8bcdb'],
 				color: ['#7E6E68', '#907D76', '#A99792', '#BBACA9', '#D0C8C7']
-				// color: ['#0198E6', '#42C0FF', '#83C5E6'],
-
-
-
 			},
 			series: [{
 				name: '',
@@ -929,8 +947,14 @@
 		myChart.setOption(option);
 		//初始化資料報表
 		const url = '/listdir' //定義資料報表API位置
+
 		$('.table-responsive').on('click', 'button', function () {
 			if (this.name === "refresh") {
+				getData(url)
+			}
+		})
+		$(window).keypress(function (event) {
+			if (event.which === 13) {
 				getData(url)
 			}
 		})
@@ -962,10 +986,10 @@
 				dataType: "json",
 				success: function (data) {
 					if (clickdata != undefined) {
-					// console.log(clickdata)
-					var date = new Date(clickdata)
+						// console.log(clickdata)
+						var date = new Date(clickdata)
 					} else {
-					var date = new Date()
+						var date = new Date()
 					}
 					var time = date.getFullYear() +
 						"/" +
@@ -1115,4 +1139,5 @@
 		}
 	</script>
 </body>
+
 </html>
