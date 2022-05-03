@@ -44,9 +44,12 @@
 	<script>
 		$(function () {
 			//初始化資料報表
-			const url = 'http://127.0.0.1:5000/api/analysis/initial' //定義資料報表API位置
+			const url = 'http://127.0.0.1:5000/api/analysis/refresh' //定義資料報表API位置
+
+
 			$.ajax({
-				url: url,
+				url: 'http://127.0.0.1:5000/api/analysis/initial',
+				data: range,
 				method: 'GET',
 				dataType: "json",
 				success: function (data) {
@@ -68,7 +71,9 @@
 						var totle = (end.getTime() - start.getTime()) / 1000
 						// console.log(totle)
 						totle = getDuration(totle)
-
+						if (array[sum].table_bucketNumber === -1) {
+							array[sum].table_bucketNumber = ""
+						}
 						array[sum].table_bucketNumber = {
 							bucketNumber: element.table_bucketNumber,
 							table_itemName: element.table_itemName
@@ -131,6 +136,8 @@
 			// 	console.log($(".thisdataupdata").serializeArray());
 			// 	$(".thisdataupdata").removeClass("thisdataupdata")
 			// });
+
+
 			$(window).keypress(function (event) {
 				if (event.which === 13) {
 					event.preventDefault();
@@ -139,7 +146,7 @@
 							"setting_first_alarm_temperature": $('.f_tr').val(),
 							"setting_second_alarm_temperature": $('.s_tr').val()
 						}
-						if($('.f_tr').val() > $('.s_tr').val()){
+						if ($('.f_tr').val() > $('.s_tr').val()) {
 							return false
 						}
 						data = JSON.stringify(data)
@@ -157,38 +164,59 @@
 						})
 						// console.log(alarmInput)
 						alarmInput = false;
+						console.log($(".thisdataupdata").serializeArray());
+						$('input').blur()
+						var data = JSON.stringify($(".thisdataupdata").serializeArray())
+						$(".thisdataupdata").removeClass("thisdataupdata")
+						$.ajax({
+							url: 'http://127.0.0.1:5000/api/analysis/setnumber',
+							data: data,
+							method: 'POST',
+							dataType: "json",
+							contentType: 'application/json; charset=utf-8',
+							success: function (res) {
+								console.log(res)
+							},
+							error: function (err) {}
+						})
 					}
-					console.log($(".thisdataupdata").serializeArray());
-					$('input').blur()
-					var data = JSON.stringify($(".thisdataupdata").serializeArray())
-					$(".thisdataupdata").removeClass("thisdataupdata")
-					$.ajax({
-						url: 'http://127.0.0.1:5000/api/analysis/setnumber',
-						data: data,
-						method: 'POST',
-						dataType: "json",
-						contentType: 'application/json; charset=utf-8',
-						success: function (res) {
-							console.log(res)
-						},
-						error: function (err) {}
-					})
 				}
 			});
 
+			var today = new Date();
+			listday = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' +
+				today.getDate().toString().padStart(2, '0') + ' 23:59:59'
+			today.setDate(today.getDate() - 7)
+			today = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' +
+				(today.getDate()).toString().padStart(2, '0') + ' 00:00:00'
+			var range = {
+				"table_timeselectStart": today,
+				"table_timeselectStop": listday
+			}
+			range = JSON.stringify(range)
+
 			// 按刷新鍵觸發此動作
+			$('input[name="dates"]').on('apply.daterangepicker', function (ev, picker) {
+				console.log(picker.startDate.format('YYYY-MM-DD'));
+				console.log(picker.endDate.format('YYYY-MM-DD'));
+			});
 			$('.table-responsive').on('click', 'button', function () {
 				if (this.name === "refresh") {
-					startRefresh()
+					startRefresh(range)
+					// range = JSON.stringify(range)
+					// console.log(range)
 				}
 			})
 
-			function startRefresh() {
+			function startRefresh(range) {
 				$.ajax({
 					url: url,
-					method: 'GET',
+					data: range,
+					method: 'POST',
 					dataType: "json",
+					contentType: 'application/json; charset=utf-8',
 					success: function (data) {
+						console.log(data)
 						var maxtre = maxtr()
 						var array = data
 						var sum = 0
@@ -408,11 +436,13 @@
 			$('input[name="dates"]').daterangepicker({
 				locale: formatDates(),
 				showDropdowns: false,
+				maxDate: '2022-05-03',
 				maxSpan: {
 					"days": 7
 				},
 			});
 
+			//
 			function formatDates() {
 				return {
 					"format": "YYYY/MM/DD",
@@ -537,7 +567,11 @@
 									</div>
 								</div>
 							</div>
-							<div class="card-body p-0 ">
+							<div class="card-body p-0 position-relative">
+								<div class="video-loading">
+									<div>影像載入中...</div>
+								</div>
+								<div class="video-loading-bg"></div>
 								<div class="row align-items-center tri subtitle mx-4 mb-1 pt-1">
 									<div class="col-4">
 										&nbsp;&nbsp;&nbsp;L/F 副料區
@@ -672,8 +706,8 @@
 
 					type: 'value',
 					name: '(°C)',
-					min: 300,
-					max: 350,
+					min: 200,
+					// max: 350,
 					show: true,
 				},
 				series: [{
@@ -755,7 +789,10 @@
 			function getDATA(data) {
 				const url = 'http://127.0.0.1:5000/download/' + data.table_itemName + '.txt' //設定api位置
 				const video = 'http://127.0.0.1:5000/download/' + data.table_itemName + '.mp4'
-				$("#videoList").attr("src", video)
+				// $("#videoList").attr("src", video)
+				// 將影片下載到內部(解決steam導致無法選擇影片進度問題)
+				blobVideo(video)
+				// 
 				$.ajax({
 					url: url,
 					method: 'GET',
@@ -833,12 +870,42 @@
 				})
 			}
 		})
+
+		function blobVideo(url) {
+			$('.video-loading').css('opacity', 1)
+			$('.video-loading-bg').css('opacity', 1)
+			$('.video-loading-bg').css('width', '75%')
+			var video = document.getElementById("videoList")
+			var req = new XMLHttpRequest();
+			req.open('GET', url, true);
+			req.responseType = 'blob';
+			req.onload = function () {
+				if (this.status === 200) {
+					var videoBlob = this.response;
+					var vid = URL.createObjectURL(videoBlob);
+					video.src = vid;
+					setTimeout(function () {
+						$('.video-loading-bg').css('width', '100%')
+						setTimeout(function () {
+							$('.video-loading-bg').css('width', '0%')
+							$('.video-loading').css('opacity', 0)
+							$('.video-loading-bg').css('opacity', 0)
+						}, 300)
+					}, 1000)
+				}
+			}
+			req.onerror = function () {
+				// Error
+			}
+			req.send();
+		}
 	</script>
 	<!-- 熱像圖 -->
 	<script type="text/javascript">
 		var myChart = echarts.init(document.getElementById('main2'));
 		// prettier-ignore
 		// (x, y , 0:沒事 1:有事, 拉了幾桶(3桶/hr))
+		var Interval = null
 		option = {
 			aria: {
 				enabled: true
@@ -946,7 +1013,7 @@
 		// 使用刚指定的配置项和数据显示图表。
 		myChart.setOption(option);
 		//初始化資料報表
-		const url = 'http://127.0.0.1:5000/api/analysis/initial' //定義資料報表API位置
+		const url = 'http://127.0.0.1:5000/api/analysis/refresh' //定義資料報表API位置
 
 		$('.table-responsive').on('click', 'button', function () {
 			if (this.name === "refresh") {
@@ -980,10 +1047,17 @@
 		})
 
 		function getData(url, clickdata) {
+			var range = {
+				"table_timeselectStart": "2022-04-26 00:00:00",
+				"table_timeselectStop": "2022-05-03 23:59:59"
+			}
+			range = JSON.stringify(range)
 			$.ajax({
 				url: url,
-				method: 'GET',
+				method: 'POST',
+				data: range,
 				dataType: "json",
+				contentType: 'application/json; charset=utf-8',
 				success: function (data) {
 					if (clickdata != undefined) {
 						// console.log(clickdata)
@@ -1077,6 +1151,7 @@
 			var NYear = NowDate.getFullYear()
 			var NMonth = NowDate.getMonth()
 			var NDate = NowDate.getDate()
+
 			// 設定間隔時間(設定範圍1~60，並且可除盡60)
 			var interval = 10
 			// 判斷interval 是否為合理範圍，否則將強制變動
