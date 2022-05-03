@@ -44,7 +44,7 @@
 	<script>
 		$(function () {
 			//初始化資料報表
-			const url = '/listdir' //定義資料報表API位置
+			const url = '/api/analysis/initial' //定義資料報表API位置
 			$.ajax({
 				url: url,
 				method: 'GET',
@@ -753,8 +753,8 @@
 			})
 
 			function getDATA(data) {
-				const url = '/temp/Data/' + data.table_itemName + '.txt' //設定api位置
-				const video = '../mock_vod/' + data.table_itemName + '.mp4'
+				const url = 'http://127.0.0.1:5000/download/' + data.table_itemName + '.txt' //設定api位置
+				const video = 'http://127.0.0.1:5000/download/' + data.table_itemName + '.mp4'
 				$("#videoList").attr("src", video)
 				$.ajax({
 					url: url,
@@ -946,7 +946,7 @@
 		// 使用刚指定的配置项和数据显示图表。
 		myChart.setOption(option);
 		//初始化資料報表
-		const url = '/listdir' //定義資料報表API位置
+		const url = '/api/analysis/initial' //定義資料報表API位置
 
 		$('.table-responsive').on('click', 'button', function () {
 			if (this.name === "refresh") {
