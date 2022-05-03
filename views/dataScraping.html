@@ -946,7 +946,7 @@
 		// 使用刚指定的配置项和数据显示图表。
 		myChart.setOption(option);
 		//初始化資料報表
-		const url = '/api/analysis/initial' //定義資料報表API位置
+		const url = 'http://127.0.0.1:5000/api/analysis/initial' //定義資料報表API位置
 
 		$('.table-responsive').on('click', 'button', function () {
 			if (this.name === "refresh") {
