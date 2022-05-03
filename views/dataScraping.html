@@ -242,7 +242,7 @@
 							var totle = (end.getTime() - start.getTime()) / 1000
 							// console.log(totle)
 							totle = getDuration(totle)
-							if(array[sum].table_bucketNumber === -1){
+							if (array[sum].table_bucketNumber === -1) {
 								array[sum].table_bucketNumber = ""
 							}
 							array[sum].table_bucketNumber = {
@@ -881,6 +881,8 @@
 		})
 
 		function blobVideo(url) {
+			// console.log(url);
+			$('.video-loading>div').html('影像載入中...')
 			$('.video-loading').css('opacity', 1)
 			$('.video-loading-bg').css('opacity', 1)
 			$('.video-loading-bg').css('width', '75%')
@@ -891,16 +893,23 @@
 			req.onload = function () {
 				if (this.status === 200) {
 					var videoBlob = this.response;
+					console.log(videoBlob)
 					var vid = URL.createObjectURL(videoBlob);
 					video.src = vid;
-					setTimeout(function () {
+					if (videoBlob.type === 'text/html') {
 						$('.video-loading-bg').css('width', '100%')
+						$('.video-loading>div').html('該區段並無找到錄製影像')
+					} else {
 						setTimeout(function () {
-							$('.video-loading-bg').css('width', '0%')
-							$('.video-loading').css('opacity', 0)
-							$('.video-loading-bg').css('opacity', 0)
-						}, 300)
-					}, 1000)
+							$('.video-loading-bg').css('width', '100%')
+							setTimeout(function () {
+								$('.video-loading-bg').css('width', '0%')
+								$('.video-loading').css('opacity', 0)
+								$('.video-loading-bg').css('opacity', 0)
+							}, 300)
+						}, 1000)
+					}
+
 				}
 			}
 			req.onerror = function () {
