@@ -657,7 +657,7 @@
 						}
 					}
 				},
-				xAxis: {
+				time: {
 					type: 'category',
 					boundaryGap: false,
 					name: '(s)',
@@ -702,7 +702,7 @@
 				var click_this_val = null
 				if (params.componentType === 'series') {
 					click_this_val = params.name
-				} else if (params.componentType === 'xAxis') {
+				} else if (params.componentType === 'time') {
 					click_this_val = params.value
 				}
 				this_video = document.getElementById("videoList");
@@ -762,7 +762,7 @@
 					dataType: "json",
 					success: function (response) {
 						Trend.setOption({
-							xAxis: {
+							time: {
 								data: response.time
 							},
 							series: [{
@@ -805,7 +805,7 @@
 						let currentIndex = -1;
 						Interval = setInterval(function () {
 							if (hover) {
-								var dataLen = response.xAxis.length;
+								var dataLen = response.time.length;
 								Trend.dispatchAction({
 									type: 'downplay',
 									seriesIndex: 0,
@@ -824,7 +824,7 @@
 								});
 								// 影片設定
 								this_video = document.getElementById("videoList");
-								this_video.currentTime = response.xAxis[currentIndex]
+								this_video.currentTime = response.time[currentIndex]
 								this_video.pause()
 							}
 						}, 1500);
@@ -862,7 +862,7 @@
 				// width: '91%',
 				left: '48',
 			},
-			xAxis: {
+			time: {
 				type: 'category',
 				name: '(hr)',
 				data: ['0', '1', '2', '3', '4', '5', '6',
