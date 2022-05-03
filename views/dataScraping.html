@@ -657,7 +657,7 @@
 						}
 					}
 				},
-				time: {
+				xAxis: {
 					type: 'category',
 					boundaryGap: false,
 					name: '(s)',
@@ -702,7 +702,7 @@
 				var click_this_val = null
 				if (params.componentType === 'series') {
 					click_this_val = params.name
-				} else if (params.componentType === 'time') {
+				} else if (params.componentType === 'xAxis') {
 					click_this_val = params.value
 				}
 				this_video = document.getElementById("videoList");
@@ -762,7 +762,7 @@
 					dataType: "json",
 					success: function (response) {
 						Trend.setOption({
-							time: {
+							xAxis: {
 								data: response.time
 							},
 							series: [{
@@ -862,7 +862,7 @@
 				// width: '91%',
 				left: '48',
 			},
-			time: {
+			xAxis: {
 				type: 'category',
 				name: '(hr)',
 				data: ['0', '1', '2', '3', '4', '5', '6',
