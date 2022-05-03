@@ -44,7 +44,7 @@
 	<script>
 		$(function () {
 			//初始化資料報表
-			const url = '/api/analysis/initial' //定義資料報表API位置
+			const url = 'http://127.0.0.1:5000/api/analysis/initial' //定義資料報表API位置
 			$.ajax({
 				url: url,
 				method: 'GET',
@@ -163,7 +163,7 @@
 					var data = JSON.stringify($(".thisdataupdata").serializeArray())
 					$(".thisdataupdata").removeClass("thisdataupdata")
 					$.ajax({
-						url: '/api/analysis/setnumber',
+						url: 'http://127.0.0.1:5000/api/analysis/setnumber',
 						data: data,
 						method: 'POST',
 						dataType: "json",
@@ -248,7 +248,7 @@
 			function maxtr() {
 				var array = []
 				$.ajax({
-					url: 'http://localhost:5000/api/data/normal',
+					url: 'http://127.0.0.1:5000/api/data/normal',
 					dataType: "json",
 					method: 'GET',
 					async: false, // 關閉非同步作業
