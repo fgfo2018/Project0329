@@ -186,14 +186,13 @@
 			var today = new Date();
 			listday = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' +
 				today.getDate().toString().padStart(2, '0') + ' 23:59:59'
-			today.setDate(today.getDate() - 7)
+			today.setDate(today.getDate() - 3)
 			today = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' +
 				(today.getDate()).toString().padStart(2, '0') + ' 00:00:00'
 			var range = {
-				"table_timeselectStart": today,
-				"table_timeselectStop": listday
+				'table_timeselectStart': today,
+				'table_timeselectStop': listday
 			}
-			range = JSON.stringify(range)
 
 			// 按刷新鍵觸發此動作
 			$('input[name="dates"]').on('apply.daterangepicker', function (ev, picker) {
@@ -202,13 +201,14 @@
 			});
 			$('.table-responsive').on('click', 'button', function () {
 				if (this.name === "refresh") {
+					console.log(range)
 					startRefresh(range)
 					// range = JSON.stringify(range)
-					// console.log(range)
 				}
 			})
 
 			function startRefresh(range) {
+				range = JSON.stringify(range)
 				$.ajax({
 					url: url,
 					data: range,
@@ -1017,7 +1017,7 @@
 
 		$('.table-responsive').on('click', 'button', function () {
 			if (this.name === "refresh") {
-				getData(url)
+				// getData(url)
 			}
 		})
 		$(window).keypress(function (event) {
