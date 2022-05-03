@@ -186,7 +186,7 @@
 			var today = new Date();
 			listday = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' +
 				today.getDate().toString().padStart(2, '0') + ' 23:59:59'
-			today.setDate(today.getDate() - 3)
+			// today.setDate(today.getDate() - 3)
 			today = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' +
 				(today.getDate()).toString().padStart(2, '0') + ' 00:00:00'
 			var range = {
@@ -199,7 +199,7 @@
 				console.log(picker.startDate.format('YYYY-MM-DD'));
 				console.log(picker.endDate.format('YYYY-MM-DD'));
 				var datesstart = picker.startDate.format('YYYY-MM-DD') + ' 00:00:00'
-				var datesstop = picker.endDate.format('YYYY-MM-DD') + ' 00:00:00'
+				var datesstop = picker.endDate.format('YYYY-MM-DD') + ' 23:59:59'
 				range = {
 					'table_timeselectStart': datesstart,
 					'table_timeselectStop': datesstop
@@ -224,7 +224,6 @@
 					dataType: "json",
 					contentType: 'application/json; charset=utf-8',
 					success: function (data) {
-						console.log(data)
 						var maxtre = maxtr()
 						var array = data
 						var sum = 0
