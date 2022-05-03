@@ -198,20 +198,28 @@
 			$('input[name="dates"]').on('apply.daterangepicker', function (ev, picker) {
 				console.log(picker.startDate.format('YYYY-MM-DD'));
 				console.log(picker.endDate.format('YYYY-MM-DD'));
+				var datesstart = picker.startDate.format('YYYY-MM-DD') + ' 00:00:00'
+				var datesstop = picker.endDate.format('YYYY-MM-DD') + ' 00:00:00'
+				range = {
+					'table_timeselectStart': datesstart,
+					'table_timeselectStop': datesstop
+				}
+				startRefresh(range)
+				// console.log(range)
 			});
 			$('.table-responsive').on('click', 'button', function () {
 				if (this.name === "refresh") {
-					console.log(range)
+					// console.log(range)
 					startRefresh(range)
 					// range = JSON.stringify(range)
 				}
 			})
 
-			function startRefresh(range) {
-				range = JSON.stringify(range)
+			function startRefresh(time) {
+				time = JSON.stringify(time)
 				$.ajax({
 					url: url,
-					data: range,
+					data: time,
 					method: 'POST',
 					dataType: "json",
 					contentType: 'application/json; charset=utf-8',
@@ -235,7 +243,9 @@
 							var totle = (end.getTime() - start.getTime()) / 1000
 							// console.log(totle)
 							totle = getDuration(totle)
-
+							if(array[sum].table_bucketNumber === -1){
+								array[sum].table_bucketNumber = ""
+							}
 							array[sum].table_bucketNumber = {
 								bucketNumber: element.table_bucketNumber,
 								table_itemName: element.table_itemName
@@ -671,7 +681,7 @@
 					feature: {
 						// saveAsImage: {}
 						myTool2: {
-							show: true,
+							show: false,
 							title: '自動播放',
 							icon: 'image://static/play.png',
 							onclick: function () {
