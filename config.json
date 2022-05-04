@@ -18,5 +18,7 @@
     "web_data_changed": "http://127.0.0.1:5000/api/data/changed",
     "web_data_initial": "http://127.0.0.1:5000/api/data/initial",
     "web_dataScraping_initial": "http://127.0.0.1:5000/api/analysis/initial",
-    "web_dataScraping_refresh": "http://127.0.0.1:5000/api/analysis/refresh"
+    "web_dataScraping_refresh": "http://127.0.0.1:5000/api/analysis/refresh",
+    "web_dataScraping_setnumber": "http://127.0.0.1:5000/api/analysis/setnumber",
+    "web_dataScraping_download": "http://127.0.0.1:5000/download/"
 }

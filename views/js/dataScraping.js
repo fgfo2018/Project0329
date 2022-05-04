@@ -12,7 +12,6 @@ $(function () {
             rtn = false;
         }
     });
-    console.log(config.web_dataScraping_initial)
     //初始化資料報表
     const refreshurl = config.web_dataScraping_refresh //定義資料報表API位置
     $.ajax({
@@ -128,9 +127,8 @@ $(function () {
                     return false
                 }
                 data = JSON.stringify(data)
-                console.log(data)
                 $.ajax({
-                    url: 'http://127.0.0.1:5000/api/data/changed',
+                    url: config.web_data_changed,
                     method: 'POST',
                     data: data,
                     dataType: "json",
@@ -156,7 +154,7 @@ $(function () {
                 output = JSON.stringify(output)
                 $(".thisdataupdata").removeClass("thisdataupdata")
                 $.ajax({
-                    url: 'http://127.0.0.1:5000/api/analysis/setnumber',
+                    url: config.web_dataScraping_setnumber,
                     data: output,
                     method: 'POST',
                     dataType: "json",
@@ -254,7 +252,6 @@ $(function () {
                 $('.max_tr01').closest('tr').css('background', '#F4EAE4')
                 // $('.max_tr02').parent().css('background','rgb(255, 0, 0)')
                 $('.max_tr02').closest('tr').css('background', '#F4EAE4')
-                message('資料已刷新')
             },
             error: function (err) {
                 console.log(err)
@@ -265,7 +262,7 @@ $(function () {
     function maxtr() {
         var array = []
         $.ajax({
-            url: 'http://127.0.0.1:5000/api/data/normal',
+            url: config.web_data_initial,
             dataType: "json",
             method: 'GET',
             async: false, // 關閉非同步作業
@@ -642,8 +639,8 @@ $(function () {
     })
 
     function getDATA(data) {
-        const download = 'http://127.0.0.1:5000/download/' + data.table_itemName + '.txt' //設定api位置
-        const videodownload = 'http://127.0.0.1:5000/download/' + data.table_itemName + '.mp4'
+        const download = config.web_dataScraping_download + data.table_itemName + '.txt' //設定api位置
+        const videodownload = config.web_dataScraping_download + data.table_itemName + '.mp4'
         // $("#videoList").attr("src", video)
         // 將影片下載到內部(解決steam導致無法選擇影片進度問題)
         blobVideo(videodownload)
