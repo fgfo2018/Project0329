@@ -137,6 +137,7 @@ $(function () {
                     contentType: 'application/json; charset=utf-8',
                     success: function (res) {
                         startRefresh(range)
+                        message('警報溫度已更新')
                     },
                     error: function (err) {}
                 })
@@ -161,7 +162,7 @@ $(function () {
                     dataType: "json",
                     contentType: 'application/json; charset=utf-8',
                     success: function (res) {
-                        console.log(res)
+                        message('桶號已經修改完成')
                     },
                     error: function (err) {}
                 })
@@ -253,6 +254,7 @@ $(function () {
                 $('.max_tr01').closest('tr').css('background', '#F4EAE4')
                 // $('.max_tr02').parent().css('background','rgb(255, 0, 0)')
                 $('.max_tr02').closest('tr').css('background', '#F4EAE4')
+                message('資料已刷新')
             },
             error: function (err) {
                 console.log(err)
@@ -774,5 +776,26 @@ $(function () {
             // Error
         }
         req.send();
+    }
+    $('.testclick').click(function () {
+        var test = 'test'
+        message(test)
+    })
+
+    function message(message) {
+        setTimeout(function () {
+            var id = Math.floor(Math.random() * 99999);
+            id = 'name' + id
+            var html = `<div id="liveToast" class="Toast-custom bg-primary mb-1 ${id}">
+			<div class="Toastbody-custom">
+				${message}
+			</div>
+		</div>`
+            $('.dataScraping-message').append(html)
+            setTimeout(function () {
+                $('.' + id).fadeOut();
+                $('.' + id).fadeOut(3000);
+            }, 2000)
+        }, 500)
     }
 });

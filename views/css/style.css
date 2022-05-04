@@ -322,16 +322,37 @@ tr.active {
   border-radius: 3px;
 }
 
-.tooltip-point{
+.tooltip-point {
   color: #fff;
   font-size: 14px;
-  padding:0 12px;
+  padding: 0 12px;
   line-height: 24px
 }
+
 .tooltip-point>span {
-  display:inline-block;
-  margin-right:5px;
-  border-radius:2px;
-  width:10px;
-  height:10px;
+  display: inline-block;
+  margin-right: 5px;
+  border-radius: 2px;
+  width: 10px;
+  height: 10px;
+}
+
+.Toast-custom {
+  width: 350px;
+  max-width: 100%;
+  font-size: .875rem;
+  pointer-events: auto;
+  background-color: rgba(255, 255, 255, .85);
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, .1);
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
+  border-radius: .25rem;
+}
+
+.Toastbody-custom {
+  padding: .75rem;
+  word-wrap: break-word;
+  color: #fff;
+  font-size: .875rem;
+  font-family: var(--bs-body-font-family);
 }
