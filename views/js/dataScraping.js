@@ -1,8 +1,22 @@
 $(function () {
-    //初始化資料報表
-    const url = 'http://127.0.0.1:5000/api/analysis/refresh' //定義資料報表API位置
+    // 載入config
+    var config = null
     $.ajax({
-        url: 'http://127.0.0.1:5000/api/analysis/initial',
+        url: '/config',
+        type: 'get',
+        async: false,
+        success: function (res) {
+            config = res;
+        },
+        error: function (res) {
+            rtn = false;
+        }
+    });
+    console.log(config.web_dataScraping_initial)
+    //初始化資料報表
+    const refreshurl = config.web_dataScraping_refresh //定義資料報表API位置
+    $.ajax({
+        url: config.web_dataScraping_initial,
         data: range,
         method: 'GET',
         dataType: "json",
@@ -92,7 +106,16 @@ $(function () {
     // 	$(".thisdataupdata").removeClass("thisdataupdata")
     // });
 
-
+    var today = new Date();
+    listday = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' +
+        today.getDate().toString().padStart(2, '0') + ' 23:59:59'
+    // today.setDate(today.getDate() - 3)
+    today = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' +
+        (today.getDate()).toString().padStart(2, '0') + ' 00:00:00'
+    var range = {
+        'table_timeselectStart': today,
+        'table_timeselectStop': listday
+    }
     $(window).keypress(function (event) {
         if (event.which === 13) {
             event.preventDefault();
@@ -113,7 +136,7 @@ $(function () {
                     dataType: "json",
                     contentType: 'application/json; charset=utf-8',
                     success: function (res) {
-                        startRefresh()
+                        startRefresh(range)
                     },
                     error: function (err) {}
                 })
@@ -146,16 +169,7 @@ $(function () {
         }
     });
 
-    var today = new Date();
-    listday = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' +
-        today.getDate().toString().padStart(2, '0') + ' 23:59:59'
-    // today.setDate(today.getDate() - 3)
-    today = today.getFullYear() + '-' + (today.getMonth() + 1).toString().padStart(2, '0') + '-' +
-        (today.getDate()).toString().padStart(2, '0') + ' 00:00:00'
-    var range = {
-        'table_timeselectStart': today,
-        'table_timeselectStop': listday
-    }
+
 
     // 日期更新後執行
     $('input[name="dates"]').on('apply.daterangepicker', function (ev, picker) {
@@ -182,7 +196,7 @@ $(function () {
     function startRefresh(time) {
         time = JSON.stringify(time)
         $.ajax({
-            url: url,
+            url: refreshurl,
             data: time,
             method: 'POST',
             dataType: "json",
@@ -626,14 +640,14 @@ $(function () {
     })
 
     function getDATA(data) {
-        const url = 'http://127.0.0.1:5000/download/' + data.table_itemName + '.txt' //設定api位置
-        const video = 'http://127.0.0.1:5000/download/' + data.table_itemName + '.mp4'
+        const download = 'http://127.0.0.1:5000/download/' + data.table_itemName + '.txt' //設定api位置
+        const videodownload = 'http://127.0.0.1:5000/download/' + data.table_itemName + '.mp4'
         // $("#videoList").attr("src", video)
         // 將影片下載到內部(解決steam導致無法選擇影片進度問題)
-        blobVideo(video)
+        blobVideo(videodownload)
         // 
         $.ajax({
-            url: url,
+            url: download,
             method: 'GET',
             dataType: "json",
             success: function (response) {
@@ -761,6 +775,4 @@ $(function () {
         }
         req.send();
     }
-    // --------------------------------
-
 });

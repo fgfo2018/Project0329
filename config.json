@@ -16,5 +16,7 @@
     "web_socket_communication02": "http://localhost:6148/",
     "web_socket_communication03": "http://localhost:6149/",
     "web_data_changed": "http://127.0.0.1:5000/api/data/changed",
-    "web_data_initial": "http://127.0.0.1:5000/api/data/initial"
+    "web_data_initial": "http://127.0.0.1:5000/api/data/initial",
+    "web_dataScraping_initial": "http://127.0.0.1:5000/api/analysis/initial",
+    "web_dataScraping_refresh": "http://127.0.0.1:5000/api/analysis/refresh"
 }

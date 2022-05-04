@@ -619,10 +619,12 @@
       var VideoTemp = null;
       url = config.web_video_initial;
       getVideosList(url, initial = true, VideoTemp, config)
+      var videoL = document.getElementById("videoList")
       $("#videosList").on("change", '#videoSelect', function () {
         var videoValue = $(this).val();
         VideoTemp = videoValue
         $("#videoList").attr("src", videoValue)
+        videoL.play();
       })
       var run = null;
       run = setInterval(function () {
@@ -666,6 +668,7 @@
               }
               if (z == 1 && initial == true) {
                 $('#videoList').attr("src", config.web_video_url_prefix + data)
+                videoL.play();
               }
               z++
             })
