@@ -45,7 +45,7 @@
 
 <body style="background-color: #e2e2e2;">
 	<nav class="navbar sticky-top navbar-expand-lg navbar-dark  bg-gradient" style="background-color: #262626;">
-		<div class="container" style="margin-left: 281px;">
+		<div class="container-fluid" style="">
 			<ul class="navbar-nav">
 				<li class="nav-item">
 					<a href="index.html" class="nav-link">即時監控</a>
@@ -352,7 +352,7 @@
 				"table_timeselectStart": time + " 00:00:00",
 				"table_timeselectStop": time + " 23:59:59"
 			}
-			console.log(range)
+			// console.log(range)
 
 			range = JSON.stringify(range)
 			$.ajax({
