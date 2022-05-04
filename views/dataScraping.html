@@ -45,8 +45,6 @@
 		$(function () {
 			//初始化資料報表
 			const url = 'http://127.0.0.1:5000/api/analysis/refresh' //定義資料報表API位置
-
-
 			$.ajax({
 				url: 'http://127.0.0.1:5000/api/analysis/initial',
 				data: range,
@@ -71,11 +69,12 @@
 						var totle = (end.getTime() - start.getTime()) / 1000
 						// console.log(totle)
 						totle = getDuration(totle)
-						if (array[sum].table_bucketNumber === -1) {
-							array[sum].table_bucketNumber = ""
+						var bucketNumber = element.table_bucketNumber
+						if (bucketNumber === -1) {
+							bucketNumber = ""
 						}
 						array[sum].table_bucketNumber = {
-							bucketNumber: element.table_bucketNumber,
+							bucketNumber: bucketNumber,
 							table_itemName: element.table_itemName
 						}
 						// L/F
@@ -164,13 +163,21 @@
 						})
 						// console.log(alarmInput)
 						alarmInput = false;
-						console.log($(".thisdataupdata").serializeArray());
+					} else {
 						$('input').blur()
-						var data = JSON.stringify($(".thisdataupdata").serializeArray())
+						var data = $(".thisdataupdata").serializeArray()
+						var output = []
+						data.forEach(function (element){
+							output.push({
+								table_itemName: element.name,
+								table_bucketNumber: element.value
+							})
+						})
+						output = JSON.stringify(output)
 						$(".thisdataupdata").removeClass("thisdataupdata")
 						$.ajax({
 							url: 'http://127.0.0.1:5000/api/analysis/setnumber',
-							data: data,
+							data: output,
 							method: 'POST',
 							dataType: "json",
 							contentType: 'application/json; charset=utf-8',
@@ -194,7 +201,7 @@
 				'table_timeselectStop': listday
 			}
 
-			// 按刷新鍵觸發此動作
+			// 日期更新後執行
 			$('input[name="dates"]').on('apply.daterangepicker', function (ev, picker) {
 				console.log(picker.startDate.format('YYYY-MM-DD'));
 				console.log(picker.endDate.format('YYYY-MM-DD'));
@@ -207,6 +214,7 @@
 				startRefresh(range)
 				// console.log(range)
 			});
+			// 按刷新鍵觸發此動作
 			$('.table-responsive').on('click', 'button', function () {
 				if (this.name === "refresh") {
 					// console.log(range)
@@ -214,7 +222,7 @@
 					// range = JSON.stringify(range)
 				}
 			})
-
+			// 刷新請求作業
 			function startRefresh(time) {
 				time = JSON.stringify(time)
 				$.ajax({
@@ -408,7 +416,8 @@
 			}
 			// input輸入框
 			function bucketNumberForm(e) {
-				return ['<input type="number" min="0" style="width:50px;text-align: center;" name="' + e.name +
+				return ['<input type="number" min="0" style="width:50px;text-align: center;" name="' + e
+					.table_itemName +
 					'" value="' + e
 					.bucketNumber + '" data-tmp="' + e
 					.bucketNumber + '">'
@@ -445,7 +454,7 @@
 			$('input[name="dates"]').daterangepicker({
 				locale: formatDates(),
 				showDropdowns: false,
-				maxDate: '2022-05-03',
+				maxDate: '2022-05-04',
 				maxSpan: {
 					"days": 7
 				},
